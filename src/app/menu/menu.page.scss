@@ -1,0 +1,28 @@
+
+ion-col > div {
+  background-color: #f7f7f7;
+  border: solid 1px #ddd;
+  padding: 100px;
+}
+
+:root {
+  --ion-safe-area-top: 20px;
+  --ion-safe-area-bottom: 22px;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.container {
+  position: relative;
+  border: 3px solid rgb(252, 253, 252);
+}
+
+.background {
+  --background: url("/assets/bg2.jpeg") 0 0/100% 100% no-repeat
+ }

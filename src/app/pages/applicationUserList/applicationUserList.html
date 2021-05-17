@@ -1,0 +1,54 @@
+<ion-header no-border="">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="backButtonOnclick()">
+        <h2>
+          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
+        </h2>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button slot="end" (click)="userAddClick()">
+        <h2>
+          <ion-icon style="font-size: 30px;color: black;" name="add"></ion-icon>
+        </h2>
+      </ion-button>
+    </ion-buttons>
+    <!-- <button pButton pRipple type="button" icon="pi pi-user-plus" (click)="contactAddButtonclick()" class="p-button-rounded p-button-info"></button> -->
+    <ion-title size="large" class="ion-text-center">
+      Application User List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div style="padding: 20px;">
+    <p-dataView #dv [value]="users" layout="grid">
+        <ng-template let-user pTemplate="gridItem">
+            <div class="p-col-12 p-md-4" style="padding:5px;">
+              
+                <div class="p-shadow-5" >
+                  <div *ngIf="user.userType == 'Admin'" style="padding: 13px;">
+                    <i class="pi pi-user" style="font-size: 4rem"></i>
+                  </div>
+                  <div *ngIf="user.userType!='Admin'" style="padding:13px;">
+                    <i class="pi pi-id-card" style="font-size: 4rem"></i>
+                  </div>
+                  <div style="padding: 13px;">
+                    <h2>
+                      {{user.userName}}
+                    </h2>
+                    <h3>
+                      {{user.mobile}}
+                    </h3>
+                    <ion-label>
+                      Code - {{user.code}}
+                    </ion-label>
+                  </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
+</ion-content>
+
+  

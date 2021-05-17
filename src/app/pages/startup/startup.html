@@ -1,0 +1,67 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <div >
+      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
+        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
+
+      </button>
+    </div>
+    <ion-title size="large" class="ion-text-center">
+      Vehicle Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<!-- <ion-header no-border=""> -->
+<!-- <ion-toolbar > -->
+<!-- <ion-title size="large" >
+  Parking management
+</ion-title> -->
+<!-- </ion-toolbar> -->
+<!-- </ion-header> -->
+
+<ion-content [fullscreen]="true" class="auth-form background">
+  <div >
+    <ion-title  style="height: 50px;"size="large" class="ion-text-center">
+      Parking management
+    </ion-title>
+  </div>
+  <ion-grid >
+    <ion-row></ion-row>
+
+    <ion-row>
+      <ion-col *ngFor="let item of users">
+        <div style="background:#fdfdfd;width:60%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;"
+          (click)="openMenu(item)">
+          <ion-icon style="font-size: 70px;padding: 10px;" name="person"></ion-icon>
+          <h3 style="font-size:3vw;">{{item.userName}}</h3>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <p-dialog header="Enter password" [(visible)]="display" [modal]="true" [style]="{width: '300px'}" [responsive]="true"
+    [appendTo]="'body'">
+    <ion-input pInputText [(ngModel)]="queryText" type="text" placeholder=" Password"></ion-input>
+
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="login()" label="Login" class="p-button-text"></p-button>
+    </ng-template>
+  </p-dialog>
+</ion-content>
+
+
+
+
+
+<!-- </ion-col>
+<ion-col>
+  <ion-button [routerLink]="['/signup']" expand="block" color="primary">Register</ion-button>
+  <span class="divider line one-line">or</span>
+
+  <span class="already">Already a user?</span>
+
+  <ion-button [routerLink]="['/login']" expand="block" color="danger">Sign In</ion-button>
+</ion-col>
+<ion-col> -->

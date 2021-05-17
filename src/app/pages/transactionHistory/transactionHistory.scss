@@ -1,0 +1,17 @@
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 50%;
+  margin: auto;
+}
+
+.popover-content {
+  opacity: inherit;
+}
+.my-button {
+  --background: #white;
+  --background-activated: #white;
+}

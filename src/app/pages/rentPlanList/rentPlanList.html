@@ -1,0 +1,49 @@
+<ion-header no-border="">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="backButtonOnclick()">
+        <h2>
+          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
+        </h2>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button slot="end" (click)="planAddClick()">
+        <h2>
+          <ion-icon style="font-size: 30px;color: black;" name="add"></ion-icon>
+        </h2>
+      </ion-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center">
+      Rent plan List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div style="padding: 20px;">
+    <p-dataView #dv [value]="users" layout="grid">
+        <ng-template let-user pTemplate="gridItem">
+            <div class="p-col-12 p-md-4" style="padding:5px;">
+                <div class="p-shadow-5" >
+                  <div style="padding:13px;">
+                    <i class="pi pi-money-bill" style="font-size: 4rem"></i>
+                  </div>
+                  <div style="padding: 13px;">
+                    <h2>
+                      {{user.rentPlan}}
+                    </h2>
+                    <h3>
+                      {{user.rentAmount}} Rs
+                    </h3>
+                    <ion-label>
+                      {{user.vehicleType}}
+                    </ion-label>
+                  </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
+</ion-content>
+
+  

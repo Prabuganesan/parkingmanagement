@@ -1,0 +1,53 @@
+.divider {
+  display: flex;
+  
+  &:before,
+  &:after {
+    content: "";
+    flex: 1;
+  }
+}
+
+.line {
+  align-items: center;
+  margin: 1em -1em;
+  color: #cccccc;
+  
+  &:before,
+  &:after {
+    height: 1px;
+    margin: 0 1em;
+  }
+} 
+
+.one-line {
+  &:before,
+  &:after {
+     background: #cccccc;
+  }
+}
+
+.auth-form ion-grid,
+.auth-form ion-row {
+  height: 50%;
+  justify-content: center;
+}
+
+.already {
+  display: block;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.circle {
+  width: 50%;
+  height: 50%;
+  background: aqua;
+  border: 5px solid blue;
+}
+.circleBase {
+  border-radius: 50%;
+}
+
+.background {
+  --background: url("/assets/bg2.jpeg") 0 0/100% 100% no-repeat
+ }

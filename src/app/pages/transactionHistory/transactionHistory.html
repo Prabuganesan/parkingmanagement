@@ -1,0 +1,101 @@
+<ion-header no-border="">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button slot="start" (click)="backButtonOnclick()">
+        <h2>
+          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
+        </h2>
+      </ion-button>
+    </ion-buttons>
+    <ion-title size="large" class="ion-text-center">
+      Transaction History
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <!-- <ion-toolbar style="position:fixed;width: 100%;" >
+    <ion-item ion-fixed>
+      <ion-input pInputText [(ngModel)]="queryText" type="text" placeholder="Search contact"  ></ion-input>
+      <span style="padding-left: 7px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
+    </ion-item>
+  </ion-toolbar> -->
+
+  <ion-toolbar style="position:fixed;">
+    <ion-item ion-fixed>
+      <ion-col size="7">
+        <label style="padding-right: 5px;padding-left: 5px;">From : </label>
+        <input style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="start" name="start" min="2020-03"
+          value="2021-03">
+        <label style="padding-right: 5px;padding-left: 5px;">To : </label>
+        <input style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="end" name="end" min="2020-03"
+          value="2021-04">
+
+          <span style="padding-left: 7px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
+
+        <!-- <ion-button mode="ios" class="my-button" clear item-right icon-only (click)="searchByKeyword()">
+          <ion-icon style="font-size: 30px;color: rgb(5, 5, 5);" name="search"></ion-icon>
+        </ion-button> -->
+      </ion-col>
+      <ion-col size="5">
+        <div style="text-align: right;">
+          <label style="text-align: right;">Tata Tiago  -  TN 69 R5279</label><br>
+          <label style="text-align: right;">Prabu ganesan</label>
+        </div>
+      </ion-col>
+    </ion-item>
+  </ion-toolbar>
+
+
+  <div style="top:60px">
+    <p-table [columns]="cols" [value]="ransactionlist" [alwaysShowPaginator]="true" [scrollable]="true"
+      [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="10" [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,15]"
+      styleClass="p-datatable-lg">
+
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
+          <col style="width:90px">
+          <col style="width:220px">
+          <col style="width:120px">
+          <col style="width:120px">
+          <col style="width:120px">
+          <col style="width:120px">
+          <col style="width:120px">
+          <col style="width:100px">
+        </colgroup>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            <div class="p-d-flex p-jc-between p-ai-center">
+              {{col.header}}
+
+              <p-columnFilter *ngIf="col.field == 'month'" type="text" field="month" display="menu"></p-columnFilter>
+              <p-columnFilter *ngIf="col.field == 'receivedFrom'" type="text" field="receivedFrom" display="menu">
+              </p-columnFilter>
+              <p-columnFilter *ngIf="col.field == 'receivedBy'" type="text" field="receivedBy" display="menu">
+              </p-columnFilter>
+              <p-columnFilter *ngIf="col.field == 'transactionMode'" type="text" field="transactionMode" display="menu">
+              </p-columnFilter>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-vehicle let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            <div (click)="vehicleCellClick(event,vehicle.vehicleInfo)">
+              <label
+                *ngIf="col.field!='transactionAmount' && col.field!='discountAmount' && col.field!='paidAmount'">{{vehicle[col.field]}}</label>
+              <label
+                *ngIf="col.field=='transactionAmount' || col.field=='discountAmount' || col.field=='paidAmount'">{{vehicle[col.field]}} Rs</label>
+            </div>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</ion-content>

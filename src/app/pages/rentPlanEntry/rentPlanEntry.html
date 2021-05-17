@@ -1,0 +1,65 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <div >
+      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
+        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
+
+      </button>
+    </div>
+    <ion-title size="large" class="ion-text-center">
+      Vehicle Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<!-- 
+<ion-header no-border="">
+  <ion-toolbar >
+      <ion-title size="large" class="ion-text-center">
+        Sign Up
+      </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content style="height: 300px;">
+
+  <form style="height: 100%;">
+    <ion-item lines="full">
+      <ion-label position="floating">Rent plan name</ion-label>
+      <ion-input type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Rent amount</ion-label>
+      <ion-input type="number" required></ion-input>
+    </ion-item>
+
+
+      <ion-radio-group value="car" mode="md">
+        <ion-list-header>
+          <ion-label>Rent plan type</ion-label>
+        </ion-list-header>
+    
+        <ion-item>
+          <ion-radio value="car"></ion-radio>
+          <ion-label>Car</ion-label>
+
+          <ion-radio value="auto">Test</ion-radio>
+          <ion-label>Auto</ion-label>
+
+          <ion-radio value="others"></ion-radio>
+          <ion-label>Others</ion-label>
+
+        </ion-item>
+    
+        
+      </ion-radio-group>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Save</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  
+</ion-content>
+
