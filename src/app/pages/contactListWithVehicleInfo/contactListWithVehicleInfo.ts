@@ -7,6 +7,8 @@ import { PopoverController } from '@ionic/angular';
 import { contactListAgainstCar } from '../contactListAgainstCar/contactListAgainstCar';
 import { alternateVehicleAssignment } from '../alternateVehicleAssignment/alternateVehicleAssignment';
 import { alternateVehicleList } from '../alternateVehicleList/alternateVehicleList';
+import { accountCreation } from '../accountCreation/accountCreation';
+import { accountDetail } from '../accountDetail/accountDetail';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -277,8 +279,15 @@ export class contactListWithVehicleInfo {
 
     const { role } = await popover.onDidDismiss();
   }
-  createAccount(){
+  async createAccount(){
+    const popover = await this.popoverController.create({
+      component: accountCreation,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
 
+    const { role } = await popover.onDidDismiss();
   }
   async assignAlternateVehicle(){
     const popover = await this.popoverController.create({
@@ -304,7 +313,16 @@ export class contactListWithVehicleInfo {
     
 
   }
-  accountDetail(){
+  async accountDetail(){
+    const popover = await this.popoverController.create({
+      component: accountDetail,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    
 
   }
   itemSelect(contact){

@@ -28,9 +28,13 @@ import { contactAssignment } from './pages/contactAssignment/contactAssignment';
 import { contactListAgainstCar } from './pages/contactListAgainstCar/contactListAgainstCar';
 import { alternateVehicleAssignment } from './pages/alternateVehicleAssignment/alternateVehicleAssignment';
 import { alternateVehicleList } from './pages/alternateVehicleList/alternateVehicleList';
+import { accountCreation } from './pages/accountCreation/accountCreation';
+import { accountDetail } from './pages/accountDetail/accountDetail';
+import { accountHistory } from './pages/accountHistory/accountHistory';
+import { rentPlanPopupList } from './pages/rentPlanPopupList/rentPlanPopupList';
 
 @NgModule({
-  declarations: [AppComponent,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList],
+  declarations: [AppComponent,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,MenuModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService],

@@ -1,0 +1,67 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <div >
+      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
+        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
+
+      </button>
+    </div>
+    <ion-title size="large" class="ion-text-center">
+      Vehicle Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<!-- 
+<ion-header no-border="">
+  <ion-toolbar >
+      <ion-title size="large" class="ion-text-center">
+        Sign Up
+      </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<ion-header >
+  <ion-toolbar >
+      <ion-title size="large" class="ion-text-center">
+        Account creation
+      </ion-title>
+       <ion-buttons slot="end">
+          <button ion-button slot="end"> <h4>SAVE</h4>
+          </button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+
+<ion-content style="height: 50%;">
+  <ion-title size="large" class="ion-text-center">
+    Tata Tiago - TN 69 AB1234
+  </ion-title>
+
+  <form >
+    <ion-item lines="full">
+      <ion-label>Open date</ion-label>
+      <input type="datetime-local" [(ngModel)]="openDate" style="background-color:lightgray;">
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>Close date</ion-label>
+      <input type="datetime-local" [(ngModel)]="closeDate" style="background-color:lightgray;">
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>Select rent plan</ion-label>
+      <ion-button (click)="openRentPlanList()">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+  
+
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Save</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+
+  
+</ion-content>
+
