@@ -1,0 +1,32 @@
+
+
+<ion-header >
+  <ion-toolbar >
+      <ion-title size="large" class="ion-text-center">
+        Contact List
+      </ion-title>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <ion-title size="large" class="ion-text-center">
+    Tata Tiago - TN 69 AB1234
+  </ion-title>
+<ion-row>
+    <ion-list style="width: 100%;">
+      <ion-item *ngFor="let contact of contactList" (click)="itemSelect(contact);$event.stopPropagation();" >
+        <ion-avatar slot="start">
+          <img src="../../assets/user_icon.png">
+        </ion-avatar>
+        <ion-label>
+          <h2>{{contact.contactName}}</h2>
+          <h3>{{contact.contactMobile}}</h3>
+          <p>DL : {{contact.licenseNumber}}</p>
+          <p>Added By : {{contact.securityName}}</p>
+
+        </ion-label>
+      </ion-item>
+    </ion-list>
+</ion-row>
+
+</ion-content>
