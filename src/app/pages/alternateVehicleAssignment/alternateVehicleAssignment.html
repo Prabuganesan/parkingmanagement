@@ -33,7 +33,8 @@
     <ion-list style="width: 100%;">
       <ion-item *ngFor="let vehicle of vehicleList" (click)="itemSelect(vehicle);$event.stopPropagation();" >
         <ion-avatar slot="start">
-          <img src="./../../assets/car.png">
+          <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
+
         </ion-avatar>
         <ion-label>
           <h3>{{vehicle.vehicleType}}</h3>
@@ -50,7 +51,6 @@
   <p-orderList  [value]="contactList">
     <ng-template let-contact pTemplate="item">
         <div>
-            <img src="../../assets/user_icon.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
             <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{contact.contactName}} - {{contact.contactMobile}} - {{contact.securityName}}</div>
         </div>
     </ng-template>

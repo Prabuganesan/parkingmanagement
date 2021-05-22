@@ -31,7 +31,8 @@
 
         <ion-item *ngFor="let contact of contactList" (click)="itemSelect(contact);$event.stopPropagation();">
           <ion-avatar slot="start">
-            <img src="./../../assets/user_icon.png">
+            <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
+
           </ion-avatar>
           <ion-label>
             <h2>{{contact.contactName}}</h2>
@@ -59,7 +60,7 @@
             <div>
               <div class="alignleft" style="text-align:center; width: 30%;">
                 <ion-avatar style="margin: auto;">
-                  <img src="./../../assets/car.png">
+                  <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
                 </ion-avatar>
                 <ion-label style="text-align: center;">
                   <h3>{{vehicle.vehicleInfo.vehicleColor}}</h3>

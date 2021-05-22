@@ -16,7 +16,7 @@
     <ion-list style="width: 100%;">
       <ion-item *ngFor="let contact of contactList" (click)="itemSelect(contact);$event.stopPropagation();" >
         <ion-avatar slot="start">
-          <img src="./../../assets/user_icon.png">
+          <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
         </ion-avatar>
         <ion-label>
           <h2>{{contact.contactName}}</h2>
