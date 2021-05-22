@@ -88,7 +88,7 @@
       <ng-template pTemplate="body" let-vehicle let-columns="columns">
         <tr>
           <td *ngFor="let col of columns">
-            <div (click)="vehicleCellClick(event,vehicle.vehicleInfo)">
+            <div (click)="vehicleCellClick(vehicle.vehicleInfo)">
               <label
                 *ngIf="col.field!='transactionAmount' && col.field!='discountAmount' && col.field!='paidAmount'">{{vehicle[col.field]}}</label>
               <label

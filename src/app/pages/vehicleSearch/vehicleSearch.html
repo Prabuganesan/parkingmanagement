@@ -68,14 +68,14 @@
   <ng-template pTemplate="body" let-vehicle let-columns="columns">
     <tr>
         <td *ngFor="let col of columns">
-          <div *ngIf="col.field == 'vehicleInfo'" (click)="vehicleCellClick(event,vehicle.vehicleInfo)">
+          <div *ngIf="col.field == 'vehicleInfo'" (click)="vehicleCellClick(vehicle.vehicleInfo)">
           <label>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </label>
           <br />
           <label>{{vehicle.vehicleInfo.vehicleNumber}}</label>
           <br />
           <label><b>{{vehicle.primaryContact.contactName}}</b></label>
         </div>
-        <div *ngIf="col.field != 'vehicleInfo'" (click)="amountCellClick(event,vehicle[col.field])">
+        <div *ngIf="col.field != 'vehicleInfo'" (click)="amountCellClick($event,vehicle[col.field])">
           <label>T-{{vehicle[col.field].totalAmount}} Rs</label>
           <br />
           <label>R-{{vehicle[col.field].receivedAmount}} Rs</label>

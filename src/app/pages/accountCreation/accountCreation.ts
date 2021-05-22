@@ -9,7 +9,8 @@ import { rentPlanPopupList } from '../rentPlanPopupList/rentPlanPopupList';
   styleUrls: ['accountCreation.scss'],
 })
 export class accountCreation {
-
+  openDate;
+  closeDate;
   constructor(public router:Router,public popoverController: PopoverController) {}
   async openRentPlanList(){
     const popover = await this.popoverController.create({

@@ -26,5 +26,8 @@ export class contactListAgainstCar {
     ]
 
   }
+  itemSelect(contact){
+
+  }
 
 }

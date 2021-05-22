@@ -21,6 +21,7 @@ export class contactListWithVehicleInfo {
   vehicleList = []
   items: MenuItem[];
   active;
+  queryText = "";
 
   constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController) {
     this.contactList = [
@@ -238,6 +239,7 @@ export class contactListWithVehicleInfo {
     ]
 
   }
+
 
   // async presentPopover(ev: any) {
   //   const popover = await this.popoverController.create({

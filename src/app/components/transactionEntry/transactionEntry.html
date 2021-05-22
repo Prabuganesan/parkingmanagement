@@ -52,12 +52,12 @@
 
     <ion-item lines="inset">
       <ion-label position="floating">Amount</ion-label>
-      <ion-input type="number" required [value]="amount" (input)='onInputTime($event.target.value)' ></ion-input>
+      <ion-input type="number" required [value]="amount" (input)='onInputTime($event)' ></ion-input>
     </ion-item>
 
     <ion-item lines="inset">
       <ion-label position="floating">Discount</ion-label>
-      <ion-input type="number" [value]="discount" (input)='onInputTime1($event.target.value)' ></ion-input>
+      <ion-input type="number" [value]="discount" (input)='onInputTime1($event)' ></ion-input>
     </ion-item>
 
     <ion-item lines="inset">

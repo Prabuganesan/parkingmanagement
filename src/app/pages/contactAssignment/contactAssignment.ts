@@ -26,5 +26,8 @@ export class contactAssignment {
     ]
 
   }
+  itemSelect(contact){
+
+  }
 
 }

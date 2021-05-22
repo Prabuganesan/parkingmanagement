@@ -70,4 +70,8 @@ export class alternateVehicleList {
     ]
   }
 
+  itemSelect(vehicle){
+
+  }
+
 }

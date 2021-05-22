@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class startup {
 
   display: boolean = false;
-    
+  queryText= "";
   constructor(public router:Router) {}
 
   public users = [{

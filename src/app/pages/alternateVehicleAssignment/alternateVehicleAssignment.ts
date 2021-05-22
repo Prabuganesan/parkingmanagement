@@ -69,5 +69,8 @@ export class alternateVehicleAssignment {
       },
     ]
   }
+  itemSelect(vehicle){
+
+  }
 
 }

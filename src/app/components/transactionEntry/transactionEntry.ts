@@ -40,13 +40,13 @@ this.monthName = this.amountDetail.Month;
   closePopover() {
     this.popoverController.dismiss()
   }
-  onInputTime(value) {
-    this.totalPayable = value - this.discount;
-    this.amount = value
+  onInputTime(event) {
+    this.totalPayable = event.target.value - this.discount;
+    this.amount = event.target.value
   }
-  onInputTime1(value) {
-    this.totalPayable = this.amount - value;
-    this.discount = value
+  onInputTime1(event) {
+    this.totalPayable = this.amount - event.target.value;
+    this.discount = event.target.value
   }
 
   save(){
