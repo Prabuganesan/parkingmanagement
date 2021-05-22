@@ -4,6 +4,7 @@ import { MenuPage } from './menu/menu.page';
 
 const routes: Routes = [
   { path: '', redirectTo: 'startup', pathMatch: 'full' },
+  { path: 'parkingmanagement', redirectTo: 'startup', pathMatch: 'full' },
   { path: 'startup', loadChildren: () => import('./pages/startup/startup.module').then(m => m.startupModule) },
 
   {
