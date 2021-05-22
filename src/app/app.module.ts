@@ -35,9 +35,12 @@ import { rentPlanPopupList } from './pages/rentPlanPopupList/rentPlanPopupList';
 import { MenuPage } from './menu/menu.page';
 import { rentPlanEntry } from './pages/rentPlanEntry/rentPlanEntry';
 import { applicationUserEntry } from './pages/applicationUserEntry/applicationUserEntry';
+import { settingPage } from './pages/settingPage/settingPage';
+import { vehicleEntry } from './pages/vehicleEntry/vehicleEntry';
+import { contactEntry } from './pages/contactEntry/contactEntry';
 
 @NgModule({
-  declarations: [AppComponent,MenuPage,rentPlanEntry, applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList],
+  declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,MenuModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService],

@@ -9,6 +9,8 @@ import { alternateVehicleAssignment } from '../alternateVehicleAssignment/altern
 import { alternateVehicleList } from '../alternateVehicleList/alternateVehicleList';
 import { accountCreation } from '../accountCreation/accountCreation';
 import { accountDetail } from '../accountDetail/accountDetail';
+import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
+import { contactEntry } from '../contactEntry/contactEntry';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -333,8 +335,16 @@ export class contactListWithVehicleInfo {
     }
 
 
-  contactAddButtonclick() {
+  async contactAddButtonclick() {
     console.log("add contact")
+    const popover = await this.popoverController.create({
+      component: contactEntry,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
 
   backButtonOnclick() {
@@ -346,7 +356,15 @@ export class contactListWithVehicleInfo {
   searchByKeyword() {
     console.log("search")
   }
-  vehicleAddButtonclick() {
+  async vehicleAddButtonclick() {
     console.log("add vehicle")
+    const popover = await this.popoverController.create({
+      component: vehicleEntry,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
 }

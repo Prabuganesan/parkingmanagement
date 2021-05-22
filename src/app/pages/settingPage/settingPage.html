@@ -15,32 +15,47 @@
 <ion-header >
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
-        Alternate vehicle
+        Settings
       </ion-title>
   </ion-toolbar>
 </ion-header> 
 
 
 <ion-content style="height: 50%;">
-  <ion-title size="large" class="ion-text-center">
-    Tata Tiago - TN 69 AB1234
-  </ion-title>
-<ion-row>
-    <ion-list style="width: 100%;">
-      <ion-item *ngFor="let vehicle of vehicleList" (click)="itemSelect(vehicle);$event.stopPropagation();" >
-        <ion-avatar slot="start">
-          <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
-        </ion-avatar>
+  <ion-segment (ionChange)="segmentChanged($event)" value="loggeduser">
+    <ion-segment-button value="loggeduser">
+      <ion-label>Logged user info</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="loginactivity">
+      <ion-label>Login activity</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div *ngIf="showLoggeduserDetail">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Security 1</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <p>Mobile - 9834637262</p>
+        <p>In time - 2021-01-26 10:51:50 AM</p>
+        <p>Security Code : 1</p>
+      </ion-card-content>
+    </ion-card>
+    </div>
+
+    <ion-list style="width: 100%;" *ngIf="!showLoggeduserDetail">
+      <ion-item *ngFor="let user of loginActivity" >
+        <!-- <ion-avatar slot="start">
+          <ion-icon name="user-outline" style="font-size: 50px;"></ion-icon>
+        </ion-avatar> -->
         <ion-label>
-          <h3>{{vehicle.vehicleType}}</h3>
-        <h2>{{vehicle.vehicleBrand}} {{vehicle.vehicleModel}} </h2>
-        <h2><b>{{vehicle.vehicleNumber}}</b></h2>
-        <h2>{{vehicle.vehicleColor}}</h2>
-        <p>Added By : {{vehicle.addedBy}}</p>
+          <h3>{{user.securityName}}</h3>
+        <h2>{{user.inTime}}</h2>
+        <h2>{{user.outTime}}</h2>
         </ion-label>
       </ion-item>
     </ion-list>
-</ion-row>
   <!-- <ion-row>
   <p-orderList  [value]="contactList">
     <ng-template let-contact pTemplate="item">

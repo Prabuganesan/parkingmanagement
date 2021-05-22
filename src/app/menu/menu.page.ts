@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { settingPage } from '../pages/settingPage/settingPage';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['menu.page.scss'],
 })
 export class MenuPage {
-  constructor(public router: Router) {}
+  constructor(public router: Router,public popoverController: PopoverController) {}
   openMenu(id){
     console.log(id)
     if(id==1){
@@ -30,10 +32,26 @@ export class MenuPage {
         skipLocationChange: true
     });
     }
+    else if(id==6){
+      this.openSettingpage();
+    }
    
     else{
-      alert(id)
+      alert("Under development")
     }
+  }
+  logoutAction(){
+
+  }
+  async openSettingpage(){
+    const popover = await this.popoverController.create({
+      component: settingPage,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
   
 }
