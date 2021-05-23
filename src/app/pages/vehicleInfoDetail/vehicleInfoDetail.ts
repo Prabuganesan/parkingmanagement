@@ -22,7 +22,7 @@ export class vehicleInfoDetail {
 
   contactList = []
   fullVehicleList = []
-  vehicle = {}
+  vehicle;
   items: MenuItem[];
   active;
   queryText = "";
