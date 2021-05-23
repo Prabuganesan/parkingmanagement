@@ -57,7 +57,7 @@
       <tr>
           <th  *ngFor="let col of columns">
             <div class="p-d-flex p-jc-between p-ai-center">
-              {{col.header}} 
+              {{col.header | translate}} 
               <p-columnFilter *ngIf="col.header == 'Vehicle Info'" type="text" field="vehicleInfo.vehicleNumber" display="menu"></p-columnFilter>
           </div>
               
@@ -73,7 +73,10 @@
           <br />
           <label>{{vehicle.vehicleInfo.vehicleNumber}}</label>
           <br />
-          <label><b>{{vehicle.primaryContact.contactName}}</b></label>
+          
+          <label *ngIf="appLanguage && appLanguage == 'en'"><b>{{vehicle.primaryContact.contactName}}</b></label>
+          <label *ngIf="appLanguage && appLanguage == 'ta'"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
+
         </div>
         <div *ngIf="col.field != 'vehicleInfo'" (click)="amountCellClick($event,vehicle[col.field])">
           <label>T-{{vehicle[col.field].totalAmount}} Rs</label>

@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { MenuPage } from './menu.page';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [MenuPage]

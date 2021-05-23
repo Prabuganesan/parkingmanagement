@@ -4,6 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { transactionEntry } from 'src/app/components/transactionEntry/transactionEntry';
 import {MessageService} from 'primeng/api';
 import {Location} from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'vehicleSearch',
@@ -17,12 +18,13 @@ export class vehicleSearch {
   cols = [];
   frozenCols = [];
   queryText = ''
+  appLanguage = 'ta'
 
-  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location) {
+  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location,private translate: TranslateService) {
 
-   
+   this.appLanguage = this.translate.getDefaultLang()
     this.cols = [
-      { field: 'vehicleInfo', header: 'Vehicle Info' },
+      { field: 'vehicleInfo', header: 'vehicleSearch.vehicleInfo' },
       { field: 'May21', header: 'May 21' },
       { field: 'Apr21', header: 'Apr 21' },
       { field: 'Mar21', header: 'Mar 21' },
@@ -35,6 +37,7 @@ export class vehicleSearch {
       { field: 'Aug20', header: 'Aug 21' }
 
   ];
+  console.log(this.translate.getDefaultLang())
 //   this.frozenCols = [
 //     { field: 'vehicleInfo', header: 'Vehicle Info' }
 // ];
@@ -47,7 +50,8 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A1234"
         },
         "primaryContact": {
-          "contactName": "Prabu ganesan"
+          "contactName": "Prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்"
         },
         "May21": {
           "totalAmount": 1000,
@@ -122,7 +126,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A 7863"
         },
         "primaryContact": {
-          "contactName": "Shunmu"
+          "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -183,7 +189,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 19 A 1263"
         },
         "primaryContact": {
-          "contactName": "Shunmugam"
+          "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -244,7 +252,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A1234"
         },
         "primaryContact": {
-          "contactName": "Prabu ganesan"
+          "contactName": "Prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -305,7 +315,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A 7863"
         },
         "primaryContact": {
-          "contactName": "Shunmu"
+          "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -366,7 +378,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 19 A 1263"
         },
         "primaryContact": {
-          "contactName": "Shunmugam"
+          "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -427,7 +441,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A1234"
         },
         "primaryContact": {
-          "contactName": "Prabu ganesan"
+          "contactName": "Prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -488,7 +504,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A 7863"
         },
         "primaryContact": {
-          "contactName": "Shunmu"
+          "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -549,7 +567,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 19 A 1263"
         },
         "primaryContact": {
-          "contactName": "Shunmugam"
+          "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -610,7 +630,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A1234"
         },
         "primaryContact": {
-          "contactName": "Prabu ganesan"
+          "contactName": "Prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -671,7 +693,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 69 A 7863"
         },
         "primaryContact": {
-          "contactName": "Shunmu"
+          "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு"
+
         },
         "May21": {
           "totalAmount": 1000,
@@ -732,7 +756,9 @@ export class vehicleSearch {
           "vehicleNumber": "TN 19 A 1263"
         },
         "primaryContact": {
-          "contactName": "Shunmugam"
+          "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்"
+
         },
         "May21": {
           "totalAmount": 1000,
