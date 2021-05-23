@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Contact List With Vehicle Info
+      Vehicle Info
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,104 +17,9 @@
 
 
 <ion-content>
-
-  <div class="container">
-    <div class="left">
-      <ion-toolbar style="position:fixed;width: 30%;background-color: white;padding-right: 5px;padding-left: 3px;">
-        <input pInputText [(ngModel)]="queryText" type="text" placeholder="Search contact" style="width:70%">
-        <span style="padding-left: 7px;;"><button pButton pRipple type="button" icon="pi pi-search"
-            class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
-        <span style="float: right;"><button pButton pRipple type="button" icon="pi pi-user-plus"
-            (click)="contactAddButtonclick()" class="p-button-rounded p-button-info"></button></span>
-      </ion-toolbar>
-
-      <ion-list style="padding-top: 60px;width: 100%;">
-
-        <ion-item *ngFor="let contact of contactList" (click)="itemSelect(contact);$event.stopPropagation();">
-          <ion-avatar slot="start">
-            <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
-          </ion-avatar>
-          <ion-label>
-            <h2>{{contact.contactName}}</h2>
-            <h3>{{contact.contactMobile}}</h3>
-            <p>Added By : {{contact.securityName}}</p>
-          </ion-label>
-        </ion-item>
-
-      </ion-list>
-
-    </div>
-    <div class="vl2 alignright"></div>
-
-    <div class="right" *ngIf="vehicleList.length>1">
-      <ion-toolbar style="position:fixed;width: 71%;">
-        <ion-button mode="ios" slot="end" (click)="vehicleAddButtonclick()" class="my-button">
-          <img src="./../../assets/car_add1.png" style="width : 33px ; height : 33px">
-        </ion-button>
-      </ion-toolbar>
-      <ion-list style="padding-top: 50px;width: 100%;">
-
-        <ion-item *ngFor="let vehicle of vehicleList" (click)="vehicleDetail()">
-          <ion-col size="4.5">
-            <div>
-              <div class="alignleft" style="text-align:center; width: 30%;">
-                <ion-avatar style="margin: auto;">
-                  <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
-                </ion-avatar>
-                <ion-label style="text-align: center;">
-                  <h3>{{vehicle.vehicleInfo.vehicleColor}}</h3>
-                </ion-label>
-              </div>
-              <div class="alignleft" style="width: 67%;">
-                <ion-label>
-                  <h3>{{vehicle.vehicleInfo.vehicleType}}</h3>
-                  <h2>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </h2>
-                  <h2><b>{{vehicle.vehicleInfo.vehicleNumber}}</b></h2>
-                  <p>Added By : {{vehicle.vehicleInfo.addedBy}}</p>
-                </ion-label>
-              </div>
-              <div class="vl alignright"></div>
-            </div>
-          </ion-col>
-          <ion-col size="3.8">
-            <div class="alignleft" style="width: 97%;">
-              <ion-label>
-                <h3>Rent plan : {{vehicle.rentPlanInfo.rentPlan}}</h3>
-                <h2>{{vehicle.rentPlanInfo.rentAmount}} Rs</h2>
-                <p>Account open date :</p>
-                <p>{{vehicle.accountInfo.openDate}}</p>
-              </ion-label>
-            </div>
-            <div class="vl alignright"></div>
-          </ion-col>
-          <ion-col size="3">
-            <ion-row *ngFor="let contact of vehicle.additionalContacts; let i = index" style="padding: 0px;">
-              <div *ngIf="i<2">
-                <ion-label><b>{{contact.contactName}}</b></ion-label>
-                <ion-label>{{contact.contactMobile}}</ion-label>
-                <div style="padding-top: 2px;"></div>
-              </div>
-            </ion-row>
-            <!-- <ion-label style="text-align: right;" *ngIf="vehicle.additionalContacts.length > 2">More</ion-label> -->
-          </ion-col>
-          <ion-col size="1.2" style="padding-left: 0px;">
-            <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text"
-              label="" (click)="menu.toggle($event);$event.stopPropagation();"></button>
-
-            <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
-
-          </ion-col>
-        </ion-item>
-      </ion-list>
-    </div>
-    <div class="right" *ngIf="vehicleList.length==1" style="background-color: white;">
-      <ion-toolbar style="position:fixed;width: 71%;">
-        <ion-button mode="ios" slot="end" (click)="vehicleAddButtonclick()" class="my-button">
-          <img src="./../../assets/car_add1.png" style="width : 33px ; height : 33px">
-        </ion-button>
-      </ion-toolbar>
-      <ion-grid style="height: 100%;padding-top: 55px" *ngFor="let vehicle of vehicleList">
-        <ion-row style="background-color: white;height: 33.3%;width: 100%;max-height: 200px;min-height: 180px;">
+    <div style="background-color: white;">
+      <ion-grid style="height: 100%;">
+        <ion-row style="background-color: white;height: 33.3%;width: 100%; max-height: 200px;min-height: 180px;">
           <ion-col size="5.6" style="background-color:white;height: 99%;">
             <h2>Primary vehicle info</h2>
             <div>
@@ -212,6 +117,4 @@
         </ion-row>
       </ion-grid>
     </div>
-
-  </div>
 </ion-content>

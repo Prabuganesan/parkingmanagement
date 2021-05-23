@@ -14,22 +14,22 @@ export class MenuPage {
     console.log(id)
     if(id==1){
       this.router.navigate(["/vehicleSearch"], {
-        skipLocationChange: true
+        skipLocationChange: false
     });
     }
     else if(id==2){
       this.router.navigate(["/contactlistwithvehicleinfo"], {
-        skipLocationChange: true
+        skipLocationChange: false
     });
   }
     else if(id==3){
       this.router.navigate(["/rentPlanList"], {
-        skipLocationChange: true
+        skipLocationChange: false
     });
     }
     else if(id==4){
       this.router.navigate(["/applicationUserList"], {
-        skipLocationChange: true
+        skipLocationChange: false
     });
     }
     else if(id==6){
@@ -41,7 +41,7 @@ export class MenuPage {
     }
   }
   logoutAction(){
-
+this.router.navigate(["startup"])
   }
   async openSettingpage(){
     const popover = await this.popoverController.create({

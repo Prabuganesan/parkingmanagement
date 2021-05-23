@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { transactionEntry } from 'src/app/components/transactionEntry/transactionEntry';
 import {MessageService} from 'primeng/api';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'vehicleSearch',
@@ -17,7 +18,7 @@ export class vehicleSearch {
   frozenCols = [];
   queryText = ''
 
-  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService) {
+  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location) {
 
    
     this.cols = [
@@ -788,7 +789,7 @@ export class vehicleSearch {
     
    }
   backButtonOnclick() {
-    this.router.navigate(['menu'])
+    this.location.back();
   }
 
   searchByKeyword(){

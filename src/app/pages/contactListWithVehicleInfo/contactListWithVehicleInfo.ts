@@ -11,6 +11,7 @@ import { accountCreation } from '../accountCreation/accountCreation';
 import { accountDetail } from '../accountDetail/accountDetail';
 import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
 import { contactEntry } from '../contactEntry/contactEntry';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -20,12 +21,13 @@ import { contactEntry } from '../contactEntry/contactEntry';
 export class contactListWithVehicleInfo {
 
   contactList = []
+  fullVehicleList = []
   vehicleList = []
   items: MenuItem[];
   active;
   queryText = "";
 
-  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController) {
+  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location) {
     this.contactList = [
       { "contactName": "Prabuganesan", "contactMobile": "9842794262", "securityName": "Security1","selected":1 },
       { "contactName": "Shunmu", "contactMobile": "8734645465", "securityName": "Security3","selected":0 }, 
@@ -89,7 +91,7 @@ export class contactListWithVehicleInfo {
     }
     ];
 
-    this.vehicleList = [
+    this.fullVehicleList = [
       {
         "vehicleInfo": {
           "vehicleType": "Car",
@@ -99,7 +101,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Blue",
           "addedBy": "Security1"
         },
-        "accountInfo": { "openDate": "02/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "02/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1000 },
         "additionalContacts": [{
           "contactName": "Prabu ganesan",
@@ -115,7 +117,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Yellow",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "05/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "05/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -135,7 +137,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Green",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "10/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "10/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -159,7 +161,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Yellow",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "05/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "05/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -179,7 +181,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Green",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "10/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "10/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -203,7 +205,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Green",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "10/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "10/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -227,7 +229,7 @@ export class contactListWithVehicleInfo {
           "vehicleColor": "Yellow",
           "addedBy": "Security2"
         },
-        "accountInfo": { "openDate": "05/02/2021 10:10 Am" },
+        "accountInfo": { "openDate": "05/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
@@ -239,6 +241,8 @@ export class contactListWithVehicleInfo {
         }]
       },
     ]
+    this.vehicleList = this.fullVehicleList;
+
 
   }
 
@@ -332,6 +336,50 @@ export class contactListWithVehicleInfo {
   itemSelect(contact){
     console.log(contact)
     contact.selected = 1;
+    if(contact.contactName == "Shunmu")
+    {
+      this.vehicleList = [{
+        "vehicleInfo": {
+          "vehicleType": "Car",
+          "vehicleBrand": "Mahindra",
+          "vehicleModel": "xuv",
+          "vehicleNumber": "TN 69 A3421",
+          "vehicleColor": "Yellow",
+          "addedBy": "Security2"
+        },
+        "accountInfo": { "openDate": "05/02/2021 10:10 Am","totalBillAmount":2000,"receivedAmount":1000 },
+        "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
+        "additionalContacts": [{
+          "contactName": "Shunmu",
+          "contactMobile": "9842785242"
+        },
+        {
+          "contactName": "Shunmugam",
+          "contactMobile": "9842785242"
+        },
+        {
+          "contactName": "prabu ganesan",
+          "contactMobile": "9842785242"
+        },
+        {
+          "contactName": "Prabu",
+          "contactMobile": "9842785242"
+        },
+        {
+          "contactName": "prabu ganesan",
+          "contactMobile": "9842785242"
+        },
+        {
+          "contactName": "Prabu",
+          "contactMobile": "9842785242"
+        }]
+      }]
+
+    }
+    else{
+      this.vehicleList = this.fullVehicleList;
+
+    }
     }
 
 
@@ -348,7 +396,7 @@ export class contactListWithVehicleInfo {
   }
 
   backButtonOnclick() {
-    this.router.navigate(['menu'])
+    this.location.back();
   }
   moreActionclick() {
     console.log("more")
@@ -366,5 +414,9 @@ export class contactListWithVehicleInfo {
     await popover.present();
 
     const { role } = await popover.onDidDismiss();
+  }
+  vehicleDetail(){
+    console.log("hi")   
+     this.router.navigate(['vehicleInfoDetail'])
   }
 }

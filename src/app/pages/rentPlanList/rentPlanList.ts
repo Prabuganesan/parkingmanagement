@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { rentPlanEntry } from '../rentPlanEntry/rentPlanEntry';
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'rentPlanList',
@@ -17,7 +18,7 @@ export class rentPlanList {
 
   sortField: string;
 
-  constructor(private router: Router, public dialogService: DialogService) { }
+  constructor(private router: Router, public dialogService: DialogService,private location : Location) { }
 
   ngOnInit() {
     this.rentplans = [{
@@ -62,7 +63,8 @@ export class rentPlanList {
 
 
   backButtonOnclick() {
-    this.router.navigate(['menu'])
+    this.location.back();
+
   }
   planAddClick() {
     // this.router.navigate(['applicationUserEntry'])

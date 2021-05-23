@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {DialogService} from 'primeng/dynamicdialog';
 import { applicationUserEntry } from '../applicationUserEntry/applicationUserEntry';
-
+import {Location} from '@angular/common'
 
 @Component({
   selector: 'applicationUserList',
@@ -18,7 +18,7 @@ export class applicationUserList {
 
     sortField: string;
 
-    constructor(private router:Router,public dialogService: DialogService) { }
+    constructor(private router:Router,public dialogService: DialogService,private location : Location) { }
 
     ngOnInit() {
         this.users =[{"userName":"Admin",
@@ -53,7 +53,8 @@ export class applicationUserList {
 
 
   backButtonOnclick() {
-    this.router.navigate(['menu'])
+    this.location.back();
+
   }
   userAddClick(){
     // this.router.navigate(['applicationUserEntry'])

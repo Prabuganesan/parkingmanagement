@@ -46,16 +46,11 @@
   height: 100%;
   width: 100%;
 }
-.left {
-  display: block;
-  width: 30%;
-  background-color: white;
-  overflow-y: scroll;
-}
+
 .right {
   background-color: white;
   display: block;
-  width: 70%;
+  width: 100%;
   overflow-y: scroll;
 }
 // .highlight{
