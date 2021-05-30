@@ -8,6 +8,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { BrowserModule } from '@angular/platform-browser';
 import {OrderListModule} from 'primeng/orderlist';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,RadioButtonModule,BrowserModule,OrderListModule
+    IonicModule,InputTextModule,RadioButtonModule,BrowserModule,OrderListModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [contactListAgainstCar]

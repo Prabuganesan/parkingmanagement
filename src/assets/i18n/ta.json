@@ -31,7 +31,13 @@
     "rentPlanEntry.rentplanType":"வாடகை திட்ட வகை",
     "rentPlanEntry.car":"கார்",
     "rentPlanEntry.auto":"ஆட்டோ",
-    "rentPlanEntry.others":"மற்றவை"
+    "rentPlanEntry.others":"மற்றவை",
+    "applicationUserList.title":"பயனர்கள் பட்டியல்",
+    "applicationUserEntry.title":"பயனர்கள் பதிவு",
+    "applicationUserEntry.username":"பயனர் பெயர்",
+    "applicationUserEntry.mobile":"கைபேசி",
+    "applicationUserEntry.password":"கடவுச்சொல்",
+    "applicationUserEntry.confirmpassword":"கடவுச்சொல்லை உறுதிப்படுத்தவும்"
 
 
 }

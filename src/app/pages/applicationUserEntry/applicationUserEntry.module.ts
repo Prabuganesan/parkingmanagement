@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { applicationUserEntry } from './applicationUserEntry';
 import { RouterModule, Routes } from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -19,7 +20,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule
+    IonicModule,InputTextModule,TranslateModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [applicationUserEntry]

@@ -6,6 +6,7 @@ import { contactEntry } from './contactEntry';
 import { RouterModule, Routes } from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,RadioButtonModule
+    IonicModule,InputTextModule,RadioButtonModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [contactEntry]

@@ -41,6 +41,7 @@ import { contactEntry } from './pages/contactEntry/contactEntry';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { alternateVehicleEntry } from './pages/alternateVehicleEntry/alternateVehicleEntry';
 
 
 export function createTranslateLoader(httpClient: HttpClient) {
@@ -48,7 +49,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList],
+  declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
     MenuModule,

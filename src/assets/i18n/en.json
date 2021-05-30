@@ -31,7 +31,15 @@
   "rentPlanEntry.rentplanType":"Rent plan type",
   "rentPlanEntry.car":"Car",
   "rentPlanEntry.auto":"Auto",
-  "rentPlanEntry.others":"Others"
+  "rentPlanEntry.others":"Others",
+  "applicationUserList.title":"Application User List",
+  "applicationUserEntry.title":"Application User entry",
+  "applicationUserEntry.username":"User name",
+  "applicationUserEntry.mobile":"Mobile",
+  "applicationUserEntry.password":"Password",
+  "applicationUserEntry.confirmpassword":"Confirm Password"
+
+
 
 
 
