@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'rentPlanPopupList',
@@ -9,7 +10,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class rentPlanPopupList {
   rentplans = []
-  constructor(public router: Router,public popoverController: PopoverController) {
+  constructor(public router: Router,public popoverController: PopoverController,private translate: TranslateService) {
 
     this.rentplans = [{
       "rentPlan": "Car Plan 1",

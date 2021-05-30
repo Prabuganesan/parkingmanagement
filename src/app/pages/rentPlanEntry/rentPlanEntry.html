@@ -24,30 +24,30 @@
 
   <form style="height: 100%;">
     <ion-item lines="full">
-      <ion-label position="floating">Rent plan name</ion-label>
+      <ion-label position="floating">{{'rentPlanEntry.rentPlanName' | translate}}   </ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
-      <ion-label position="floating">Rent amount</ion-label>
+      <ion-label position="floating">{{'rentPlanEntry.rentAmount' | translate}}</ion-label>
       <ion-input type="number" required></ion-input>
     </ion-item>
 
 
       <ion-radio-group value="car" mode="md">
         <ion-list-header>
-          <ion-label>Rent plan type</ion-label>
+          <ion-label>{{'rentPlanEntry.rentplanType' | translate}}</ion-label>
         </ion-list-header>
     
         <ion-item>
           <ion-radio value="car"></ion-radio>
-          <ion-label>Car</ion-label>
+          <ion-label>{{'rentPlanEntry.car' | translate}}</ion-label>
 
           <ion-radio value="auto">Test</ion-radio>
-          <ion-label>Auto</ion-label>
+          <ion-label>{{'rentPlanEntry.auto' | translate}}</ion-label>
 
           <ion-radio value="others"></ion-radio>
-          <ion-label>Others</ion-label>
+          <ion-label>{{'rentPlanEntry.others' | translate}}</ion-label>
 
         </ion-item>
     
@@ -55,7 +55,7 @@
       </ion-radio-group>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Save</ion-button>
+        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </form>

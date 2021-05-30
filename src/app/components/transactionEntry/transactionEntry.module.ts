@@ -12,12 +12,13 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
   declarations: [transactionEntry],
   imports: [
-    CommonModule,CalendarModule,RadioButtonModule,FormsModule,ButtonModule,RippleModule
+    CommonModule,CalendarModule,RadioButtonModule,FormsModule,ButtonModule,RippleModule,TranslateModule
   ],
   entryComponents: [transactionEntry],
   exports: [

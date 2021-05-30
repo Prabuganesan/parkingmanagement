@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'transactionEntry',
@@ -20,7 +21,7 @@ export class transactionEntry implements OnInit {
  
   // Lookup
   cspfmEditorType = '';
-  constructor(private popoverController: PopoverController) {
+  constructor(private popoverController: PopoverController,private translate: TranslateService) {
 
   }
 

@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Vehicle Search
+      {{'vehicleSearch.title' | translate}} 
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -26,7 +26,7 @@
 
   <ion-toolbar style="position:fixed;" >
     <ion-item class="center" ion-fixed>
-      <input pInputText [(ngModel)]="queryText" type="text" placeholder="Search vehicle number"  style="width:100%">
+      <input pInputText [(ngModel)]="queryText" type="text" placeholder="{{'vehicleSearch.searchPlaceholder' | translate}}"  style="width:100%">
       <span style="padding-left: 5px;width: 50px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
     </ion-item>
   </ion-toolbar>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { PopoverController } from '@ionic/angular';
+import { alternateVehicleEntry } from '../alternateVehicleEntry/alternateVehicleEntry';
 
 @Component({
   selector: 'alternateVehicleList',
@@ -8,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class alternateVehicleList {
   vehicleList = []
-  constructor(public router: Router) {
+  constructor(public router: Router,public popoverController: PopoverController) {
 
     this.vehicleList = [
       {
@@ -72,6 +74,17 @@ export class alternateVehicleList {
 
   itemSelect(vehicle){
 
+  }
+  async addAlternateVehicle(){
+    console.log("history")
+    const popover = await this.popoverController.create({
+      component: alternateVehicleEntry,
+      translucent: true,
+      mode:'md'
+    });
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
   }
 
 }

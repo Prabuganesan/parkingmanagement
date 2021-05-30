@@ -9,6 +9,8 @@ import {TableModule} from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 const routes: Routes = [
   {
@@ -23,7 +25,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,ToastModule,RippleModule,ButtonModule
+    IonicModule,ToastModule,RippleModule,ButtonModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [transactionHistory]

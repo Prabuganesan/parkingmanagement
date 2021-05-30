@@ -1,9 +1,41 @@
 {
+  "rs":"Rs",
   "menu.vehicleSearch": "Vehicle search",
   "menu.contactList": "Contact List",
   "menu.rentPlan": "Rent Plan",
   "menu.applicationUsers": "Application users",
   "menu.inOutEntry": "IN & OUT Entry",
   "menu.settings": "Settings",
-  "vehicleSearch.vehicleInfo": "Vehicle info"
+  "vehicleSearch.vehicleInfo": "Vehicle info",
+  "vehicleSearch.searchPlaceholder": "Search vehicle number",
+  "vehicleSearch.alreadyPaid":"Already paid for ",
+  "vehicleSearch.title": "Vehicle search",
+  "transactionEntry.amount":"Amount",
+  "transactionEntry.discount":"Discount",
+  "transactionEntry.totalPayable":"Total payable",
+  "transactionEntry.amountMode":"Amount mode",
+  "save":"SAVE",
+  "transactionHistory.month":"Month",
+  "transactionHistory.date":"Date",
+  "transactionHistory.amount":"Amount",
+  "transactionHistory.discount":"Discount",
+  "transactionHistory.paidAmount":"Paid Amount",
+  "transactionHistory.receivedFrom":"Received From",
+  "transactionHistory.receivedBy":"Received By",
+  "transactionHistory.amountMode":"Mode",
+  "transactionHistory.title":"Transaction history",
+  "rentPlanList.title":"Rent plan List",
+  "rentPlanEntry.title":"Rent plan Entry",
+  "rentPlanEntry.rentPlanName":"Rent plan name",
+  "rentPlanEntry.rentAmount":"Rent amount",
+  "rentPlanEntry.rentplanType":"Rent plan type",
+  "rentPlanEntry.car":"Car",
+  "rentPlanEntry.auto":"Auto",
+  "rentPlanEntry.others":"Others"
+
+
+
+
+
+  
 }

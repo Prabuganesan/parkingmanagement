@@ -15,7 +15,8 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Rent plan List
+      {{'rentPlanList.title' | translate}} 
+
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -33,7 +34,7 @@
                       {{rentplan.rentPlan}}
                     </h2>
                     <h3>
-                      {{rentplan.rentAmount}} Rs
+                      {{rentplan.rentAmount}} {{'rs' | translate}}
                     </h3>
                     <ion-label>
                       {{rentplan.vehicleType}}

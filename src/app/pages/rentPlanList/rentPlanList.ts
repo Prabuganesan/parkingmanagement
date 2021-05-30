@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { rentPlanEntry } from '../rentPlanEntry/rentPlanEntry';
 import {Location} from '@angular/common'
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'rentPlanList',
@@ -18,7 +19,7 @@ export class rentPlanList {
 
   sortField: string;
 
-  constructor(private router: Router, public dialogService: DialogService,private location : Location) { }
+  constructor(private router: Router, public dialogService: DialogService,private location : Location,private translate: TranslateService) { }
 
   ngOnInit() {
     this.rentplans = [{
@@ -71,7 +72,7 @@ export class rentPlanList {
 
     console.log("user add")
     const ref = this.dialogService.open(rentPlanEntry, {
-      header: 'Rent plan entry',
+      header: this.translate.instant('rentPlanEntry.title'),
       width: '40%'
     });
   }

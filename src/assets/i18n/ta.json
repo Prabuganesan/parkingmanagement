@@ -1,9 +1,37 @@
 {
+    "rs":"ரூ",
     "menu.vehicleSearch": "வாகன தேடல்",
     "menu.contactList": "வாடிக்கையாளர் பட்டியல்",
     "menu.rentPlan": "வாடகை திட்டம்",
     "menu.applicationUsers": "பயனர்கள்",
     "menu.inOutEntry": "IN & OUT நுழைவு",
     "menu.settings": "அமைப்புகள்",
-    "vehicleSearch.vehicleInfo": "வாகன தகவல்"
+    "vehicleSearch.vehicleInfo": "வாகன தகவல்",
+    "vehicleSearch.searchPlaceholder": "வாகன எண்ணை உள்ளிடவும்",
+    "vehicleSearch.alreadyPaid":"ஏற்கனவே பணம் செலுத்தப்பட்டுள்ளது ",
+    "vehicleSearch.title": "வாகன தேடல்",
+    "transactionEntry.amount":"தொகை",
+    "transactionEntry.discount":"தள்ளுபடி",
+    "transactionEntry.totalPayable":"செலுத்த வேண்டிய தொகை",
+    "transactionEntry.amountMode":"தொகை பயன்முறை",
+    "save":"சேமிக்கவும்",
+    "transactionHistory.month":"மாதம்",
+    "transactionHistory.date":"தேதி",
+    "transactionHistory.amount":"தொகை",
+    "transactionHistory.discount":"தள்ளுபடி",
+    "transactionHistory.paidAmount":"செலுத்திய தொகை",
+    "transactionHistory.receivedFrom":"கொடுத்த நபர்",
+    "transactionHistory.receivedBy":"பெற்றுக்கொண்ட நபர்",
+    "transactionHistory.amountMode":"பயன்முறை",
+    "transactionHistory.title":"பரிவர்த்தனை வரலாறு",
+    "rentPlanList.title":"வாடகை திட்ட பட்டியல்",
+    "rentPlanEntry.title":"வாடகை திட்ட பதிவு",
+    "rentPlanEntry.rentPlanName":"வாடகை திட்ட பெயர்",
+    "rentPlanEntry.rentAmount":"வாடகை தொகை",
+    "rentPlanEntry.rentplanType":"வாடகை திட்ட வகை",
+    "rentPlanEntry.car":"கார்",
+    "rentPlanEntry.auto":"ஆட்டோ",
+    "rentPlanEntry.others":"மற்றவை"
+
+
 }

@@ -835,7 +835,6 @@ export class vehicleSearch {
     {
       const popover = await this.popoverController.create({
         component: transactionEntry,
-        event: ev,
         componentProps: { amountDetail: amountDetail },
         translucent: false,
         showBackdrop:true,
@@ -848,7 +847,9 @@ export class vehicleSearch {
     }
     else
     {
-      this.messageService.add({severity:'success', summary:'Already paid for '+amountDetail.Month, detail:''});
+      this.messageService.add({severity:'success', summary:this.translate.instant('vehicleSearch.alreadyPaid')+amountDetail.Month, detail:''});
+
+      
 
     }
 
