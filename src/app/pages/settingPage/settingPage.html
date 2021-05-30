@@ -15,7 +15,7 @@
 <ion-header >
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
-        Settings
+       {{'settings.title' | translate}} 
       </ion-title>
   </ion-toolbar>
 </ion-header> 
@@ -24,10 +24,10 @@
 <ion-content style="height: 50%;">
   <ion-segment (ionChange)="segmentChanged($event)" value="loggeduser">
     <ion-segment-button value="loggeduser">
-      <ion-label>Logged user info</ion-label>
+      <ion-label> {{'settings.loggedUser' | translate}} </ion-label>
     </ion-segment-button>
     <ion-segment-button value="loginactivity">
-      <ion-label>Login activity</ion-label>
+      <ion-label> {{'settings.loginActivity' | translate}} </ion-label>
     </ion-segment-button>
   </ion-segment>
   <div *ngIf="showLoggeduserDetail">

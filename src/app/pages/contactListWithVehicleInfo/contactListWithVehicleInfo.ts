@@ -12,6 +12,7 @@ import { accountDetail } from '../accountDetail/accountDetail';
 import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
 import { contactEntry } from '../contactEntry/contactEntry';
 import {Location} from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -26,21 +27,25 @@ export class contactListWithVehicleInfo {
   items: MenuItem[];
   active;
   queryText = "";
+  appLanguage = 'ta'
 
-  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location) {
+
+  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService) {
+    this.appLanguage = this.translate.getDefaultLang()
+
     this.contactList = [
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262", "securityName": "Security1","selected":1 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "securityName": "Security3","selected":0 }, 
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "securityName": "Security2","selected":0  },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "securityName": "Security2","selected":0 }
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்","contactMobile": "9842794262", "securityName": "Security1","selected":1 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 }, 
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0  },
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 }
     ]
 
     this.items = [{
@@ -105,6 +110,7 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1000 },
         "additionalContacts": [{
           "contactName": "Prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்",
           "contactMobile": "9842785242"
         }]
       },
@@ -121,10 +127,12 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         }]
       },
@@ -141,14 +149,17 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Prabu",
+          "contactNameInTamil":"பிரபு",
           "contactMobile": "9842785242"
         }]
       },
@@ -165,10 +176,12 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         }]
       },
@@ -185,14 +198,17 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Prabu",
+          "contactNameInTamil":"பிரபு",
           "contactMobile": "9842785242"
         }]
       },
@@ -209,14 +225,17 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 1500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Prabu",
+          "contactNameInTamil":"பிரபு",
           "contactMobile": "9842785242"
         }]
       },
@@ -233,10 +252,12 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         }]
       },

@@ -8,7 +8,8 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Contact List With Vehicle Info
+      {{'contactListWithVehicle.title' | translate}} 
+
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -35,7 +36,8 @@
             <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
           </ion-avatar>
           <ion-label>
-            <h2>{{contact.contactName}}</h2>
+            <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
+            <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
             <h3>{{contact.contactMobile}}</h3>
             <p>Added By : {{contact.securityName}}</p>
           </ion-label>
@@ -90,7 +92,8 @@
           <ion-col size="3">
             <ion-row *ngFor="let contact of vehicle.additionalContacts; let i = index" style="padding: 0px;">
               <div *ngIf="i<2">
-                <ion-label><b>{{contact.contactName}}</b></ion-label>
+                <ion-label *ngIf="appLanguage && appLanguage == 'en'"><b>{{contact.contactName}}</b></ion-label>
+                <ion-label *ngIf="appLanguage && appLanguage == 'ta'"><b>{{contact.contactNameInTamil}}</b></ion-label>
                 <ion-label>{{contact.contactMobile}}</ion-label>
                 <div style="padding-top: 2px;"></div>
               </div>
