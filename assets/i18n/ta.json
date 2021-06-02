@@ -37,7 +37,12 @@
     "applicationUserEntry.username":"பயனர் பெயர்",
     "applicationUserEntry.mobile":"கைபேசி",
     "applicationUserEntry.password":"கடவுச்சொல்",
-    "applicationUserEntry.confirmpassword":"கடவுச்சொல்லை உறுதிப்படுத்தவும்"
+    "applicationUserEntry.confirmpassword":"கடவுச்சொல்லை உறுதிப்படுத்தவும்",
+    "settings.title":"அமைப்புகள்",
+    "settings.loggedUser":"பயனர் விவரம்",
+    "settings.loginActivity":"உள்நுழைவு விவரம்",
+    "contactListWithVehicle.title":"வாகன தகவலுடன் வாடிக்கையாளர் பட்டியல்"
+
 
 
 }

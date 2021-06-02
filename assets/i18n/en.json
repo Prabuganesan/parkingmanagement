@@ -37,13 +37,11 @@
   "applicationUserEntry.username":"User name",
   "applicationUserEntry.mobile":"Mobile",
   "applicationUserEntry.password":"Password",
-  "applicationUserEntry.confirmpassword":"Confirm Password"
-
-
-
-
-
-
+  "applicationUserEntry.confirmpassword":"Confirm Password",
+  "settings.title":"Settings",
+  "settings.loggedUser":"Logged user info",
+  "settings.loginActivity":"Login activity",
+  "contactListWithVehicle.title":"Contact List With Vehicle Info"
 
   
 }
