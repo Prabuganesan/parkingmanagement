@@ -41,7 +41,35 @@
   "settings.title":"Settings",
   "settings.loggedUser":"Logged user info",
   "settings.loginActivity":"Login activity",
-  "contactListWithVehicle.title":"Contact List With Vehicle Info"
+  "contactListWithVehicle.title":"Contact List With Vehicle Info",
+  "contactListWithVehicle.accountOpenDate":"Account open date",
+  "contactListWithVehicle.primaryVehicleInfo":"Primary vehicle info",
+  "contactListWithVehicle.alternateVehicleInfo":"Alternate vehicle info",
+  "contactListWithVehicle.accountInfo":"Account info",
+  "contactListWithVehicle.outstandingInfo":"Outstanding info",
+  "contactListWithVehicle.additionalContactInfo":"Additional contact Info",
+  "contactListWithVehicle.totalAmount":"Total amount",
+  "contactListWithVehicle.paidAmount":"Paid amount",
+  "contactListWithVehicle.pendingAmount":"Pending amount",
+  "contactEntry.title":"Contact Entry",
+  "contactEntry.contactName":"Name",
+  "contactEntry.contactNameInTamil":"Name in tamil",
+  "contactEntry.contactType":"Type",
+  "contactEntry.contactMobile":"Mobile",
+  "contactEntry.licenseNumber":"License Number",
+  "contactEntry.ownerType":"Owner",
+  "contactEntry.otherType":"Others",
+  "vehicleEntry.title":"Vehicle Entry",
+  "vehicleEntry.vehicleType":"Vehicle type",
+  "vehicleEntry.vehicleBrand":"Vehicle brand",
+  "vehicleEntry.vehicleModel":"Vehicle model",
+  "vehicleEntry.vehicleColor":"Vehicle color",
+  "vehicleEntry.vehicleNumber":"Vehicle Number",
+  "vehicleEntry.auto":"Auto",
+  "vehicleEntry.car":"Car",
+  "vehicleEntry.others":"Others"
+
+
 
   
 }

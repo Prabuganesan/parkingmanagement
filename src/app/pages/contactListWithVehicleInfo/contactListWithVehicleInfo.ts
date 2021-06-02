@@ -372,26 +372,32 @@ export class contactListWithVehicleInfo {
         "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
         "additionalContacts": [{
           "contactName": "Shunmu",
+          "contactNameInTamil":"ஷன்மு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Shunmugam",
+          "contactNameInTamil":"ஷன்முகம்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Prabu",
+          "contactNameInTamil":"பிரபு",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "prabu ganesan",
+          "contactNameInTamil":"பிரபு கணேசன்",
           "contactMobile": "9842785242"
         },
         {
           "contactName": "Prabu",
+          "contactNameInTamil":"பிரபு",
           "contactMobile": "9842785242"
         }]
       }]

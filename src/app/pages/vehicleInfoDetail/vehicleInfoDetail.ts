@@ -12,6 +12,7 @@ import { accountDetail } from '../accountDetail/accountDetail';
 import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
 import { contactEntry } from '../contactEntry/contactEntry';
 import {Location} from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'vehicleInfoDetail',
@@ -26,8 +27,11 @@ export class vehicleInfoDetail {
   items: MenuItem[];
   active;
   queryText = "";
+  appLanguage = 'ta'
 
-  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location) {
+  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService) {
+    this.appLanguage = this.translate.getDefaultLang()
+
     this.vehicle = {
       "vehicleInfo": {
         "vehicleType": "Car",
@@ -41,26 +45,32 @@ export class vehicleInfoDetail {
       "rentPlanInfo": { "rentPlan": "Plan1", "rentAmount": 500 },
       "additionalContacts": [{
         "contactName": "Shunmu",
+        "contactNameInTamil":"ஷன்மு",
         "contactMobile": "9842785242"
       },
       {
         "contactName": "Shunmugam",
+        "contactNameInTamil":"ஷன்முகம்",
         "contactMobile": "9842785242"
       },
       {
         "contactName": "prabu ganesan",
+        "contactNameInTamil":"பிரபு கணேசன்",
         "contactMobile": "9842785242"
       },
       {
         "contactName": "Prabu",
+        "contactNameInTamil":"பிரபு",
         "contactMobile": "9842785242"
       },
       {
         "contactName": "prabu ganesan",
+        "contactNameInTamil":"பிரபு கணேசன்",
         "contactMobile": "9842785242"
       },
       {
         "contactName": "Prabu",
+        "contactNameInTamil":"பிரபு",
         "contactMobile": "9842785242"
       }]
     }

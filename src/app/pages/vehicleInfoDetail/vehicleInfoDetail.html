@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Vehicle Info
+       {{'vehicleSearch.vehicleInfo' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -21,7 +21,7 @@
       <ion-grid style="height: 100%;">
         <ion-row style="height: 33.3%;width: 100%; max-height: 200px;min-height: 180px;">
           <ion-col size="5.6" style="height: 99%;">
-            <h2>Primary vehicle info</h2>
+            <h2>{{'contactListWithVehicle.primaryVehicleInfo' | translate}}</h2>
             <div>
               <div class="alignleft" style="text-align:center; width: 30%;">
                 <ion-avatar style="margin: auto;">
@@ -44,12 +44,12 @@
 
           </ion-col>
           <ion-col size="5.6" style="height: 99%;">
-            <h2>Account info</h2>
+            <h2>{{'contactListWithVehicle.accountInfo' | translate}}</h2>
             <div class="alignleft" style="width: 100%;padding-left: 10px;">
               <ion-label>
-                <h2>Rent plan : {{vehicle.rentPlanInfo.rentPlan}}</h2>
+                <h2>{{'rentPlanEntry.rentPlanName' | translate}} : {{vehicle.rentPlanInfo.rentPlan}}</h2>
                 <h2>{{vehicle.rentPlanInfo.rentAmount}} Rs</h2>
-                <p>Account open date :</p>
+                <p>{{'contactListWithVehicle.accountOpenDate' | translate}} :</p>
                 <p>{{vehicle.accountInfo.openDate}}</p>
               </ion-label>
             </div>
@@ -67,7 +67,7 @@
         </ion-row>
         <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
           <ion-col size="5.6" style="height: 99%;">
-            <h2>Alternate vehicle info</h2>
+            <h2>{{'contactListWithVehicle.alternateVehicleInfo' | translate}}</h2>
             <div>
               <div class="alignleft" style="text-align:center; width: 30%;">
                 <ion-avatar style="margin: auto;">
@@ -89,11 +89,11 @@
             </div>
           </ion-col>
           <ion-col size="5.6" style="height: 99%;">
-            <h2>Outstanding info</h2>
+            <h2>{{'contactListWithVehicle.outstandingInfo' | translate}}</h2>
             <ion-label style="padding-left: 10px;">
-              <h2>Total amount : {{vehicle.accountInfo.totalBillAmount}}</h2>
-              <h2>Paid amount : {{vehicle.accountInfo.receivedAmount}}</h2>
-              <h2><b>Pending amount : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} </b>
+              <h2>{{'contactListWithVehicle.totalAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount}} Rs</h2>
+              <h2>{{'contactListWithVehicle.paidAmount' | translate}} : {{vehicle.accountInfo.receivedAmount}} Rs</h2>
+              <h2><b>{{'contactListWithVehicle.pendingAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} Rs</b>
               </h2>
             </ion-label>
           </ion-col>
@@ -101,13 +101,14 @@
         </ion-row>
         <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
           <ion-row style="width: 100%;height: 30%;">
-            <h2 style="padding-left: 4px;">Additional contact info</h2>
+            <h2 style="padding-left: 4px;">{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
           </ion-row>
           <ion-row style="width: 100%;height: 70%;">
           <ion-col *ngFor="let contact of vehicle.additionalContacts" style="min-width: 25%;max-width: 25%;">
               <div>
                 <ion-label style="padding-left: 10px;">
-                  <h2>{{contact.contactName}}</h2>
+                  <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
+                  <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
                   <h2>{{contact.contactMobile}}</h2>
                 </ion-label>
               </div>
