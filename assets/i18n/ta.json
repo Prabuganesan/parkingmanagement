@@ -41,8 +41,33 @@
     "settings.title":"அமைப்புகள்",
     "settings.loggedUser":"பயனர் விவரம்",
     "settings.loginActivity":"உள்நுழைவு விவரம்",
-    "contactListWithVehicle.title":"வாகன தகவலுடன் வாடிக்கையாளர் பட்டியல்"
-
+    "contactListWithVehicle.title":"வாகன தகவலுடன் வாடிக்கையாளர் பட்டியல்",
+    "contactListWithVehicle.accountOpenDate":"கணக்கு திறந்த தேதி",
+    "contactListWithVehicle.primaryVehicleInfo":"முதன்மை வாகன தகவல்",
+    "contactListWithVehicle.alternateVehicleInfo":"மாற்று வாகன தகவல்",
+    "contactListWithVehicle.accountInfo":"கணக்கு தகவல்",
+    "contactListWithVehicle.outstandingInfo":"கணக்கு நிலுவை தகவல்",
+    "contactListWithVehicle.additionalContactInfo":"கூடுதல் தொடர்பு தகவல்",
+    "contactListWithVehicle.totalAmount":"மொத்த தொகை",
+    "contactListWithVehicle.paidAmount":"செலுத்திய தொகை",
+    "contactListWithVehicle.pendingAmount":"நிலுவையில் உள்ள தொகை",
+    "contactEntry.title":"வாடிக்கையாளர் பதிவு",
+    "contactEntry.contactName":"பெயர்",
+    "contactEntry.contactNameInTamil":"பெயர் தமிழில்",
+    "contactEntry.contactType":"வாடிக்கையாளர் வகை",
+    "contactEntry.contactMobile":"மொபைல் எண்",
+    "contactEntry.licenseNumber":"லைசென்ஸ் எண்",
+    "contactEntry.ownerType":"உரிமையாளர்",
+    "contactEntry.otherType":"மற்றவர்கள்",
+    "vehicleEntry.title":"வாகன பதிவு",
+    "vehicleEntry.vehicleType":"வாகன வகை",
+    "vehicleEntry.vehicleBrand":"வாகன பிராண்ட்",
+    "vehicleEntry.vehicleModel":"வாகன மாதிரி",
+    "vehicleEntry.vehicleColor":"வாகன நிறம்",
+    "vehicleEntry.vehicleNumber":"வாகன எண்",
+    "vehicleEntry.auto":"ஆட்டோ",
+    "vehicleEntry.car":"கார்",
+    "vehicleEntry.others":"மற்றவைகள்"
 
 
 }
