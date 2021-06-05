@@ -65,9 +65,30 @@
     "vehicleEntry.vehicleModel":"வாகன மாதிரி",
     "vehicleEntry.vehicleColor":"வாகன நிறம்",
     "vehicleEntry.vehicleNumber":"வாகன எண்",
+    "vehicleEntry.bike":"இரு சக்கர வண்டி",
     "vehicleEntry.auto":"ஆட்டோ",
     "vehicleEntry.car":"கார்",
-    "vehicleEntry.others":"மற்றவைகள்"
+    "vehicleEntry.others":"மற்றவைகள்",
+    "contactAssignment.title":"வாடிக்கையாளர் நிர்ணயம்",
+    "contactList.title":"வாடிக்கையாளர் பட்டியல்",
+    "accountCreation.title":"கணக்கு உருவாக்கம்",
+    "accountCreation.openDate":"திறந்த தேதி",
+    "accountCreation.closeDate":"இறுதி தேதி",
+    "accountCreation.selectRentPlan":"வாடகை திட்டம்",
+    "alternateVehicleAssignment.title":"மாற்று வாகன நிர்ணயம்",
+    "alternateVehicle.title":"மாற்று வாகன பட்டியல்",
+    "alternateVehicle.addNew":"புதிய பதிவு",
+    "alternateVehicleEntry.title":"மாற்று வாகன பதிவு",
+    "accountDetail.title":"கணக்கு விவரம்",
+    "accountDetail.rentPlan":"வாடகை திட்டம்",
+    "accountDetail.totalAmount":"மொத்த தொகை",
+    "accountDetail.amountReceived":"செலுத்திய தொகை",
+    "accountDetail.pendingAmount":"நிலுவையில் உள்ள தொகை",
+    "accountDetail.accOpenDate":"கணக்கு திறந்த தேதி",
+    "accountDetail.accCloseDate":"கணக்கு இறுதி தேதி",
+    "accountDetail.accAddBy":"கணக்கு பதிவு செய்தவர்",
+    "history":"வரலாறு",
+    "accountHistory.title":"கணக்கு வரலாறு"
 
 
 }
