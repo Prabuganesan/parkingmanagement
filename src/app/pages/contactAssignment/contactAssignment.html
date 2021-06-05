@@ -15,10 +15,10 @@
 <ion-header >
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
-        Contact Assignment
+        {{'contactAssignment.title' | translate}} 
       </ion-title>
        <ion-buttons slot="end">
-          <button ion-button slot="end"> <h4>SAVE</h4>
+          <button ion-button slot="end"> <h4>{{'save' | translate}}</h4>
           </button>
       </ion-buttons>
   </ion-toolbar>
@@ -36,7 +36,8 @@
           <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
         </ion-avatar>
         <ion-label>
-          <h2>{{contact.contactName}}</h2>
+          <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
+          <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
           <h3>{{contact.contactMobile}}</h3>
           <p>Added By : {{contact.securityName}}</p>
         </ion-label>

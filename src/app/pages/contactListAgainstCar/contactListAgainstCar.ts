@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'contactListAgainstCar',
@@ -8,21 +9,19 @@ import { Router } from '@angular/router';
 })
 export class contactListAgainstCar {
   contactList = []
-  constructor(public router:Router) {
+  appLanguage = 'ta'
+
+  constructor(public router:Router,private translate: TranslateService) {
+    this.appLanguage = this.translate.getDefaultLang()
 
     this.contactList = [
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":1 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465","licenseNumber":"TN6958484848574", "securityName": "Security3","selected":0 }, 
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "licenseNumber":"TN6958484848574","securityName": "Security2","selected":0  },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "licenseNumber":"TN6958484848574","securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342","licenseNumber":"TN6958484848574", "securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "licenseNumber":"TN6958484848574","securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "licenseNumber":"TN6958484848574","securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu", "contactMobile": "8734645465", "licenseNumber":"TN6958484848574","securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam", "contactMobile": "86465456342", "licenseNumber":"TN6958484848574","securityName": "Security2","selected":0 }
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":1 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465","licenseNumber":"TN6958484848574", "securityName": "Security3","selected":0 }, 
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "licenseNumber":"TN6958484848574","securityName": "Security2","selected":0  },
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":0 },
+      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "licenseNumber":"TN6958484848574","securityName": "Security3","selected":0 },
+      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342","licenseNumber":"TN6958484848574", "securityName": "Security2","selected":0 },
+      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262","licenseNumber":"TN6958484848574", "securityName": "Security1","selected":0 }
     ]
 
   }

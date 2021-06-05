@@ -65,9 +65,36 @@
   "vehicleEntry.vehicleModel":"Vehicle model",
   "vehicleEntry.vehicleColor":"Vehicle color",
   "vehicleEntry.vehicleNumber":"Vehicle Number",
+  "vehicleEntry.bike":"Bike",
   "vehicleEntry.auto":"Auto",
   "vehicleEntry.car":"Car",
-  "vehicleEntry.others":"Others"
+  "vehicleEntry.others":"Others",
+  "contactAssignment.title":"Contact Assignment",
+  "contactList.title":"Contact List",
+  "accountCreation.title":"Account Creation",
+  "accountCreation.openDate":"Open Date",
+  "accountCreation.closeDate":"Close Date",
+  "accountCreation.selectRentPlan":"Rent plan",
+  "alternateVehicleAssignment.title":"Alternate vehicle Assignment",
+  "alternateVehicle.title":"Alternate vehicle List",
+  "alternateVehicle.addNew":"Add new",
+  "alternateVehicleEntry.title":"Alternate vehicle Entry",
+  "accountDetail.title":"Account detail",
+  "accountDetail.rentPlan":"Rent plan",
+  "accountDetail.totalAmount":"Total amount",
+  "accountDetail.amountReceived":"Amount received",
+  "accountDetail.pendingAmount":"Pending amount",
+  "accountDetail.accOpenDate":"Account open date",
+  "accountDetail.accCloseDate":"Account close date",
+  "accountDetail.accAddBy":"Account add by",
+  "history":"History",
+  "accountHistory.title":"Account History"
+
+
+
+
+
+
 
 
 

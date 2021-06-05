@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,RippleModule,ButtonModule
+    IonicModule,InputTextModule,RippleModule,ButtonModule,TranslateModule
   ],
   exports: [RouterModule],
   declarations: [accountCreation]

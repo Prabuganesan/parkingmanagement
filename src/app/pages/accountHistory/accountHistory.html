@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center">
-      Account History
+      {{'accountHistory.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,13 +19,13 @@
   <ion-list style="width: 100%;">
     <ion-item lines="full" *ngFor="let account of accountList">
       <ion-label>
-      <h2>Account open date :<b> {{account.openDate}}</b></h2>
-      <h2>Account close date :<b> {{account.closeDate}}</b></h2>
-      <h2>Total amount :<b> {{account.totalBillAmount}}</b></h2>
-      <h2>Received amount :<b> {{account.receivedAmount}}</b></h2>
-      <h2>Pending amount :<b> {{account.pendingAmount}}</b></h2>
-      <h2>Rent plan :<b> {{account.rentPlan}}</b></h2>
-      <p>Added By : {{account.accountAddedBy}}</p>
+      <h2>{{'accountDetail.accOpenDate' | translate}} :<b> {{account.openDate}}</b></h2>
+      <h2>{{'accountDetail.accCloseDate' | translate}} :<b> {{account.closeDate}}</b></h2>
+      <h2>{{'accountDetail.totalAmount' | translate}} :<b> {{account.totalBillAmount}}</b></h2>
+      <h2>{{'accountDetail.amountReceived' | translate}} :<b> {{account.receivedAmount}}</b></h2>
+      <h2>{{'accountDetail.pendingAmount' | translate}} :<b> {{account.pendingAmount}}</b></h2>
+      <h2>{{'accountDetail.rentPlan' | translate}} :<b> {{account.rentPlan}}</b></h2>
+      <p>{{'accountDetail.accAddBy' | translate}} : {{account.accountAddedBy}}</p>
       </ion-label>
     </ion-item>
   </ion-list>

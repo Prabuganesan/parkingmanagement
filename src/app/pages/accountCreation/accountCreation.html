@@ -22,10 +22,10 @@
 <ion-header >
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
-        Account creation
+        {{'accountCreation.title' | translate}}
       </ion-title>
        <ion-buttons slot="end">
-          <button ion-button slot="end"> <h4>SAVE</h4>
+          <button ion-button slot="end"> <h4>{{'save' | translate}}</h4>
           </button>
       </ion-buttons>
   </ion-toolbar>
@@ -37,17 +37,17 @@
     Tata Tiago - TN 69 AB1234
   </ion-title>
 
-  <form >
+  <!-- <form > -->
     <ion-item lines="full">
-      <ion-label>Open date</ion-label>
+      <ion-label>{{'accountCreation.openDate' | translate}}</ion-label>
       <input type="datetime-local" [(ngModel)]="openDate" style="background-color:lightgray;">
     </ion-item>
     <ion-item lines="full">
-      <ion-label>Close date</ion-label>
+      <ion-label>{{'accountCreation.closeDate' | translate}}</ion-label>
       <input type="datetime-local" [(ngModel)]="closeDate" style="background-color:lightgray;">
     </ion-item>
     <ion-item lines="full">
-      <ion-label>Select rent plan</ion-label>
+      <ion-label>{{'accountCreation.selectRentPlan' | translate}}</ion-label>
       <ion-button (click)="openRentPlanList()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
@@ -57,10 +57,10 @@
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Save</ion-button>
+        <!-- <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button> -->
       </ion-col>
     </ion-row>
-  </form>
+  <!-- </form> -->
 
   
 </ion-content>

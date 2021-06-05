@@ -15,7 +15,7 @@
 <ion-header no-border="">
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
-        Alternate Vehicle Entry
+        {{'alternateVehicleEntry.title' | translate}}
       </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,47 +25,47 @@
   <form style="height: 100%;">
     <ion-radio-group value="bike" mode="md">
       <ion-list-header>
-        <ion-label>Vehicle type</ion-label>
+        <ion-label>{{'vehicleEntry.vehicleType' | translate}}</ion-label>
       </ion-list-header>
   
       <ion-item>
         <ion-radio value="bike"></ion-radio>
-        <ion-label>Bike</ion-label>
+        <ion-label>{{'vehicleEntry.bike' | translate}}</ion-label>
 
         <ion-radio value="car"></ion-radio>
-        <ion-label>Car</ion-label>
+        <ion-label>{{'vehicleEntry.car' | translate}}</ion-label>
 
         <ion-radio value="auto"></ion-radio>
-        <ion-label>Auto</ion-label>
+        <ion-label>{{'vehicleEntry.auto' | translate}}</ion-label>
 
         <ion-radio value="others"></ion-radio>
-        <ion-label>Others</ion-label>
+        <ion-label>{{'vehicleEntry.others' | translate}}</ion-label>
 
       </ion-item>
   
       
     </ion-radio-group>
     <ion-item lines="full">
-      <ion-label position="floating">Vehicle brand</ion-label>
+      <ion-label position="floating">{{'vehicleEntry.vehicleBrand' | translate}}</ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="floating">Vehicle model</ion-label>
+      <ion-label position="floating">{{'vehicleEntry.vehicleModel' | translate}}</ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="floating">Vehicle color</ion-label>
+      <ion-label position="floating">{{'vehicleEntry.vehicleColor' | translate}}</ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
     <ion-item lines="full">
-      <ion-label position="floating">Vehicle number</ion-label>
+      <ion-label position="floating">{{'vehicleEntry.vehicleNumber' | translate}}</ion-label>
       <ion-input type="text" required></ion-input>
     </ion-item>
 
       
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Save</ion-button>
+        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </form>
