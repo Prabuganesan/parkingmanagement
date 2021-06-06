@@ -14,6 +14,8 @@
   "transactionEntry.discount":"Discount",
   "transactionEntry.totalPayable":"Total payable",
   "transactionEntry.amountMode":"Amount mode",
+  "transactionEntry.totalPendingAmount":"Total pending amount",
+  "transactionEntry.currentPendingAmount":" pending amount",
   "save":"SAVE",
   "transactionHistory.month":"Month",
   "transactionHistory.date":"Date",
@@ -88,7 +90,15 @@
   "accountDetail.accCloseDate":"Account close date",
   "accountDetail.accAddBy":"Account add by",
   "history":"History",
-  "accountHistory.title":"Account History"
+  "accountHistory.title":"Account History",
+  "actions.assignContact":"Assign Contact",
+  "actions.contactList":"Contact List",
+  "actions.createAccount":"Create Account",
+  "actions.assignAlternateVehicle":"Assign Alternate vehicle",
+  "actions.alternateVehicleList":"Alternate vehicle List",
+  "actions.accountDetail":"Account detail"
+
+
 
 
 
