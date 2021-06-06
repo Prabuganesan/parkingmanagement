@@ -42,7 +42,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { alternateVehicleEntry } from './pages/alternateVehicleEntry/alternateVehicleEntry';
-
+import { dbConfiguration } from './core/dbConfiguration';
+import { dbProvider } from './core/dbProvider';
+import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 
 export function createTranslateLoader(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -52,7 +54,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
   declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
-    MenuModule,
+    MenuModule,NgxPubSubModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -60,7 +62,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
       deps: [HttpClient]
     }})
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService,dbConfiguration,dbProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

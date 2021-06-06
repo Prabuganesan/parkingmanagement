@@ -1,5 +1,7 @@
 {
   "name": "parkingmanagement",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
