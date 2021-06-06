@@ -13,15 +13,17 @@ export class transactionEntry implements OnInit {
 
   amountDetail;
   amount;
+  totalPendingAmount=0;
+  currentMonthPendingAmount=0;
   monthName;
   discount = 0;
   totalPayable;
   paymentMode = 'cash';
   billdate;
- 
+
   // Lookup
   cspfmEditorType = '';
-  constructor(private popoverController: PopoverController,private translate: TranslateService) {
+  constructor(private popoverController: PopoverController, private translate: TranslateService) {
 
   }
 
@@ -33,7 +35,9 @@ export class transactionEntry implements OnInit {
     this.billdate = localISOTime
     this.amount = this.amountDetail.pendingAmount;
     this.totalPayable = this.amount - this.discount;
-this.monthName = this.amountDetail.Month;
+    this.monthName = this.amountDetail.Month;
+    this.totalPendingAmount = 2000;
+    this.currentMonthPendingAmount = 1000;
   }
   ngAfterViewInit() {
 
@@ -50,9 +54,9 @@ this.monthName = this.amountDetail.Month;
     this.discount = event.target.value
   }
 
-  save(){
+  save() {
 
-    console.log("Amount : ",this.amount, "Discount :",this.discount,"Payable :",this.totalPayable,"Mode :",this.paymentMode,"Bill date :",this.billdate)
+    console.log("Amount : ", this.amount, "Discount :", this.discount, "Payable :", this.totalPayable, "Mode :", this.paymentMode, "Bill date :", this.billdate)
   }
 }
 

@@ -14,6 +14,8 @@
     "transactionEntry.discount":"தள்ளுபடி",
     "transactionEntry.totalPayable":"செலுத்த வேண்டிய தொகை",
     "transactionEntry.amountMode":"தொகை பயன்முறை",
+    "transactionEntry.totalPendingAmount":"நிலுவையில் உள்ள மொத்த தொகை",
+    "transactionEntry.currentPendingAmount":" நிலுவையில் உள்ள தொகை",
     "save":"சேமிக்கவும்",
     "transactionHistory.month":"மாதம்",
     "transactionHistory.date":"தேதி",
@@ -88,7 +90,13 @@
     "accountDetail.accCloseDate":"கணக்கு இறுதி தேதி",
     "accountDetail.accAddBy":"கணக்கு பதிவு செய்தவர்",
     "history":"வரலாறு",
-    "accountHistory.title":"கணக்கு வரலாறு"
+    "accountHistory.title":"கணக்கு வரலாறு",
+    "actions.assignContact":"வாடிக்கையாளர் நிர்ணயம்",
+    "actions.contactList":"வாடிக்கையாளர் பட்டியல்",
+    "actions.createAccount":"கணக்கு உருவாக்கம்",
+    "actions.assignAlternateVehicle":"மாற்று வாகன நிர்ணயம்",
+    "actions.alternateVehicleList":"மாற்று வாகன பட்டியல்",
+    "actions.accountDetail":"கணக்கு விவரம்"
 
 
 }

@@ -82,7 +82,7 @@
             <div class="alignleft" style="width: 97%;">
               <ion-label>
                 <h3>{{'rentPlanEntry.rentPlanName' | translate}} : {{vehicle.rentPlanInfo.rentPlan}}</h3>
-                <h2>{{vehicle.rentPlanInfo.rentAmount}} Rs</h2>
+                <h2>{{vehicle.rentPlanInfo.rentAmount}} {{'rs' | translate}}</h2>
                 <p>{{'contactListWithVehicle.accountOpenDate' | translate}} :</p>
                 <p>{{vehicle.accountInfo.openDate}}</p>
               </ion-label>
@@ -146,7 +146,7 @@
             <div class="alignleft" style="width: 100%;padding-left: 10px;">
               <ion-label>
                 <h2>{{'rentPlanEntry.rentPlanName' | translate}} : {{vehicle.rentPlanInfo.rentPlan}}</h2>
-                <h2>{{vehicle.rentPlanInfo.rentAmount}} Rs</h2>
+                <h2>{{vehicle.rentPlanInfo.rentAmount}} {{'rs' | translate}}</h2>
                 <p>{{'contactListWithVehicle.accountOpenDate' | translate}} :</p>
                 <p>{{vehicle.accountInfo.openDate}}</p>
               </ion-label>
@@ -189,9 +189,9 @@
           <ion-col size="5.6" style="height: 99%;">
             <h2>{{'contactListWithVehicle.outstandingInfo' | translate}}</h2>
             <ion-label style="padding-left: 10px;">
-              <h2>{{'contactListWithVehicle.totalAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount}} Rs</h2>
-              <h2>{{'contactListWithVehicle.paidAmount' | translate}} : {{vehicle.accountInfo.receivedAmount}} Rs</h2>
-              <h2><b>{{'contactListWithVehicle.pendingAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} Rs</b>
+              <h2>{{'contactListWithVehicle.totalAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount}} {{'rs' | translate}}</h2>
+              <h2>{{'contactListWithVehicle.paidAmount' | translate}} : {{vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</h2>
+              <h2><b>{{'contactListWithVehicle.pendingAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</b>
               </h2>
             </ion-label>
           </ion-col>

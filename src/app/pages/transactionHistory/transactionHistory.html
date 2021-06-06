@@ -93,7 +93,7 @@
               <label
                 *ngIf="col.field!='transactionAmount' && col.field!='discountAmount' && col.field!='paidAmount'">{{vehicle[col.field]}}</label>
               <label
-                *ngIf="col.field=='transactionAmount' || col.field=='discountAmount' || col.field=='paidAmount'">{{vehicle[col.field]}} Rs</label>
+                *ngIf="col.field=='transactionAmount' || col.field=='discountAmount' || col.field=='paidAmount'">{{vehicle[col.field]}} {{'rs' | translate}}</label>
             </div>
         </tr>
       </ng-template>

@@ -51,6 +51,14 @@
   <form *ngIf="amountDetail">
 
     <ion-item lines="inset">
+      <h5> {{'transactionEntry.totalPendingAmount' | translate}} : {{totalPendingAmount}} {{'rs' | translate}}</h5>
+    </ion-item>
+
+    <ion-item lines="inset">
+      <h5> {{monthName}} {{'transactionEntry.currentPendingAmount' | translate}} : {{currentMonthPendingAmount}} {{'rs' | translate}}</h5>
+    </ion-item>
+
+    <ion-item lines="inset">
       <ion-label position="floating"> {{'transactionEntry.amount' | translate}}</ion-label>
       <ion-input type="number" required [value]="amount" (input)='onInputTime($event)' ></ion-input>
     </ion-item>

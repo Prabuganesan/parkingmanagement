@@ -79,11 +79,11 @@
 
         </div>
         <div *ngIf="col.field != 'vehicleInfo'" (click)="amountCellClick($event,vehicle[col.field])">
-          <label>T-{{vehicle[col.field].totalAmount}} Rs</label>
+          <label>T-{{vehicle[col.field].totalAmount}} {{'rs' | translate}}</label>
           <br />
-          <label>R-{{vehicle[col.field].receivedAmount}} Rs</label>
+          <label>R-{{vehicle[col.field].receivedAmount}} {{'rs' | translate}}</label>
           <br />
-          <label>P-{{vehicle[col.field].pendingAmount}} Rs</label>
+          <label>P-{{vehicle[col.field].pendingAmount}} {{'rs' | translate}}</label>
           <br/>
           <!-- <label style="background-color: brown;">hi</label> -->
 

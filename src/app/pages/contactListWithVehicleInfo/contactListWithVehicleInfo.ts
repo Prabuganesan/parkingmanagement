@@ -51,42 +51,42 @@ export class contactListWithVehicleInfo {
     this.items = [{
       label: 'Actions',
       items: [{
-        label: 'Assign Contact',
+        label: this.translate.instant('actions.assignContact'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.assignContact();
         }
       },
       {
-        label: 'Contact List',
+        label: this.translate.instant('actions.contactList'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.showContactList();
         }
       },
       {
-        label: 'Create Account',
+        label: this.translate.instant('actions.createAccount'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.createAccount();
         }
       },
       {
-        label: 'Assign Alternate vehicle',
+        label: this.translate.instant('actions.assignAlternateVehicle'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.assignAlternateVehicle();
         }
       },
       {
-        label: 'Alternate vehicle List',
+        label: this.translate.instant('actions.alternateVehicleList'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.alternateVehicleList();
         }
       },
       {
-        label: 'Account detail',
+        label: this.translate.instant('actions.accountDetail'),
         icon: 'pi pi-angle-right',
         command: () => {
           this.accountDetail();
