@@ -4,6 +4,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { applicationUserEntry } from '../applicationUserEntry/applicationUserEntry';
 import { Location } from '@angular/common'
 import { TranslateService } from '@ngx-translate/core';
+import { dbProvider } from 'src/app/core/dbProvider';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'applicationUserList',
@@ -13,46 +15,24 @@ import { TranslateService } from '@ngx-translate/core';
 export class applicationUserList {
 
   users = [];
+  public tableName = 'applicationUser'
+  constructor(private router: Router, public dialogService: DialogService,private messageService: MessageService, private location: Location, private translate: TranslateService,private dbprovider:dbProvider) { 
+    this.fetchData()
 
-
-  sortOrder: number;
-
-  sortField: string;
-
-  constructor(private router: Router, public dialogService: DialogService, private location: Location, private translate: TranslateService) { }
-
-  ngOnInit() {
-    this.users = [{
-      "userName": "Admin",
-      "mobile": "7652437162",
-      "userType": "Admin",
-      "code": "1"
-    },
-    {
-      "userName": "Security 1",
-      "mobile": "9863427354",
-      "userType": "Other",
-      "code": "2"
-    },
-    {
-      "userName": "Security 2",
-      "mobile": "875364232",
-      "userType": "Other",
-      "code": "3"
-    }]
   }
 
-  onSortChange(event) {
-    let value = event.value;
+  fetchData(){
+    this.dbprovider.fetchDocsWithoutRelationshipByType(this.tableName).then(res=>{
+      if(res && res['status'] == "SUCCESS")
+      {
+        this.users = res['records'];
+      }
+      else
+      {
+        this.messageService.add({ key:"userList", severity: 'error', summary: res['message'], detail: ''});
 
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    }
-    else {
-      this.sortOrder = 1;
-      this.sortField = value;
-    }
+      }
+    })
   }
 
 
@@ -68,5 +48,11 @@ export class applicationUserList {
       header: this.translate.instant('applicationUserEntry.title'),
       width: '40%'
     });
+
+    ref.onClose.subscribe(res => {
+      if (res && res =="SUCCESS")  {
+        this.fetchData();
+      }
+  });
   }
 }

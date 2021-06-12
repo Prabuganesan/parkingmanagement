@@ -37,6 +37,7 @@
     "applicationUserList.title":"பயனர்கள் பட்டியல்",
     "applicationUserEntry.title":"பயனர்கள் பதிவு",
     "applicationUserEntry.username":"பயனர் பெயர்",
+    "applicationUserEntry.code":"பயனர் Code",
     "applicationUserEntry.mobile":"கைபேசி",
     "applicationUserEntry.password":"கடவுச்சொல்",
     "applicationUserEntry.confirmpassword":"கடவுச்சொல்லை உறுதிப்படுத்தவும்",

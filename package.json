@@ -30,7 +30,6 @@
     "pouchdb": "7.0.0",
     "pouchdb-adapter-cordova-sqlite": "2.0.8",
     "pouchdb-find": "7.0.0",
-    "pouchdb-validation": "4.2.0",
     "primeflex": "2.0.0",
     "primeicons": "4.1.0",
     "primeng": "11.4.1",

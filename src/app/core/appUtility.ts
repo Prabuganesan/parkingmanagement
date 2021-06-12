@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Router, Routes } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { Platform } from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -73,6 +74,15 @@ export class appUtility {
     set isMobile(ismobile: boolean) {
         this._isMobile = ismobile;
     }
+
+     // getter setter for userId flag
+     get userId(): number {
+        return this._userId;
+    }
+    set userId(userid: number) {
+        this._userId = userid;
+    }
+
 
   /*  get orgTimeZone(): string {
         return this._orgTimeZone;

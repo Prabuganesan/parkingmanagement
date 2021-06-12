@@ -1,54 +1,41 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <div >
-      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
-        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
-
-      </button>
-    </div>
-    <ion-title size="large" class="ion-text-center">
-      Vehicle Search
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-<!-- 
-<ion-header no-border="">
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        Sign Up
-      </ion-title>
-  </ion-toolbar>
-</ion-header> -->
 
 <ion-content style="height: 350px;">
 
-  <form style="height: 100%;">
-    <ion-item lines="full">
+  <form [formGroup]="formGroup" style="height: 100%;">
+    <ion-item lines="full" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.username' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="applicationUserObj['userName']" formControlName="userName" required=""></ion-input>
     </ion-item>
 
-    <ion-item lines="full">
+    <ion-item lines="full" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.mobile' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="number" [(ngModel)]="applicationUserObj['mobile']" formControlName="mobile"></ion-input>
     </ion-item>
 
-    <ion-item lines="full">
-      <ion-label position="floating">{{'applicationUserEntry.password' | translate}}</ion-label>
-      <ion-input type="password" required></ion-input>
+    <ion-item lines="full" formGroupName="applicationUser">
+      <ion-label position="floating">{{'applicationUserEntry.code' | translate}}</ion-label>
+      <ion-input type="number" [(ngModel)]="applicationUserObj['code']" formControlName="code" required=""></ion-input>
     </ion-item>
-    <ion-item lines="full">
+
+    <ion-item lines="full" formGroupName="applicationUser">
+      <ion-label position="floating">{{'applicationUserEntry.password' | translate}}</ion-label>
+      <ion-input type="password" [(ngModel)]="applicationUserObj['password']" formControlName="password" required=""></ion-input>
+    </ion-item>
+
+    <ion-item lines="full" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.confirmpassword' | translate}}</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input type="text" [(ngModel)]="applicationUserObj['confirmPassword']" formControlName="confirmPassword" required=""></ion-input>
     </ion-item>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </form>
 
-  
+  <p-toast key="userEntry" position="center"></p-toast>
+
+
 </ion-content>
 

@@ -7,6 +7,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {DialogModule} from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import {InputTextModule} from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,DialogModule,ButtonModule,InputTextModule
+    IonicModule,DialogModule,ButtonModule,InputTextModule,ToastModule
   ],
   exports: [RouterModule],
   declarations: [startup]

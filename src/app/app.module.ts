@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { TableModule } from 'primeng/table';
@@ -13,7 +13,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
 import { MessageService, MenuItem } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { transactionHistoryModule } from './pages/transactionHistory/transactionHistory.module';
 import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -54,7 +54,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
   declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
-    MenuModule,NgxPubSubModule,
+    MenuModule,NgxPubSubModule,ReactiveFormsModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -62,7 +62,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
       deps: [HttpClient]
     }})
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService,dbConfiguration,dbProvider],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService,dbConfiguration,dbProvider,DatePipe,FormBuilder],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

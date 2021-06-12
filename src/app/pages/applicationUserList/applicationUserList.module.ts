@@ -4,13 +4,14 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { applicationUserList } from './applicationUserList';
 import { RouterModule, Routes } from '@angular/router';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { MenuModule } from 'primeng/menu';
-import {DataViewModule} from 'primeng/dataview';
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
+import { DataViewModule } from 'primeng/dataview';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
   {
@@ -24,9 +25,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,ButtonModule,RippleModule,MenuModule,DataViewModule,DynamicDialogModule,TranslateModule
+    IonicModule, InputTextModule, ButtonModule, RippleModule, MenuModule, DataViewModule, DynamicDialogModule, TranslateModule, ToastModule
   ],
   exports: [RouterModule],
   declarations: [applicationUserList]
 })
-export class applicationUserListModule {}
+export class applicationUserListModule { }

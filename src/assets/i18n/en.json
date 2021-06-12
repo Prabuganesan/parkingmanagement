@@ -37,6 +37,7 @@
   "applicationUserList.title":"Application User List",
   "applicationUserEntry.title":"Application User entry",
   "applicationUserEntry.username":"User name",
+  "applicationUserEntry.code":"Code",
   "applicationUserEntry.mobile":"Mobile",
   "applicationUserEntry.password":"Password",
   "applicationUserEntry.confirmpassword":"Confirm Password",
