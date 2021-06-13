@@ -23,14 +23,11 @@ export class applicationUserList {
 
   fetchData(){
     this.dbprovider.fetchDocsWithoutRelationshipByType(this.tableName).then(res=>{
-      if(res && res['status'] == "SUCCESS")
-      {
+      if(res && res['status'] == "SUCCESS"){
         this.users = res['records'];
       }
-      else
-      {
+      else{
         this.messageService.add({ key:"userList", severity: 'error', summary: res['message'], detail: ''});
-
       }
     })
   }
@@ -46,7 +43,9 @@ export class applicationUserList {
     console.log("user add")
     const ref = this.dialogService.open(applicationUserEntry, {
       header: this.translate.instant('applicationUserEntry.title'),
-      width: '40%'
+      width: '40%',
+      data:{'object':'','mode':'new'}
+
     });
 
     ref.onClose.subscribe(res => {
@@ -54,5 +53,19 @@ export class applicationUserList {
         this.fetchData();
       }
   });
+  }
+  editaction(plan){
+    console.log("edit",plan)
+    const ref = this.dialogService.open(applicationUserEntry, {
+      header: this.translate.instant('rentPlanEntry.title'),
+      width: '40%',
+      data:{'object':plan,'mode':'edit'}
+    });
+
+    ref.onClose.subscribe(res => {
+      if (res && res =="SUCCESS")  {
+        this.fetchData();
+      }
+    });
   }
 }

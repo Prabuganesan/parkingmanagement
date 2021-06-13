@@ -12,6 +12,8 @@ import uuid from 'uuid';
 import * as lodash from 'lodash';
 import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
+        // this.fetchDocWithRelationshipByTypeAndId('employee', '0C4C2938-F924-0AB6-96CA-C1D47513F579', true,{'childreference':['address'],'masterandlookupreference':['department']}).then(res => {
+        // this.fetchDocsWithRelationshipUsingFindOption(option, true,{'childreference':['address'],'masterandlookupreference':['department']}).then(res => {
 
 export interface AttachmentInfo {
     filename: string;
@@ -283,6 +285,30 @@ export class dbProvider {
         return parsedId.id;
     }
 
+    insertLocalDoc(doc){
+        return this.db.put(doc).then(res=> {
+              return res
+          })
+    }
+    getLocalDoc(id){
+        return this.db.get(id).then(res=>{
+            return  { status: this.success, message: "Fetching success", response: res };
+
+        }).catch(error=>{
+            return  { status: this.failed, message: error.message, response: [] };
+        })
+    }
+
+    removeLocalDoc(docId){
+        this.db.get(docId).then(doc=> {
+            return this.db.remove(doc);
+          }).then(function (result) {
+            // handle result
+          }).catch(function (err) {
+            console.log(err);
+          });
+    }
+
     // Fetch single doc by doc id without relationship
     fetchDocWithoutRelationshipByTypeAndId(type, id) {
         const rel_id = this.db.rel.makeDocID({ 'type': type, 'id': id });
@@ -435,6 +461,290 @@ export class dbProvider {
             return Object.keys(obj)[0];
         }
 
+    }
+
+      // Fetch single table docs by parent doc id without relationship
+      fetchDocsWithoutRelationshipByParentTypeAndId(childtype, parent_type, parent_id) {
+    
+        const objectList = Object.keys(this.dbConfiguration.tableStructure);
+        if (objectList.indexOf(parent_type) < 0) {
+            this.response = { status: this.failed, message: 'Invalid parent type', records: [] };
+            return Promise.resolve(this.response);
+        } else {
+            return this.db.rel.findHasMany(childtype + '_only', parent_type, parent_id).then(res => {
+                const pluralName = this.getPluralName(childtype);
+                this.response = { status: this.success, message: '', records: res[pluralName] };
+                return this.response;
+            }).catch(error => {
+                this.response = { status: this.failed, message: error.message, records: [] };
+                return Promise.resolve(this.response);
+            });
+        }
+    }
+
+    // Fetch single table docs by parent doc id with relationship
+    fetchChildDocsWithRelationshipByParentTypeAndId(child_type, parent_type, parent_id, withchild: boolean, referencedetail?) {
+    
+        const objectList = Object.keys(this.dbConfiguration.tableStructure);
+        if (objectList.indexOf(parent_type) < 0) {
+            this.response = { status: this.failed, message: 'Invalid parent type', records: [] };
+            return Promise.resolve(this.response);
+        } else {
+            const validateStatus = this.validateReferenceDetails(referencedetail);
+            if (validateStatus.status === this.success) {
+                return this.db.rel.findHasMany(child_type + '_only', parent_type, parent_id).then(res => {
+                    if (withchild) {
+                        return this.checkChildObjectsForFetch(child_type, res, referencedetail).then(res => {
+                            return this.checkLookupObjectsForFetch(child_type, res, referencedetail).then(result => {
+                                this.response = { status: this.success, message: '', records: result };
+                                return this.response;
+                            });
+                        });
+                    } else {
+                        return this.checkLookupObjectsForFetch(child_type, res, referencedetail).then(result => {
+                            this.response = { status: this.success, message: '', records: result };
+                            return this.response;
+                        });
+                    }
+                }).catch(error => {
+                    this.response = { status: this.failed, message: error.message, records: [] };
+                    return Promise.resolve(this.response);
+                });
+            } else {
+                return Promise.resolve(validateStatus);
+            }
+        }
+    }
+
+    // Validate requested refernce detail
+    private validateReferenceDetails(referencedetail) {
+    
+        if (!referencedetail) {
+            return {
+                status: this.success, message: '', records: []
+            };
+        }
+        const referenceKeys = Object.keys(referencedetail);
+        let referenceStatus = 'Valid';
+
+        // Check valid reference details added or not
+        referenceKeys.forEach(element => {
+            if (element !== this.masterandlookupreference && element !== this.childreference) {
+                referenceStatus = 'Invalid';
+            }
+        });
+
+        // Check valid reference tables added or not
+        if (referenceStatus === 'Valid') {
+            const objectList = Object.keys(this.dbConfiguration.tableStructure);
+            let childRefStatus, masterandlookupRefStatus;
+            if (referencedetail[this.childreference]) {
+                childRefStatus = referencedetail[this.childreference].length > 0 ? 'Valid' : 'Invalid';
+                referencedetail[this.childreference].forEach(element => {
+                    if (objectList.indexOf(element) < 0) {
+                        childRefStatus = 'Invalid';
+                    }
+                });
+                if (childRefStatus === 'Invalid') {
+                    return { status: this.failed, message: 'Invalid child reference', records: [] };
+                }
+            }
+            if (referencedetail[this.masterandlookupreference]) {
+                masterandlookupRefStatus = referencedetail[this.masterandlookupreference].length > 0 ? 'Valid' : 'Invalid';
+                referencedetail[this.masterandlookupreference].forEach(element => {
+                    if (objectList.indexOf(element) < 0) {
+                        masterandlookupRefStatus = 'Invalid';
+                    }
+                });
+                if (masterandlookupRefStatus === 'Invalid') {
+                    return { status: this.failed, message: 'Invalid master and lookup reference', records: [] };
+                }
+            }
+            return { status: this.success, message: '', records: [] };
+        } else {
+            return { status: this.failed, message: 'Invalid reference', records: [] };
+        }
+
+    }
+
+     // Check depentent docs for particular table
+     private checkChildObjectsForFetch(type, res, referencedetail?) {
+        const relations = this.getSchemaRelations(type);
+        if (relations) {
+            return this.fetchChildDocForMultipleDocs(res, type, referencedetail).then(result => {
+                const response = {};
+                const pluralName = this.getPluralName(type);
+                response[pluralName] = result;
+                return response;
+            });
+        } else {
+            return Promise.resolve(res);
+        }
+    }
+
+     // Create list with all fetched child objects
+     private fetchChildDocForMultipleDocs(res, type, referencedetail?) {
+        const pluralName = this.getPluralName(type);
+        const dependentFetching = [];
+        res[pluralName].forEach(element => {
+            dependentFetching.push(this.fetchAllChildDocsForSingleDoc(type, element, referencedetail).then(doc => {
+                return doc;
+            }));
+        });
+        return Promise.all(dependentFetching).then(allresult => {
+            return allresult;
+        });
+    }
+
+     // Fetch all lookup objects
+     private fetchAllChildDocsForSingleDoc(type, element, referencedetail?) {
+        const relations = this.getSchemaRelations(type);
+        const childFetchingTaskList = [];
+        Object.keys(relations).forEach(field => {
+            const relationDef = relations[field];
+            const relationType = Object.keys(relationDef)[0];
+            if (relationType === 'hasMany') {
+                const objectType = relationDef[relationType].type;
+                const selector = {};
+                selector['data.type'] = objectType;
+                selector['data.' + type] = element.id;
+                if (referencedetail) {
+                    if (referencedetail[this.childreference] && referencedetail[this.childreference].includes(objectType)) {
+                        childFetchingTaskList.push(
+                            this.fetchChildDocs(objectType, type, element.id).then(doc => {
+                                Object.assign(element, doc);
+                            }));
+                    }
+                } else {
+                    childFetchingTaskList.push(
+                        this.fetchChildDocs(objectType, type, element.id).then(doc => {
+                            Object.assign(element, doc);
+                        }));
+                }
+            }
+        });
+
+        return Promise.all(childFetchingTaskList).then(result => {
+            return element;
+        });
+    }
+
+     // Fetch child docs
+     private fetchChildDocs(childtype, parent_type, parent_id) {
+        return this.db.rel.findHasMany(childtype + '_only', parent_type, parent_id).then(res => {
+            const relations = this.getSchemaRelations(childtype);
+            const lookupFetchingList = [];
+            Object.keys(relations).forEach(field => {
+                const relationDef = relations[field];
+                const relationType = Object.keys(relationDef)[0];
+                if (relationType === 'belongsTo') {
+                    const objectType = relationDef[relationType].type;
+                    if (objectType !== parent_type) {
+                        lookupFetchingList.push(objectType);
+                    }
+                }
+            });
+            if (lookupFetchingList.length > 0) {
+                let lookUpReferenceDetail = {};
+                lookUpReferenceDetail = { 'masterandlookupreference': lookupFetchingList };
+                return this.checkLookupObjectsForFetch(childtype, res, lookUpReferenceDetail).then(result => {
+                    const response = {};
+                    const pluralName = this.getPluralName(childtype);
+                    response[pluralName] = result;
+                    return response;
+                });
+            } else {
+                return res;
+            }
+        });
+    }
+
+
+    // Check depentent docs for particular table
+    private checkLookupObjectsForFetch(type, res, referencedetail?) {
+        const relations = this.getSchemaRelations(type);
+        if (relations) {
+            return this.fetchLookupDocForMultipleDocs(res, type, referencedetail).then(result => {
+                return result;
+            });
+        } else {
+            const pluralName = this.getPluralName(type);
+            const result = res[pluralName];
+            return Promise.resolve(result);
+        }
+    }
+
+    // Create list with all fetched lookup objects
+    private fetchLookupDocForMultipleDocs(res, type, referencedetail?) {
+        const pluralName = this.getPluralName(type);
+        const dependentFetching = [];
+        res[pluralName].forEach(element => {
+            dependentFetching.push(this.fetchAllLookupDocForSingleDoc(type, element, referencedetail).then(doc => {
+                return doc;
+            }));
+        });
+        return Promise.all(dependentFetching).then(allresult => {
+            return allresult;
+        });
+    }
+
+    // Fetch all lookup objects
+    private fetchAllLookupDocForSingleDoc(type, element, referencedetail?) {
+        const relations = this.getSchemaRelations(type);
+        const lookupFetchingTaskList = [];
+        Object.keys(relations).forEach(field => {
+            const relationDef = relations[field];
+            const relationType = Object.keys(relationDef)[0];
+            if (relationType === 'belongsTo') {
+                const objectType = relationDef[relationType].type;
+
+                if (referencedetail) {
+                    if (referencedetail[this.masterandlookupreference] &&
+                        referencedetail[this.masterandlookupreference].includes(objectType)) {
+                        Object.keys(element).forEach(key => {
+                            if (key.startsWith(objectType + '_') || key === objectType) {
+                                lookupFetchingTaskList.push(
+                                    this.fetchLookupDocByTypeAndId(objectType, element[key]).then(doc => {
+                                        element[key] = doc;
+                                    }).catch(error => {
+                                        return this.fetchAllLookupDocForSingleDocCatchBlock(element,error);
+
+                                    }));
+                            }
+                        });
+                    }
+                } else {
+                    Object.keys(element).forEach(keys => {
+                        if (keys.startsWith(objectType + '_') || keys === objectType) {
+                            lookupFetchingTaskList.push(
+                                this.fetchLookupDocByTypeAndId(objectType, element[keys]).then(doc => {
+                                    element[keys] = doc;
+                                }).catch(error => {
+                                  return this.fetchAllLookupDocForSingleDocCatchBlock(element,error);
+                                }));
+                        }
+                    });
+                }
+            }
+        });
+
+        return Promise.all(lookupFetchingTaskList).then(result => {
+            return element;
+        });
+    }
+
+    private fetchAllLookupDocForSingleDocCatchBlock(element,error){
+        console.log('Lookup fetching failed for this doc ' + element['type'] +
+        '_2_' + element['id'] + '  Error:' + JSON.stringify(error));
+         return Promise.resolve(element);
+    }
+
+      // Fetch lookup doc
+      private fetchLookupDocByTypeAndId(type, id) {
+        const rel_id = this.db.rel.makeDocID({ 'type': type, 'id': id });
+        return this.db.get(rel_id).then(doc => {
+            return this.convertRelDocToNormalDoc(doc);
+        });
     }
 
     /*

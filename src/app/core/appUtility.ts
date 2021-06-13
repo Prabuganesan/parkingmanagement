@@ -11,10 +11,11 @@ import { Platform } from '@ionic/angular';
 })
 export class appUtility {
 
-    public loggedUserCorObject: any;
+    public loggedUserObject: any;
     private _userGroups: any
     private _userResponsibilities: any
     public _loggedUserInfo: any;
+    public _loggedActivityInfo: any;
     private _orgTimeZone = '';
     private _isMobile: boolean = true;
     private _isEmbeddingEnabled: boolean = false;
@@ -81,6 +82,20 @@ export class appUtility {
     }
     set userId(userid: number) {
         this._userId = userid;
+    }
+
+    get loggedUserInfo(): any {
+        return this._loggedUserInfo;
+    }
+    set loggedUserInfo(loggedUserInfo){
+        this._loggedUserInfo = loggedUserInfo;
+    }
+
+    get loggedUserActivityInfo(): any {
+        return this._loggedActivityInfo;
+    }
+    set loggedUserActivityInfo(loggedUserActivityInfo){
+        this._loggedActivityInfo = loggedUserActivityInfo;
     }
 
 

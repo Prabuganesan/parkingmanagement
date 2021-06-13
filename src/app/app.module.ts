@@ -45,6 +45,7 @@ import { alternateVehicleEntry } from './pages/alternateVehicleEntry/alternateVe
 import { dbConfiguration } from './core/dbConfiguration';
 import { dbProvider } from './core/dbProvider';
 import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
+import {DropdownModule} from 'primeng/dropdown';
 
 export function createTranslateLoader(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -54,7 +55,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
   declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
-    MenuModule,NgxPubSubModule,ReactiveFormsModule,
+    MenuModule,NgxPubSubModule,ReactiveFormsModule,DropdownModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,

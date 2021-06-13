@@ -9,6 +9,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { BrowserModule } from '@angular/platform-browser';
 import {OrderListModule} from 'primeng/orderlist';
 import { TranslateModule } from '@ngx-translate/core';
+import {DropdownModule} from 'primeng/dropdown';
 
 
 const routes: Routes = [
@@ -23,7 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,RadioButtonModule,BrowserModule,OrderListModule,TranslateModule
+    IonicModule,InputTextModule,RadioButtonModule,BrowserModule,OrderListModule,TranslateModule,DropdownModule
   ],
   exports: [RouterModule],
   declarations: [settingPage]

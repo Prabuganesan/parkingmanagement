@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { appUtility } from 'src/app/core/appUtility';
+import { dbProvider } from 'src/app/core/dbProvider';
+import * as lodash from 'lodash';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'settingPage',
@@ -8,31 +12,17 @@ import { Router } from '@angular/router';
 })
 export class settingPage {
   loginActivity = []
+  users = []
+  selectedUser = {}
   showLoggeduserDetail = true;
-  constructor(public router: Router) {
-
-    this.loginActivity = [
-      {
-        "securityName": "Security1",
-        "inTime": "2021-01-26 10:51:50 AM",
-        "outTime": "2021-01-26 5:51:50 PM"
-      },
-      {
-        "securityName": "Security1",
-        "inTime": "2021-01-27 10:51:50 AM",
-        "outTime": "2021-01-27 5:51:50 PM"
-      },
-      {
-        "securityName": "Security2",
-        "inTime": "2021-01-28 10:51:50 AM",
-        "outTime": "2021-01-28 5:51:50 PM"
-      },
-      {
-        "securityName": "Security12",
-        "inTime": "2021-01-29 10:51:50 AM",
-        "outTime": "2021-01-29 5:51:50 PM"
-      }
-    ]
+  loginActivityTableName = "loginActivities";
+  applicationUserTableName = "applicationUser"
+  constructor(public router: Router,public util: appUtility, private dbprovider: dbProvider,private messageService: MessageService) {
+    if(this.util.loggedUserInfo['code']==1){
+      this.allActivityFetch(this.util.loggedUserInfo['id'])   
+      this.fetchApplicationUser()
+    }
+    
   }
 
 
@@ -44,6 +34,38 @@ export class settingPage {
       this.showLoggeduserDetail = false;
 
     }
+
+  }
+  onChange(){
+    console.log(this.selectedUser)
+    this.allActivityFetch(this.selectedUser['id'])   
+
+  }
+
+  fetchApplicationUser(){
+    this.dbprovider.fetchDocsWithoutRelationshipByType(this.applicationUserTableName).then(res=>{
+      if(res && res['status'] == "SUCCESS"){
+        this.users = res['records'];
+      }
+      else{
+        this.messageService.add({ key:"setting", severity: 'error', summary: "User fetching failed", detail: ''});
+      }
+    })
+  }
+
+  allActivityFetch(userid) {
+        // this.fetchDocWithRelationshipByTypeAndId('employee', '0C4C2938-F924-0AB6-96CA-C1D47513F579', true,{'childreference':['address'],'masterandlookupreference':['department']}).then(res => {
+
+    return this.dbprovider.fetchChildDocsWithRelationshipByParentTypeAndId(this.loginActivityTableName,this.applicationUserTableName,userid,false,{'masterandlookupreference':[this.applicationUserTableName]}).then(res => {
+      if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+        console.log(res)
+        this.loginActivity = lodash.sortBy( res['records'], 'inTime' ).reverse();
+      }
+      else{
+        this.messageService.add({ key:"setting", severity: 'error', summary: "Activity fetching failed", detail: ''});
+
+      }
+    })
 
   }
 

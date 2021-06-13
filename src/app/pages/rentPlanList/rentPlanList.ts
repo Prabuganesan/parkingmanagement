@@ -4,7 +4,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { rentPlanEntry } from '../rentPlanEntry/rentPlanEntry';
 import {Location} from '@angular/common'
 import { TranslateService } from '@ngx-translate/core';
-
+import { dbProvider } from 'src/app/core/dbProvider';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'rentPlanList',
   templateUrl: 'rentPlanList.html',
@@ -13,55 +14,24 @@ import { TranslateService } from '@ngx-translate/core';
 export class rentPlanList {
 
   rentplans = [];
+  public tableName = 'rentPlan'
 
+  constructor(private router: Router, public dialogService: DialogService,private messageService: MessageService,private location : Location,private translate: TranslateService,private dbprovider:dbProvider) { 
+    this.fetchData()
 
-  sortOrder: number;
-
-  sortField: string;
-
-  constructor(private router: Router, public dialogService: DialogService,private location : Location,private translate: TranslateService) { }
-
-  ngOnInit() {
-    this.rentplans = [{
-      "rentPlan": "Car Plan 1",
-      "rentAmount": 500,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": " Car Plan 2",
-      "rentAmount": 400,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": "Car Plan 3",
-      "rentAmount": 600,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": "Auto Plan 1",
-      "rentAmount": 400,
-      "vehicleType": "Auto"
-    },
-    {
-      "rentPlan": "Auto Plan 2",
-      "rentAmount": 600,
-      "vehicleType": "Auto"
-    }]
   }
 
-  onSortChange(event) {
-    let value = event.value;
-
-    if (value.indexOf('!') === 0) {
-      this.sortOrder = -1;
-      this.sortField = value.substring(1, value.length);
-    }
-    else {
-      this.sortOrder = 1;
-      this.sortField = value;
-    }
+  fetchData(){
+    this.dbprovider.fetchDocsWithoutRelationshipByType(this.tableName).then(res=>{
+      if(res && res['status'] == "SUCCESS"){
+        console.log(res)
+        this.rentplans = res['records'];
+      }
+      else{
+        this.messageService.add({ key:"rentPlanList", severity: 'error', summary: res['message'], detail: ''});
+      }
+    })
   }
-
 
   backButtonOnclick() {
     this.location.back();
@@ -73,7 +43,29 @@ export class rentPlanList {
     console.log("user add")
     const ref = this.dialogService.open(rentPlanEntry, {
       header: this.translate.instant('rentPlanEntry.title'),
-      width: '40%'
+      width: '40%',
+      data:{'object':'','mode':'new'}
+
+    });
+
+    ref.onClose.subscribe(res => {
+      if (res && res =="SUCCESS")  {
+        this.fetchData();
+      }
+    });
+  }
+  editaction(plan){
+    console.log("edit",plan)
+    const ref = this.dialogService.open(rentPlanEntry, {
+      header: this.translate.instant('rentPlanEntry.title'),
+      width: '40%',
+      data:{'object':plan,'mode':'edit'}
+    });
+
+    ref.onClose.subscribe(res => {
+      if (res && res =="SUCCESS")  {
+        this.fetchData();
+      }
     });
   }
 }

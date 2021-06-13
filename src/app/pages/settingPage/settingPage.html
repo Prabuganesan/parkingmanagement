@@ -1,24 +1,10 @@
-<!-- <ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <div >
-      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
-        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
-
-      </button>
-    </div>
     <ion-title size="large" class="ion-text-center">
-      Vehicle Search
+      {{'settings.title' | translate}}
     </ion-title>
   </ion-toolbar>
-</ion-header> -->
-
-<ion-header >
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-       {{'settings.title' | translate}} 
-      </ion-title>
-  </ion-toolbar>
-</ion-header> 
+</ion-header>
 
 
 <ion-content style="height: 50%;">
@@ -26,51 +12,40 @@
     <ion-segment-button value="loggeduser">
       <ion-label> {{'settings.loggedUser' | translate}} </ion-label>
     </ion-segment-button>
-    <ion-segment-button value="loginactivity">
+    <ion-segment-button value="loginactivity" *ngIf="this.util.loggedUserInfo['code']==1">
       <ion-label> {{'settings.loginActivity' | translate}} </ion-label>
     </ion-segment-button>
   </ion-segment>
   <div *ngIf="showLoggeduserDetail">
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Security 1</ion-card-title>
+        <ion-card-title>{{this.util.loggedUserInfo['userName']}}</ion-card-title>
       </ion-card-header>
-    
+
       <ion-card-content>
-        <p>Mobile - 9834637262</p>
-        <p>In time - 2021-01-26 10:51:50 AM</p>
-        <p>Security Code : 1</p>
+        <p>{{'contactEntry.contactMobile' | translate}} - {{this.util.loggedUserInfo['mobile']}}</p>
+        <p>{{'settings.inTime' | translate}} - {{this.util.loggedUserActivityInfo['inTime'] | date:'dd/MM/yyyy hh:mm a'}}</p>
+        <p>  {{'applicationUserEntry.code' | translate}} : {{this.util.loggedUserInfo['code']}}</p>
       </ion-card-content>
     </ion-card>
-    </div>
+  </div>
 
-    <ion-list style="width: 100%;" *ngIf="!showLoggeduserDetail">
-      <ion-item *ngFor="let user of loginActivity" >
-        <!-- <ion-avatar slot="start">
+  <ion-list style="width: 100%;" *ngIf="!showLoggeduserDetail">
+    <div style="text-align: center;">
+      <p-dropdown appendTo="body" [options]="users" [(ngModel)]="selectedUser" optionLabel="userName" filter=true
+        optionDisabled="inactive" placeholder="{{'settings.selectUser' | translate}}" (onChange)="onChange()"></p-dropdown>
+    </div>
+    <ion-item *ngFor="let user of loginActivity">
+      <!-- <ion-avatar slot="start">
           <ion-icon name="user-outline" style="font-size: 50px;"></ion-icon>
         </ion-avatar> -->
-        <ion-label>
-          <h3>{{user.securityName}}</h3>
-        <h2>{{user.inTime}}</h2>
-        <h2>{{user.outTime}}</h2>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  <!-- <ion-row>
-  <p-orderList  [value]="contactList">
-    <ng-template let-contact pTemplate="item">
-        <div>
-            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{contact.contactName}} - {{contact.contactMobile}} - {{contact.securityName}}</div>
-        </div>
-    </ng-template>
-</p-orderList>
-  </ion-row> -->
-
-  <!-- <ion-row>
-    <ion-col>
-      <ion-button type="submit" color="danger" expand="block">Save</ion-button>
-    </ion-col>
-  </ion-row> -->
-
+      <ion-label>
+        <h3>{{user.applicationUser['userName']}}</h3>
+        <h2>{{'settings.inTime' | translate}} : {{user.inTime | date:'dd/MM/yyyy hh:mm a'}}</h2>
+        <h2 *ngIf="user.outTime"> {{'settings.outTime' | translate}} : {{user.outTime | date:'dd/MM/yyyy hh:mm a'}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <p-toast key="setting" position="center"></p-toast>
 
 </ion-content>

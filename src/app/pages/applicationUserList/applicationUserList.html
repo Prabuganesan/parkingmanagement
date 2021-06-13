@@ -23,7 +23,7 @@
   <div style="padding: 20px;">
     <p-dataView #dv [value]="users" layout="grid">
         <ng-template let-user pTemplate="gridItem">
-            <div class="p-col-12 p-md-4" style="padding:5px;">
+            <div class="p-col-12 p-md-4" style="padding:5px;" (click)='editaction(user)'>
               
                 <div class="p-shadow-5" >
                   <div *ngIf="user.userType == 'Admin'" style="padding: 13px;">

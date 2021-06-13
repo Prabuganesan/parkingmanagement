@@ -14,7 +14,9 @@ export class startup {
   display: boolean = false;
   password = "";
   public selectedUser;
-  public tableName = 'applicationUser'
+  public userTableName = 'applicationUser'
+  public loginActivityTableName = 'loginActivities'
+
   public users = []
 
   constructor(public router: Router, private util: appUtility, private messageService: MessageService, private dbprovider: dbProvider) {
@@ -27,14 +29,74 @@ export class startup {
     this.selectedUser = item
   }
   login() {
-    this.display = false;
-    this.util.userId = this.selectedUser.code;
     if (this.selectedUser.password == this.password) {
-      setTimeout(() => this.router.navigate(['/menu']), 300);
+      this.util.userId = this.selectedUser.code;
+      this.util.loggedUserInfo = this.selectedUser;
+      this.addLoginActivity().then(res=>{
+        if(!res){
+          this.messageService.add({ key: "startup", severity: 'error', summary: "Login activity tracking failed", detail: '', closable: true });
+        }else{
+          this.insertLocalDoc();
+          setTimeout(() => this.router.navigate(['/menu']), 300);
+        }
+        this.display = false;
+      })
+      this.password = ''
     }
     else {
       this.messageService.add({ key: "startup", severity: 'error', summary: "Invalid password", detail: '', closable: true });
+      this.display = false;
+      this.password = ''
     }
+  }
+
+  ionViewWillEnter(){
+    console.log('view')
+    this.fetchUserData().then(res => {
+      if (res['records'] && res['records'].length > 0) {
+        this.users = res['records']
+      }
+    })
+  }
+
+  insertLocalDoc(){
+    var localDoc = {
+      _id: '_local/loginInfo',
+      userId: this.util.userId,
+      loggedUserInfo : this.util.loggedUserInfo,
+      loggedUserActivity:this.util.loggedUserActivityInfo
+    }
+    this.dbprovider.insertLocalDoc(localDoc)
+  }
+  fetchLocalDoc(){
+    this.dbprovider.getLocalDoc('_local/loginInfo').then(res=>{
+      console.log(res)
+    })
+  }
+
+  addLoginActivity(){
+    const date = new Date();
+    const timestamp = date.getTime();
+    var activity = {
+      "inTime": timestamp,
+      "outTime":null,
+      "applicationUser" : this.selectedUser.id
+    }
+    var activitySave = false;
+    return this.dbprovider.save(this.loginActivityTableName, activity).then(result => {
+      if (result['status'] == 'SUCCESS') {
+        activitySave = true;
+        return this.dbprovider.fetchDocWithoutRelationshipByTypeAndId(this.loginActivityTableName,result['id']).then(res=>{
+          console.log('resss=',res)
+          if (res['status'] == 'SUCCESS' && res['records'] && res['records'].length > 0) {
+            this.util.loggedUserActivityInfo = res['records'][0]
+          }
+          return activitySave;
+        })
+      }
+    }).catch(error => {
+      return activitySave;
+    });
   }
 
   createFirstAdmin() {
@@ -58,7 +120,7 @@ export class startup {
           "password": "shunmu"
         }
 
-        this.dbprovider.save(this.tableName, admin).then(result => {
+        this.dbprovider.save(this.userTableName, admin).then(result => {
           console.log("result", result)
           if (result['status'] != 'SUCCESS') {
             this.messageService.add({ key: "startup", severity: 'error', summary: "First time user creation failed", detail: '', closable: true });
@@ -68,12 +130,10 @@ export class startup {
             this.fetchUserData().then(res => {
               if (res['records'] && res['records'].length > 0) {
                 this.users = res['records']
-                console.log("user list", this.users)
               }
             })
           }
         }).catch(error => {
-          console.log(error)
           this.messageService.add({ key: "startup", severity: 'error', summary: "First time user creation failed", detail: '' });
 
         });
@@ -81,7 +141,17 @@ export class startup {
         this.fetchUserData().then(res => {
           if (res['records'] && res['records'].length > 0) {
             this.users = res['records']
-            console.log("user list else", this.users)
+            this.dbprovider.getLocalDoc('_local/loginInfo').then(ldoc=>{
+              if(ldoc['status'] == "SUCCESS"){
+                  console.log(ldoc)
+                  this.util.userId = ldoc['response']['userId']
+                  this.util.loggedUserInfo = ldoc['response']['loggedUserInfo']
+                  this.util.loggedUserActivityInfo = ldoc['response']['loggedUserActivity']
+                  setTimeout(() => this.router.navigate(['/menu']), 300);
+
+              }
+            })
+
           }
         })
       }
@@ -89,7 +159,7 @@ export class startup {
   }
 
   fetchUserData() {
-    return this.dbprovider.fetchDocsWithoutRelationshipByType(this.tableName).then(res => {
+    return this.dbprovider.fetchDocsWithoutRelationshipByType(this.userTableName).then(res => {
       if (res && res['status'] == "SUCCESS") {
         return res;
       }

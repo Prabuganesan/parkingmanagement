@@ -23,8 +23,8 @@
 <ion-content>
   <div style="padding: 20px;">
     <p-dataView #dv [value]="rentplans" layout="grid">
-        <ng-template let-rentplan pTemplate="gridItem">
-            <div class="p-col-12 p-md-4" style="padding:5px;">
+        <ng-template let-rentplan pTemplate="gridItem" >
+            <div class="p-col-12 p-md-4" style="padding:5px;" (click)='editaction(rentplan)'>
                 <div class="p-shadow-5" >
                   <div style="padding:13px;">
                     <i class="pi pi-money-bill" style="font-size: 4rem"></i>
@@ -45,6 +45,8 @@
         </ng-template>
     </p-dataView>
 </div>
+<p-toast key="rentPlanList" position="center"></p-toast>
+
 </ion-content>
 
   

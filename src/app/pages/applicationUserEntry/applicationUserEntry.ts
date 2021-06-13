@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { dbConfiguration } from 'src/app/core/dbConfiguration';
 import { dbProvider } from 'src/app/core/dbProvider';
 import { MessageService } from 'primeng/api';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'applicationUserEntry',
@@ -17,13 +17,19 @@ export class applicationUserEntry {
   public tableName = 'applicationUser'
   public savedSuccessMessage = 'Data saved sucessfully';
 
-  constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef) {
-    this.initializeObjects(this.dbconfig.configuration.tableStructure)
+  constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef,public config: DynamicDialogConfig) {
+    if(config.data.mode == 'edit'){
+      this.applicationUserObj = JSON.parse(JSON.stringify(config.data.object)); 
+      this.applicationUserObj['confirmPassword'] = config.data.object.password
+    }
+    else{
+      this.initializeObjects(this.dbconfig.configuration.tableStructure)
+    }
     this.createFormGroup();
   }
 
   initializeObjects(tableStructure) {
-    this.applicationUserObj = JSON.parse(JSON.stringify(tableStructure.applicationUser));
+    this.applicationUserObj = JSON.parse(JSON.stringify(tableStructure[this.tableName]));
   }
 
   createFormGroup() {
@@ -45,7 +51,7 @@ export class applicationUserEntry {
   }
   saveAction() {
     this.formGroup.patchValue({
-      pfm126493: {
+      applicationUser: {
         userName: this.applicationUserObj['userName'],
         mobile: this.applicationUserObj['mobile'],
         code: this.applicationUserObj['code'],
@@ -91,6 +97,9 @@ export class applicationUserEntry {
 
   alreadyExistValidation() {
     var alreadyExist = false;
+    if(this.config.data.mode == 'edit' && this.applicationUserObj['code'] == this.config.data.object.code ){
+      return Promise.resolve(alreadyExist) 
+  }
     return this.dbprovider.fetchDocsWithoutRelationshipUsingFindOption({ selector: { 'data.code' : this.applicationUserObj['code'],'data.type':this.tableName }, sort: ['data.code'] }).then(res => {
       if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
         alreadyExist = true;

@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { settingPage } from '../pages/settingPage/settingPage';
 import { TranslateService } from '@ngx-translate/core';
-
+import { appUtility } from 'src/app/core/appUtility';
+import { dbProvider } from 'src/app/core/dbProvider';
 @Component({
   selector: 'app-menu',
   templateUrl: 'menu.page.html',
@@ -11,7 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class MenuPage {
   selectedLanguage = 'en'
-  constructor(public router: Router, public popoverController: PopoverController,private translate: TranslateService) { }
+  loginActivityTableName = "loginActivities";
+
+  constructor(public router: Router, public popoverController: PopoverController,private translate: TranslateService,public util: appUtility, private dbprovider: dbProvider) { }
   openMenu(id) {
     console.log(id)
     if (id == 1) {
@@ -43,7 +46,26 @@ export class MenuPage {
     }
   }
   logoutAction() {
-    this.router.navigate(["startup"])
+    this.updateLoginActivity().then(res=>{
+      this.router.navigate(["startup"])
+    })
+  }
+  updateLoginActivity(){
+    this.dbprovider.removeLocalDoc('_local/loginInfo')
+    const date = new Date();
+    const timestamp = date.getTime();
+    var loginActivity = this.util.loggedUserActivityInfo;
+    loginActivity['outTime']= timestamp;
+
+    var activitySave = false;
+    return this.dbprovider.save(this.loginActivityTableName, loginActivity).then(result => {
+      if (result['status'] == 'SUCCESS') {
+        activitySave = true;
+      }
+      return activitySave;
+    }).catch(error => {
+      return activitySave;
+    });
   }
   async openSettingpage() {
     const popover = await this.popoverController.create({

@@ -22,24 +22,24 @@
 
 <ion-content style="height: 300px;">
 
-  <form style="height: 100%;">
-    <ion-item lines="full">
-      <ion-label position="floating">{{'rentPlanEntry.rentPlanName' | translate}}   </ion-label>
-      <ion-input type="text" required></ion-input>
+  <form [formGroup]="formGroup" style="height: 100%;">
+    <ion-item lines="full" formGroupName="rentplan">
+      <ion-label position="floating">{{'rentPlanEntry.rentPlanName' | translate}} </ion-label>
+      <ion-input type="text" [(ngModel)]="rentPlanObj['rentPlan']" formControlName="rentPlan" required="">
+      </ion-input>
     </ion-item>
 
-    <ion-item lines="full">
+    <ion-item lines="full" formGroupName="rentplan">
       <ion-label position="floating">{{'rentPlanEntry.rentAmount' | translate}}</ion-label>
-      <ion-input type="number" required></ion-input>
+      <ion-input type="number" [(ngModel)]="rentPlanObj['rentAmount']" formControlName="rentAmount"></ion-input>
+
     </ion-item>
+    <ion-item lines="full" formGroupName="rentplan">
 
-
-      <ion-radio-group value="car" mode="md">
-        <ion-list-header>
+      <ion-radio-group value="car" mode="md" formControlName="vehicleType" [(ngModel)]="rentPlanObj['vehicleType']" style="width: 100%;">
           <ion-label>{{'rentPlanEntry.rentplanType' | translate}}</ion-label>
-        </ion-list-header>
-    
-        <ion-item>
+
+        <ion-item >
           <ion-radio value="car"></ion-radio>
           <ion-label>{{'rentPlanEntry.car' | translate}}</ion-label>
 
@@ -48,18 +48,16 @@
 
           <ion-radio value="others"></ion-radio>
           <ion-label>{{'rentPlanEntry.others' | translate}}</ion-label>
-
         </ion-item>
-    
-        
       </ion-radio-group>
+    </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </form>
 
-  
-</ion-content>
+  <p-toast key="rentplanEntry" position="center"></p-toast>
 
+</ion-content>
