@@ -32,7 +32,7 @@
 
   <ion-list style="width: 100%;" *ngIf="!showLoggeduserDetail">
     <div style="text-align: center;">
-      <p-dropdown appendTo="body" [options]="users" [(ngModel)]="selectedUser" optionLabel="userName" filter=true
+      <p-dropdown appendTo="body" [options]="users" [(ngModel)]="selectedUser" optionLabel="userName" [filter]="true"
         optionDisabled="inactive" placeholder="{{'settings.selectUser' | translate}}" (onChange)="onChange()"></p-dropdown>
     </div>
     <ion-item *ngFor="let user of loginActivity">
