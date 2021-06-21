@@ -100,7 +100,7 @@
     "actions.createAccount":"கணக்கு உருவாக்கம்",
     "actions.assignAlternateVehicle":"மாற்று வாகன நிர்ணயம்",
     "actions.alternateVehicleList":"மாற்று வாகன பட்டியல்",
-    "actions.accountDetail":"கணக்கு விவரம்"
-
+    "actions.accountDetail":"கணக்கு விவரம்",
+    "actions.editVehicle": "வாகனத்தைத் திருத்து"
 
 }

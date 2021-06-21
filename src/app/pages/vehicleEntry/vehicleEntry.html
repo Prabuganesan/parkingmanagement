@@ -11,7 +11,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header> -->
-
+<!-- 
 <ion-header no-border="">
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
@@ -19,54 +19,55 @@
 
       </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header> -->
 
-<ion-content style="height: 300px;">
+<ion-content style="height: 450px;">
 
-  <form style="height: 100%;">
-    <ion-radio-group value="car" mode="md">
-      <ion-list-header>
+  <form [formGroup]="formGroup" style="height: 100%;">
+
+    <ion-item lines="full" formGroupName="vehicle">
+
+      <ion-radio-group value="car" mode="md" formControlName="vehicleType" [(ngModel)]="vehicleObj['vehicleType']" style="width: 100%;">
         <ion-label>{{'vehicleEntry.vehicleType' | translate}}</ion-label>
-      </ion-list-header>
+        <ion-item>
+          <ion-radio value="car"></ion-radio>
+          <ion-label>{{'vehicleEntry.car' | translate}}</ion-label>
   
-      <ion-item>
-        <ion-radio value="car"></ion-radio>
-        <ion-label>{{'vehicleEntry.car' | translate}}</ion-label>
-
-        <ion-radio value="auto"></ion-radio>
-        <ion-label>{{'vehicleEntry.auto' | translate}}</ion-label>
-
-        <ion-radio value="others"></ion-radio>
-        <ion-label>{{'vehicleEntry.others' | translate}}</ion-label>
-
-      </ion-item>
+          <ion-radio value="auto"></ion-radio>
+          <ion-label>{{'vehicleEntry.auto' | translate}}</ion-label>
   
-      
-    </ion-radio-group>
-    <ion-item lines="full">
-      <ion-label position="floating">{{'vehicleEntry.vehicleBrand' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+          <ion-radio value="others"></ion-radio>
+          <ion-label>{{'vehicleEntry.others' | translate}}</ion-label>
+  
+        </ion-item>
+      </ion-radio-group>
     </ion-item>
-    <ion-item lines="full">
+
+    <ion-item lines="full" formGroupName="vehicle">
+      <ion-label position="floating">{{'vehicleEntry.vehicleBrand' | translate}} </ion-label>
+      <ion-input type="text" [(ngModel)]="vehicleObj['vehicleBrand']" formControlName="vehicleBrand" ></ion-input>
+    </ion-item>
+    <ion-item lines="full"  formGroupName="vehicle">
       <ion-label position="floating">{{'vehicleEntry.vehicleModel' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="vehicleObj['vehicleModel']" formControlName="vehicleModel" ></ion-input>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full"  formGroupName="vehicle">
       <ion-label position="floating">{{'vehicleEntry.vehicleColor' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="vehicleObj['vehicleColor']" formControlName="vehicleColor" ></ion-input>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full"  formGroupName="vehicle">
       <ion-label position="floating">{{'vehicleEntry.vehicleNumber' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="vehicleObj['vehicleNumber']" formControlName="vehicleNumber" required></ion-input>
     </ion-item>
 
       
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   </form>
+  <p-toast key="vehicleEntry" position="center"></p-toast>
 
   
 </ion-content>

@@ -1,64 +1,46 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <div >
-      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
-        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
 
-      </button>
-    </div>
-    <ion-title size="large" class="ion-text-center">
-      Vehicle Search
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
+<ion-content style="height: 400px;">
 
-<ion-header no-border="">
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        {{'contactEntry.title' | translate}}
-      </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content style="height: 300px;">
-
-  <form style="height: 100%;">
-    <ion-item lines="full">
+  <form [formGroup]="formGroup" style="height: 100%;">
+    <ion-item lines="full" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactName' | translate}} </ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="contactObj['contactName']" formControlName="contactName" required></ion-input>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactNameInTamil' | translate}}</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text" [(ngModel)]="contactObj['contactNameInTamil']" formControlName="contactNameInTamil"></ion-input>
     </ion-item>
-    <ion-radio-group value="owner" mode="md">
-      <ion-list-header>
-        <ion-label>{{'contactEntry.contactType' | translate}}</ion-label>
-      </ion-list-header>
-  
-      <ion-item>
-        <ion-radio value="owner"></ion-radio>
-        <ion-label> {{'contactEntry.ownerType' | translate}}</ion-label>
+    <ion-item lines="full" formGroupName="contact">
 
-        <ion-radio value="others">Test</ion-radio>
-        <ion-label> {{'contactEntry.otherType' | translate}}</ion-label>
-      </ion-item>
-    </ion-radio-group>
-    <ion-item lines="full">
-      <ion-label position="floating">{{'contactEntry.contactMobile' | translate}}</ion-label>
-      <ion-input type="number" required></ion-input>
+      <ion-radio-group value="owner" mode="md" formControlName="contactType" [(ngModel)]="contactObj['contactType']" style="width: 100%;">
+        <ion-label>{{'contactEntry.contactType' | translate}}</ion-label>
+        <ion-item>
+          <ion-radio value="owner"></ion-radio>
+          <ion-label> {{'contactEntry.ownerType' | translate}}</ion-label>
+  
+          <ion-radio value="others">Test</ion-radio>
+          <ion-label> {{'contactEntry.otherType' | translate}}</ion-label>
+        </ion-item>
+      </ion-radio-group>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="full" formGroupName="contact">
+      <ion-label position="floating">{{'contactEntry.contactMobile' | translate}}</ion-label>
+      <ion-input type="number" [(ngModel)]="contactObj['contactMobile']" formControlName="contactMobile" required></ion-input>
+
+    </ion-item>
+    <ion-item lines="full" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.licenseNumber' | translate}}</ion-label>
-      <ion-input type="number" required></ion-input>
+      <ion-input type="text" [(ngModel)]="contactObj['licenseNumber']" formControlName="licenseNumber"></ion-input>
+
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}} </ion-button>
       </ion-col>
     </ion-row>
   </form>
 
-  
+  <p-toast key="contactEntry" position="center"></p-toast>
+
 </ion-content>
 

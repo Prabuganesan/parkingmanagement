@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { contactAssignment } from '../contactAssignment/contactAssignment';
 import { PopoverController } from '@ionic/angular';
@@ -13,6 +13,7 @@ import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
 import { contactEntry } from '../contactEntry/contactEntry';
 import {Location} from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { dbProvider } from 'src/app/core/dbProvider';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -28,29 +29,39 @@ export class contactListWithVehicleInfo {
   active;
   queryText = "";
   appLanguage = 'ta'
+  contactTableName = 'contact'
 
 
-  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService) {
+  constructor(public router: Router,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService,private dbprovider:dbProvider,private messageService: MessageService) {
     this.appLanguage = this.translate.getDefaultLang()
+    this.fetchContactList();
 
-    this.contactList = [
-      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்","contactMobile": "9842794262", "securityName": "Security1","selected":1 },
-      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 }, 
-      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0  },
-      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
-      { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
-      { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
-      { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 }
-    ]
+    // this.contactList = [
+    //   { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்","contactMobile": "9842794262", "securityName": "Security1","selected":1 },
+    //   { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 }, 
+    //   { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0  },
+    //   { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+    //   { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+    //   { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
+    //   { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+    //   { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+    //   { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 },
+    //   { "contactName": "Prabuganesan","contactNameInTamil":"பிரபு கணேசன்", "contactMobile": "9842794262", "securityName": "Security1","selected":0 },
+    //   { "contactName": "Shunmu","contactNameInTamil":"ஷன்மு", "contactMobile": "8734645465", "securityName": "Security3","selected":0 },
+    //   { "contactName": "Shunmugam","contactNameInTamil":"ஷன்முகம்", "contactMobile": "86465456342", "securityName": "Security2","selected":0 }
+    // ]
 
     this.items = [{
       label: 'Actions',
-      items: [{
+      items: [
+        {
+          label: this.translate.instant('actions.editVehicle'),
+          icon: 'pi pi-angle-right',
+          command: () => {
+            this.assignContact();
+          }
+        },
+        {
         label: this.translate.instant('actions.assignContact'),
         icon: 'pi pi-angle-right',
         command: () => {
@@ -268,6 +279,21 @@ export class contactListWithVehicleInfo {
   }
 
 
+
+  fetchContactList(){
+
+    this.dbprovider.fetchDocsWithoutRelationshipByType(this.contactTableName).then(res=>{
+      if(res && res['status'] == "SUCCESS"){
+        console.log(res)
+        this.contactList = res['records'];
+      }
+      else{
+        this.messageService.add({ key:"contactList", severity: 'error', summary: res['message'], detail: ''});
+      }
+    })
+  }
+
+
   // async presentPopover(ev: any) {
   //   const popover = await this.popoverController.create({
   //     component: PopoverComponent,
@@ -412,14 +438,18 @@ export class contactListWithVehicleInfo {
 
   async contactAddButtonclick() {
     console.log("add contact")
-    const popover = await this.popoverController.create({
-      component: contactEntry,
-      translucent: true,
-      mode:'md'
-    });
-    await popover.present();
 
-    const { role } = await popover.onDidDismiss();
+    const ref = this.dialogService.open(contactEntry, {
+      header: this.translate.instant('contactEntry.title'),
+      width: '50%',
+      data:{'object':'','mode':'new','contactId':'test'}
+
+  });
+  ref.onClose.subscribe(res => {
+    if (res && res =="SUCCESS")  {
+      this.fetchContactList();
+    }
+});
   }
 
   backButtonOnclick() {
@@ -433,14 +463,21 @@ export class contactListWithVehicleInfo {
   }
   async vehicleAddButtonclick() {
     console.log("add vehicle")
-    const popover = await this.popoverController.create({
-      component: vehicleEntry,
-      translucent: true,
-      mode:'md'
-    });
-    await popover.present();
 
-    const { role } = await popover.onDidDismiss();
+    const ref = this.dialogService.open(vehicleEntry, {
+      header: this.translate.instant('vehicleEntry.title'),
+      width: '50%',
+      data:{'object':'','mode':'new'}
+
+  });
+    // const popover = await this.popoverController.create({
+    //   component: vehicleEntry,
+    //   translucent: true,
+    //   mode:'md'
+    // });
+    // await popover.present();
+
+    // const { role } = await popover.onDidDismiss();
   }
   vehicleDetail(){
     console.log("hi")   

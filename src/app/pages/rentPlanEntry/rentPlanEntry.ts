@@ -11,7 +11,6 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['rentPlanEntry.scss'],
 })
 export class rentPlanEntry {
-  plantype = 'car';
   public rentPlanObj: any = {};
   public formGroup: FormGroup;
   public tableName = 'rentPlan'

@@ -36,7 +36,7 @@ export class applicationUserEntry {
     this.formGroup = this.formBuilder.group({
       applicationUser: this.formBuilder.group({
         userName: ['', Validators.compose([Validators.maxLength(80), Validators.required])],
-        mobile: [''],
+        mobile: ['', [Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]] , 
         code: ['', Validators.compose([Validators.required])],
         password: ['', Validators.compose([Validators.required])],
         confirmPassword: ['', Validators.compose([Validators.required])]

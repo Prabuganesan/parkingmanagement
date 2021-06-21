@@ -100,7 +100,9 @@
   "actions.createAccount":"Create Account",
   "actions.assignAlternateVehicle":"Assign Alternate vehicle",
   "actions.alternateVehicleList":"Alternate vehicle List",
-  "actions.accountDetail":"Account detail"
+  "actions.accountDetail":"Account detail",
+  "actions.editVehicle":"Edit vehicle"
+
 
 
 

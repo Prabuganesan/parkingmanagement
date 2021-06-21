@@ -4,6 +4,7 @@
         "Entrys",
         "Removeddoc",
         "allresult",
+        "assignmenttable",
         "confirmpassword",
         "copieddoc",
         "createdby",
@@ -13,6 +14,7 @@
         "lastmodifiedby",
         "lastmodifiedon",
         "reldoc",
-        "relid"
+        "relid",
+        "vehicleand"
     ]
 }
