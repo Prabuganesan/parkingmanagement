@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from 'primeng/api';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { dbProvider } from 'src/app/core/dbProvider';
 
 @Component({
   selector: 'rentPlanPopupList',
@@ -9,40 +12,31 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['rentPlanPopupList.scss']
 })
 export class rentPlanPopupList {
-  rentplans = []
-  constructor(public router: Router,public popoverController: PopoverController,private translate: TranslateService) {
+  public rentplans = []
+  public tableName = 'rentPlan'
+  constructor(public router: Router,public ref: DynamicDialogRef,public popoverController: PopoverController,private translate: TranslateService,private dbprovider:dbProvider,private messageService: MessageService) {
 
-    this.rentplans = [{
-      "rentPlan": "Car Plan 1",
-      "rentAmount": 500,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": " Car Plan 2",
-      "rentAmount": 400,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": "Car Plan 3",
-      "rentAmount": 600,
-      "vehicleType": "Car"
-    },
-    {
-      "rentPlan": "Auto Plan 1",
-      "rentAmount": 400,
-      "vehicleType": "Auto"
-    },
-    {
-      "rentPlan": "Auto Plan 2",
-      "rentAmount": 600,
-      "vehicleType": "Auto"
-    }]
+    
+    this.fetchData()
   }
   backButtonOnclick(){
     this.popoverController.dismiss()
   }
   itemSelect(rentplan){
-    this.popoverController.dismiss()
+    this.ref.close(rentplan) 
+   }
+
+
+  fetchData(){
+    this.dbprovider.fetchDocsWithoutRelationshipByType(this.tableName).then(res=>{
+      if(res && res['status'] == "SUCCESS"){
+        console.log(res)
+        this.rentplans = res['records'];
+      }
+      else{
+        this.messageService.add({ key:"rentPlanPopupList", severity: 'error', summary: res['message'], detail: ''});
+      }
+    })
   }
 
 }

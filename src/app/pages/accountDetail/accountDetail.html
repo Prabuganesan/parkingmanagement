@@ -1,51 +1,65 @@
 
-<ion-header >
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        {{'accountDetail.title' | translate}}
-      </ion-title>
-       <ion-buttons slot="end">
-          <button ion-button slot="end" (click)="accountHistory()"> <h4>{{'history' | translate}}</h4>
-          </button>
-      </ion-buttons>
-  </ion-toolbar>
-</ion-header> 
 
 
-<ion-content style="height: 50%;">
-  <ion-title size="large" class="ion-text-center">
-    Tata Tiago - TN 69 AB1234
+<ion-content style="height: 400px;">
+  <ion-title size="large" class="ion-text-center" *ngIf="selectedVehicle">
+    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
   </ion-title>
-
+  <div *ngIf='selectedAccount'>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.rentPlan' | translate}}</ion-label>
-      <h5>Car plan 1</h5>
+      <h5>{{selectedAccount['rentPlan_lookup']['rentPlan']}}</h5>
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.totalAmount' | translate}}</ion-label>
-      <h5>2000 {{'rs' | translate}}</h5>
+      <h5>{{selectedAccount['totalBillAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.amountReceived' | translate}}</ion-label>
-      <h5>1000 {{'rs' | translate}}</h5>
+      <h5>{{selectedAccount['receivedAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.pendingAmount' | translate}}</ion-label>
-      <h5>1000 {{'rs' | translate}}</h5>
+      <h5>{{selectedAccount['totalBillAmount'] - selectedAccount['receivedAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.accOpenDate' | translate}}</ion-label>
-      <h5>2021-01-26 10:51:50 AM</h5>
+      <h5>{{selectedAccount['openDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5> 
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.accCloseDate' | translate}}</ion-label>
-      <h5>2021-01-26 10:51:50 AM</h5>
+      <h5>{{selectedAccount['closeDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5> 
     </ion-item>
     <ion-item lines="full">
       <ion-label>{{'accountDetail.accAddBy' | translate}}</ion-label>
       <h5>Security 1</h5>
     </ion-item>
+  </div>
+  <div *ngIf='!selectedAccount'>
+    <br>
+    <div></div>
+    <div style="text-align: center;">
+    <ion-label>Active account not available. Create new account.</ion-label>
+</div>
+  </div>
+  <p-toast key="accountDetail" position="center"></p-toast>
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 
-  
 </ion-content>
 
+<ion-footer style="text-align: center;">
+
+  <span class="p-buttonset" *ngIf="!selectedAccount && accountList.length==0" style="text-align: center;">
+    <button pButton type="button" label="Create New account" icon="pi pi-plus" (click)="createAccount()"></button>
+  </span>
+
+  <span class="p-buttonset" *ngIf="selectedAccount && accountList.length>0">
+    <button style="float: left;" pButton type="button" label="Close account" icon="pi pi-times-circle" (click)="closeAccount()"></button>
+    <button style="float: right;" pButton type="button" label="{{'history' | translate}}" icon="pi pi-clock" (click)="accountHistory()"></button>
+  </span>
+  <span class="p-buttonset" *ngIf="!selectedAccount && accountList.length>0">
+    <button style="float: left;" pButton type="button" label="Create New account" icon="pi pi-plus" (click)="createAccount()"></button>
+    <button style="float: right;" pButton type="button" label="{{'history' | translate}}" icon="pi pi-clock" (click)="accountHistory()"></button>
+  </span>
+
+</ion-footer>

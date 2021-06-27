@@ -19,7 +19,7 @@
       </ion-title>
   </ion-toolbar>
 </ion-header> -->
-<ion-header >
+<!-- <ion-header >
   <ion-toolbar >
       <ion-title size="large" class="ion-text-center">
         {{'accountCreation.title' | translate}}
@@ -29,12 +29,12 @@
           </button>
       </ion-buttons>
   </ion-toolbar>
-</ion-header> 
+</ion-header>  -->
 
 
-<ion-content style="height: 50%;">
+<ion-content style="height: 400px;">
   <ion-title size="large" class="ion-text-center">
-    Tata Tiago - TN 69 AB1234
+    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
   </ion-title>
 
   <!-- <form > -->
@@ -42,26 +42,29 @@
       <ion-label>{{'accountCreation.openDate' | translate}}</ion-label>
       <input type="datetime-local" [(ngModel)]="openDate" style="background-color:lightgray;">
     </ion-item>
-    <ion-item lines="full">
-      <ion-label>{{'accountCreation.closeDate' | translate}}</ion-label>
-      <input type="datetime-local" [(ngModel)]="closeDate" style="background-color:lightgray;">
-    </ion-item>
+   
     <ion-item lines="full">
       <ion-label>{{'accountCreation.selectRentPlan' | translate}}</ion-label>
+      <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentPlan']}}</ion-label>
       <ion-button (click)="openRentPlanList()">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
+    </ion-item>
+     <ion-item lines="full">
+      <ion-label>{{'rentPlanEntry.rentAmount' | translate}}</ion-label>
+      <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentAmount']}}</ion-label>
     </ion-item>
 
   
 
     <ion-row>
       <ion-col>
-        <!-- <ion-button type="submit" color="danger" expand="block">{{'save' | translate}}</ion-button> -->
+        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
       </ion-col>
     </ion-row>
   <!-- </form> -->
 
-  
+  <p-toast key="accCreation" position="center"></p-toast>
+
 </ion-content>
 

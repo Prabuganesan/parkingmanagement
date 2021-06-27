@@ -11,7 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { transactionEntrymodule } from './components/transactionEntry/transactionEntry.module';
 import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
-import { MessageService, MenuItem } from 'primeng/api';
+import { MessageService, MenuItem, ConfirmationService } from 'primeng/api';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { transactionHistoryModule } from './pages/transactionHistory/transactionHistory.module';
@@ -46,6 +46,7 @@ import { dbConfiguration } from './core/dbConfiguration';
 import { dbProvider } from './core/dbProvider';
 import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 import {DropdownModule} from 'primeng/dropdown';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 export function createTranslateLoader(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -55,7 +56,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
   declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
-    MenuModule,NgxPubSubModule,ReactiveFormsModule,DropdownModule,
+    MenuModule,NgxPubSubModule,ReactiveFormsModule,DropdownModule,ConfirmDialogModule,
     TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
@@ -63,7 +64,7 @@ export function createTranslateLoader(httpClient: HttpClient) {
       deps: [HttpClient]
     }})
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService,dbConfiguration,dbProvider,DatePipe,FormBuilder],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, MessageService,DialogService,dbConfiguration,dbProvider,DatePipe,FormBuilder,ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

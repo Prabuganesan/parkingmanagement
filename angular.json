@@ -19,7 +19,8 @@
               "pouchdb-adapter-cordova-sqlite",
               "relational-pouch",
               "rxjs",
-              "uuid"
+              "uuid",
+              "lodash"
            ],
             "outputPath": "www",
             "index": "src/index.html",

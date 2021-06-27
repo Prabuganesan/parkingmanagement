@@ -12,6 +12,10 @@ import uuid from 'uuid';
 import * as lodash from 'lodash';
 import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
+// import replicationStream from 'pouchdb-replication-stream'
+
+
+
         // this.fetchDocWithRelationshipByTypeAndId('employee', '0C4C2938-F924-0AB6-96CA-C1D47513F579', true,{'childreference':['address'],'masterandlookupreference':['department']}).then(res => {
         // this.fetchDocsWithRelationshipUsingFindOption(option, true,{'childreference':['address'],'masterandlookupreference':['department']}).then(res => {
 
@@ -53,6 +57,9 @@ export interface QueryBatchInfo {
 PouchDB.plugin(PouchFind);
 PouchDB.plugin(PouchRelation); // Change pouch utils class in relational npm first time after install npm
 PouchDB.plugin(cordovaSqlitePlugin);
+
+// PouchDB.plugin(replicationStream.plugin);
+// PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
 
 @Injectable()
 export class dbProvider {
@@ -97,6 +104,44 @@ export class dbProvider {
             }
             this.setSchema();
             this.db.setMaxListeners(50);
+        }
+    }
+    dumbdata(){
+        console.log("dumb started")
+        this.db.allDocs({include_docs: true}, (error, doc) => {
+            if (error) console.error(error);
+            else {
+                this.download(
+              JSON.stringify(doc.rows.map(({doc}) => doc)),
+              'test.txt',
+              'text/plain'
+            );
+                }
+          });
+
+//         var ws = fs.createWriteStream('output.txt');
+
+//         this.db.dump(ws).then(function (res) {
+//   // res should be {ok: true}
+// });
+    }
+
+  download(data, filename, type) {
+      console.log(filename)
+        var file = new Blob([data], {type: type});
+        if (window.navigator.msSaveOrOpenBlob) // IE10+
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        else { // Others
+            var a = document.createElement("a"),
+                    url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
         }
     }
 
@@ -342,6 +387,67 @@ export class dbProvider {
             this.response = { status: this.failed, message: error.message, records: [] };
             return Promise.resolve(this.response);
         });
+    }
+
+      // Find docs using find options plugin with relationship (If you get selected fields, you must pass _id field )
+      fetchDocsWithRelationshipUsingFindOption(options, withchild: boolean, referencedetail?) {
+        const validateStatus = this.validateReferenceDetails(referencedetail);
+        if (validateStatus.status === this.success) {
+            if (options.selector) {
+                let selector;
+                try {
+                    selector = JSON.parse(JSON.stringify(options.selector));
+                    if (Object.keys(selector).indexOf('data.type') > -1) {
+                        return this.findDocsWithSelector(options).then(res => {
+                            if (res.constructor === [].constructor) {
+                                const resultJson = {};
+                                const type = selector['data.type'];
+                                const pluralNameForParent = this.getPluralName(type);
+                                resultJson[pluralNameForParent] = res;
+                                if (withchild) {
+                                    return this.checkChildObjectsForFetch(type, resultJson, referencedetail).then(res => {
+                                       return this.checkLookupObjectFetchMethod(type, res, referencedetail);
+                                       
+                                    });
+                                } else {
+                                    return this.checkLookupObjectsForFetch(type, resultJson, referencedetail).then(result => {
+                                        this.response = { status: this.success, message: '', records: result };
+                                        return this.response;
+                                    });
+                                }
+                            } else {
+                                this.response = {
+                                    status: this.failed, message: typeof res === 'string' ? res : 'Fetching failed',
+                                    records: []
+                                };
+                                return this.response;
+                            }
+
+                        }).catch(error => {
+                            this.response = { status: this.failed, message: error.message, records: [] };
+                            return Promise.resolve(this.response);
+                        });
+                    } else {
+
+                        this.response = { status: this.failed, message: 'data.type is missing!!', records: [] };
+                        return Promise.resolve(this.response);
+
+                    }
+
+                } catch (error) {
+                    this.response = { status: this.failed, message: error.message, records: [] };
+                    return Promise.resolve(this.response);
+                }
+
+            } else {
+                this.response = { status: this.failed, message: 'Invalid selector', records: [] };
+                return Promise.resolve(this.response);
+            }
+
+        } else {
+            return Promise.resolve(validateStatus);
+        }
+
     }
 
      // Find docs using find plugin without relationship(If you get selected fields, you must pass _id field )
@@ -746,6 +852,33 @@ export class dbProvider {
             return this.convertRelDocToNormalDoc(doc);
         });
     }
+
+    checkLookupObjectFetchMethod(type, res, referencedetail){
+        return this.checkLookupObjectsForFetch(type, res, referencedetail).then(result => {
+            this.response = { status: this.success, message: '', records: result };
+            return this.response;
+        });}
+
+         // Fetch Data usign Record Ids
+         fetchDocsWithDocIds(recordId) {
+            return this.db.allDocs({ include_docs: true, keys: recordId }).then(res => {
+                if (res["rows"].length > 0) {
+                    let resultArray = []
+                    res['rows'].forEach(element => {
+                        resultArray.push(this.convertRelDocToNormalDoc(element['doc']))
+                    });
+                    return Promise.resolve({
+                        response: resultArray,
+                        status: "SUCCESS"
+                    });
+                } else {
+                    return Promise.resolve({
+                        response: res,
+                        status: "Failed"
+                   });
+                }
+            });
+        }
 
     /*
         /****************************************************

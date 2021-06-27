@@ -1,37 +1,11 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <div >
-      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
-        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
 
-      </button>
-    </div>
-    <ion-title size="large" class="ion-text-center">
-      Vehicle Search
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
-<ion-header >
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        {{'alternateVehicle.title' | translate}}
-      </ion-title>
-      <ion-buttons slot="end">
-        <button ion-button slot="end" (click)="addAlternateVehicle()"> <h4>{{'alternateVehicle.addNew' | translate}}</h4>
-        </button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> 
-
-
-<ion-content style="height: 50%;">
+<ion-content style="height: 400px;">
   <ion-title size="large" class="ion-text-center">
-    Tata Tiago - TN 69 AB1234
+    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
   </ion-title>
 <ion-row>
     <ion-list style="width: 100%;">
-      <ion-item *ngFor="let vehicle of vehicleList" (click)="itemSelect(vehicle);$event.stopPropagation();" >
+      <ion-item *ngFor="let vehicle of vehicleList"  (click)="itemSelect(vehicle);$event.stopPropagation();" >
         <ion-avatar slot="start">
           <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
         </ion-avatar>
@@ -45,21 +19,25 @@
       </ion-item>
     </ion-list>
 </ion-row>
-  <!-- <ion-row>
-  <p-orderList  [value]="contactList">
-    <ng-template let-contact pTemplate="item">
-        <div>
-            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{contact.contactName}} - {{contact.contactMobile}} - {{contact.securityName}}</div>
-        </div>
-    </ng-template>
-</p-orderList>
-  </ion-row> -->
+<div *ngIf='vehicleList.length==0'>
+  <br>
+  <div></div>
+  <div style="text-align: center;">
+  <ion-label>Alternate vehicle not available.</ion-label><br><br>
+  <button pButton type="button" label="Create alternate vehicle" icon="pi pi-plus" (click)="createAlternateVehicle()"></button>
+  </div>
+</div>
 
-  <!-- <ion-row>
-    <ion-col>
-      <ion-button type="submit" color="danger" expand="block">Save</ion-button>
-    </ion-col>
-  </ion-row> -->
+  <p-toast key="alternateVehicleList" position="center"></p-toast>
 
 
 </ion-content>
+
+<ion-footer style="text-align: center;" *ngIf='vehicleList.length>0'>
+
+  <span class="p-buttonset" style="text-align: center;">
+    <button pButton type="button" label="Create alternate vehicle" icon="pi pi-plus" (click)="createAlternateVehicle()"></button>
+  </span>
+
+
+</ion-footer>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import {DialogService} from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
+import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
+import { dbProvider } from 'src/app/core/dbProvider';
 
 
 @Component({
@@ -9,41 +11,26 @@ import {DialogService} from 'primeng/dynamicdialog';
   styleUrls: ['accountHistory.scss'],
 })
 export class accountHistory {
+  public tableName = 'account'
+  public vehicleTableName = 'vehicle'
 
   accountList=[];
-
-    constructor(public dialogService: DialogService,public popoverController: PopoverController) { }
-
-    backButtonOnclick(){
-      this.popoverController.dismiss()
+  selectedVehicle;
+    constructor(public dialogService: DialogService,public config: DynamicDialogConfig,public popoverController: PopoverController,private messageService: MessageService,private dbprovider:dbProvider) { 
+      this.selectedVehicle = JSON.parse(JSON.stringify(config.data.vehicle)); 
+      this.fetchAccounts()
     }
 
-    ngOnInit() {
-        this.accountList =[{"openDate":"2021-01-26 10:51:50 AM",
-          "closeDate":"2021-01-26 10:51:50 AM",
-          "totalBillAmount":1000,
-          "receivedAmount":500,
-          "pendingAmount":500,
-          "accountAddedBy":"security 1",
-          "rentPlan":"Plan 1"
-        },
-        {"openDate":"2021-01-26 10:51:50 AM",
-          "closeDate":"2021-01-26 10:51:50 AM",
-          "totalBillAmount":1000,
-          "receivedAmount":500,
-          "pendingAmount":500,
-          "accountAddedBy":"security 1",
-          "rentPlan":"Plan 1"
-        },
-        {"openDate":"2021-01-26 10:51:50 AM",
-          "closeDate":"2021-01-26 10:51:50 AM",
-          "totalBillAmount":1000,
-          "receivedAmount":500,
-          "pendingAmount":500,
-          "accountAddedBy":"security 1",
-          "rentPlan":"Plan 1"
+    fetchAccounts(){
+      this.dbprovider.fetchChildDocsWithRelationshipByParentTypeAndId(this.tableName,this.vehicleTableName ,this.selectedVehicle.id,true,{'masterandlookupreference':['rentPlan']}).then(res => {
+         console.log(res)
+        if(res && res['status'] == "SUCCESS"){
+          this.accountList = res['records']
         }
-       ]
+        else{
+          this.messageService.add({ key:"accountHistory", severity: 'error', summary: res['message'], detail: ''});
+        }
+      })
     }
     
   

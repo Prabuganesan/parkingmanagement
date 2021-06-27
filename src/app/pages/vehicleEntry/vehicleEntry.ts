@@ -77,7 +77,12 @@ export class vehicleEntry {
               }
               this.messageService.add({ key: "vehicleEntry", severity: 'success', summary: this.savedSuccessMessage, detail: '' });
               this.vehicleId = result['id'];
-              this.saveContactAndVehicleAssignment()
+              if(this.config.data.mode != 'edit')
+              {
+                 this.saveContactAndVehicleAssignment()
+              }else{
+                setTimeout(() => this.ref.close('SUCCESS'), 1000);
+              }
   
             }).catch(error => {
               console.log(error)

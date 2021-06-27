@@ -8,6 +8,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { TranslateModule } from '@ngx-translate/core';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    IonicModule,InputTextModule,RippleModule,ButtonModule,TranslateModule
+    IonicModule,InputTextModule,RippleModule,ButtonModule,TranslateModule,ConfirmDialogModule
   ],
   exports: [RouterModule],
   declarations: [accountDetail]

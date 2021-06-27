@@ -1,24 +1,9 @@
 
 
-<ion-header >
-  <ion-toolbar >
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
-      </ion-button>
-    </ion-buttons>
-      <ion-title size="large" class="ion-text-center">
-        {{'rentPlanList.title' | translate}} 
-
-      </ion-title>
-  </ion-toolbar>
-</ion-header> 
 
 
-<ion-content style="height: 50%;">
-<ion-row>
+<ion-content style="height: 400px;">
+  <ion-row>
     <ion-list style="width: 100%;">
       <ion-item *ngFor="let rentplan of rentplans" (click)="itemSelect(rentplan);$event.stopPropagation();" >
         <ion-label>
@@ -29,6 +14,7 @@
       </ion-item>
     </ion-list>
 </ion-row>
+<p-toast key="rentPlanPopupList" position="center"></p-toast>
 
 
 </ion-content>
