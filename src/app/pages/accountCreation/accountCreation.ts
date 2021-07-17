@@ -20,7 +20,7 @@ export class accountCreation {
   accountObj;
   public tableName = 'account'
   selectedVehicle;
-  public savedSuccessMessage = 'Data saved sucessfully';
+  public savedSuccessMessage = 'Data saved successfully';
 
 
   constructor(public router:Router,private dbconfig: dbConfiguration, private messageService: MessageService,private dbprovider:dbProvider,public popoverController: PopoverController,public dialogService: DialogService,private translate: TranslateService,public config: DynamicDialogConfig,public ref: DynamicDialogRef) {

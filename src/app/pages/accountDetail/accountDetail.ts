@@ -18,7 +18,7 @@ export class accountDetail {
 
   selectedVehicle;
   selectedAccount;
-  public savedSuccessMessage = 'Account closed sucessfully';
+  public savedSuccessMessage = 'Account closed successfully';
 
 public accountList = []
   constructor(private confirmationService: ConfirmationService,public router:Router,public popoverController: PopoverController,private translate: TranslateService,public dialogService: DialogService,private messageService: MessageService,private dbprovider:dbProvider,public config: DynamicDialogConfig) {

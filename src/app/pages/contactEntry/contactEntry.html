@@ -10,19 +10,7 @@
       <ion-label position="floating">{{'contactEntry.contactNameInTamil' | translate}}</ion-label>
       <ion-input type="text" [(ngModel)]="contactObj['contactNameInTamil']" formControlName="contactNameInTamil"></ion-input>
     </ion-item>
-    <ion-item lines="full" formGroupName="contact">
-
-      <ion-radio-group value="owner" mode="md" formControlName="contactType" [(ngModel)]="contactObj['contactType']" style="width: 100%;">
-        <ion-label>{{'contactEntry.contactType' | translate}}</ion-label>
-        <ion-item>
-          <ion-radio value="owner"></ion-radio>
-          <ion-label> {{'contactEntry.ownerType' | translate}}</ion-label>
   
-          <ion-radio value="others">Test</ion-radio>
-          <ion-label> {{'contactEntry.otherType' | translate}}</ion-label>
-        </ion-item>
-      </ion-radio-group>
-    </ion-item>
     <ion-item lines="full" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactMobile' | translate}}</ion-label>
       <ion-input type="number" [(ngModel)]="contactObj['contactMobile']" formControlName="contactMobile" required></ion-input>

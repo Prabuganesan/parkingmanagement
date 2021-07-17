@@ -52,17 +52,10 @@ export class contactListWithVehicleInfo {
           }
         },
         {
-          label: this.translate.instant('actions.assignContact'),
-          icon: 'pi pi-angle-right',
-          command: () => {
-            this.assignContact();
-          }
-        },
-        {
           label: this.translate.instant('actions.contactList'),
           icon: 'pi pi-angle-right',
           command: () => {
-            this.showContactList();
+            this.showAlternateContactList();
           }
         },
         {
@@ -83,7 +76,7 @@ export class contactListWithVehicleInfo {
     }
     ];
 
-  
+
 
 
   }
@@ -96,7 +89,7 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(contactEntry, {
       header: this.translate.instant('contactEntry.title'),
       width: '50%',
-      data: { 'object': contactObj, 'mode': 'edit', 'contactId': 'test' }
+      data: { 'object': contactObj, 'mode': 'edit', 'contactType': 'Primary' }
 
     });
     ref.onClose.subscribe(res => {
@@ -112,7 +105,7 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(contactEntry, {
       header: this.translate.instant('contactEntry.title'),
       width: '50%',
-      data: { 'object': '', 'mode': 'new' }
+      data: { 'object': '', 'mode': 'new', 'contactType': 'Primary' }
 
     });
     ref.onClose.subscribe(res => {
@@ -162,10 +155,19 @@ export class contactListWithVehicleInfo {
     this.dbprovider.fetchDocsWithoutRelationshipByType(this.contactTableName).then(res => {
       if (res && res['status'] == "SUCCESS") {
         console.log(res)
-        this.contactList = res['records'];
-        if (this.contactList.length > 0) {
-          this.selectedContact = this.contactList[0]
-          this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+
+        if (res['records'].length > 0) {
+          res['records'].forEach(element => {
+            if (element.contactType == 'owner') {
+              this.contactList.push(element)
+            }
+          });
+          // this.contactList = res['records'];
+          if (this.contactList.length > 0) {
+            this.selectedContact = this.contactList[0]
+            this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+          }
+
         }
       }
       else {
@@ -183,7 +185,7 @@ export class contactListWithVehicleInfo {
         const vehicleRelIds = vehicleIds.map(i => this.vehicleTableName + '_2_' + i)
         this.fetchVehicleListAgainstContact(vehicleRelIds)
 
-      }else{
+      } else {
         this.vehicleList = [];
         this.selectedVehicle = null;
       }
@@ -202,7 +204,7 @@ export class contactListWithVehicleInfo {
             this.vehicleList.push(result)
           })
         })
-       
+
       }
       else {
         this.vehicleList = []
@@ -215,17 +217,16 @@ export class contactListWithVehicleInfo {
     let vehicleInfo = {}
     let taskList = [];
     taskList.push(this.fetchAccountInfoAgainstVehicle(vehicleId).then(res => {
-      if(res)
-      {
+      if (res) {
         vehicleInfo['rentPlanInfo'] = res['rentPlan_lookup']
         delete res['rentPlan_lookup']
         vehicleInfo['accountInfo'] = res
         console.log(res)
-      }else{
-        vehicleInfo['accountInfo'] = {  }
-        vehicleInfo['rentPlanInfo'] = {  }
+      } else {
+        vehicleInfo['accountInfo'] = {}
+        vehicleInfo['rentPlanInfo'] = {}
       }
-     
+
 
     }))
     taskList.push(this.fetchAdditionalContactInfoAgainstVehicle().then(res => {
@@ -238,12 +239,11 @@ export class contactListWithVehicleInfo {
     }))
 
     taskList.push(this.fetchAlternateVehicleInfoAgainstVehicle(vehicleId).then(res => {
-      if(res.length>0)
-      {
+      if (res.length > 0) {
         vehicleInfo['alternateVehicleInfo'] = res[0]
 
       }
-      else{
+      else {
         vehicleInfo['alternateVehicleInfo'] = {}
 
       }
@@ -255,37 +255,36 @@ export class contactListWithVehicleInfo {
     })
   }
   fetchAccountInfoAgainstVehicle(vehicleId) {
-    return this.dbprovider.fetchDocsWithRelationshipUsingFindOption({ selector: { 'data.vehicle': vehicleId, 'data.type': this.accountTableName }, sort: ['data.vehicle'] },true,{'masterandlookupreference':['rentPlan']}).then(res => {
-        console.log(res)
-        if(res && res['status'] == "SUCCESS"){
-          if(res['records'].length>0)
-          {
-            let activeAccount = null;
-            res['records'].forEach(element => {
-              if(!element.closeDate){
-                activeAccount = element;
-              }
-            });
-            return activeAccount;
-          }
+    return this.dbprovider.fetchDocsWithRelationshipUsingFindOption({ selector: { 'data.vehicle': vehicleId, 'data.type': this.accountTableName }, sort: ['data.vehicle'] }, true, { 'masterandlookupreference': ['rentPlan'] }).then(res => {
+      console.log(res)
+      if (res && res['status'] == "SUCCESS") {
+        if (res['records'].length > 0) {
+          let activeAccount = null;
+          res['records'].forEach(element => {
+            if (!element.closeDate) {
+              activeAccount = element;
+            }
+          });
+          return activeAccount;
         }
-        else{
-          return null
-        }
-      })
+      }
+      else {
+        return null
+      }
+    })
   }
 
   fetchAdditionalContactInfoAgainstVehicle() {
     return Promise.resolve("")
   }
 
-  fetchAlternateVehicleInfoAgainstVehicle(vehicleId){
-    return this.dbprovider.fetchDocsWithoutRelationshipByParentTypeAndId(this.alternateVehicleTableName,this.vehicleTableName ,vehicleId).then(res => {
+  fetchAlternateVehicleInfoAgainstVehicle(vehicleId) {
+    return this.dbprovider.fetchDocsWithoutRelationshipByParentTypeAndId(this.alternateVehicleTableName, this.vehicleTableName, vehicleId).then(res => {
       console.log(res)
-      if(res && res['status'] == "SUCCESS"){
+      if (res && res['status'] == "SUCCESS") {
         return res['records']
       }
-      else{
+      else {
         return null
       }
     })
@@ -299,19 +298,8 @@ export class contactListWithVehicleInfo {
     console.log('menu click', this.selectedVehicle)
 
   }
-  async assignContact() {
 
-    const popover = await this.popoverController.create({
-      component: contactAssignment,
-      translucent: true,
-      mode: 'md'
-    });
-    await popover.present();
-
-    const { role } = await popover.onDidDismiss();
-
-  }
-  async showContactList() {
+  async showAlternateContactList() {
     const popover = await this.popoverController.create({
       component: contactListAgainstCar,
       translucent: true,
@@ -329,12 +317,12 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(alternateVehicleList, {
       header: this.translate.instant('alternateVehicle.title'),
       width: '50%',
-      data: { 'vehicle': this.selectedVehicle}
+      data: { 'vehicle': this.selectedVehicle }
 
 
     });
     ref.onClose.subscribe(res => {
-        this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+      this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
     });
   }
   async accountDetail() {
@@ -344,12 +332,12 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(accountDetail, {
       header: this.translate.instant('accountDetail.title'),
       width: '50%',
-      data: { 'vehicle': this.selectedVehicle}
+      data: { 'vehicle': this.selectedVehicle }
 
 
     });
     ref.onClose.subscribe(res => {
-        this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+      this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
     });
 
 
@@ -373,7 +361,9 @@ export class contactListWithVehicleInfo {
     this.location.back();
   }
 
-  vehicleDetail() {
-    this.router.navigate(['vehicleInfoDetail'])
+  vehicleDetail(vehicle) {
+    this.router.navigate(['vehicleInfoDetail'], {
+      queryParams: { 'vehicle': JSON.stringify(vehicle), 'selectedContactId': this.selectedContact.id }
+    });
   }
 }

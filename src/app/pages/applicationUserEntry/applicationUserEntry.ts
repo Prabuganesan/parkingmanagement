@@ -15,7 +15,7 @@ export class applicationUserEntry {
   public applicationUserObj: any = {};
   public formGroup: FormGroup;
   public tableName = 'applicationUser'
-  public savedSuccessMessage = 'Data saved sucessfully';
+  public savedSuccessMessage = 'Data saved successfully';
 
   constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef,public config: DynamicDialogConfig) {
     if(config.data.mode == 'edit'){

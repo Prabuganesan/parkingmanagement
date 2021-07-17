@@ -21,7 +21,7 @@ export class alternateVehicleEntry {
   public formGroup: FormGroup;
   public tableName = 'alternateVehicle'
 
-  public savedSuccessMessage = 'Data saved sucessfully';
+  public savedSuccessMessage = 'Data saved successfully';
 
   constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef,public config: DynamicDialogConfig) {
     this.vehicleObj = JSON.parse(JSON.stringify(config.data.vehicle)); 

@@ -14,9 +14,12 @@ export class contactEntry {
   public contactObj: any = {};
   public formGroup: FormGroup;
   public tableName = 'contact'
-  public savedSuccessMessage = 'Data saved sucessfully';
+  public savedSuccessMessage = 'Data saved successfully';
+  public contactType = "";
 
   constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef,public config: DynamicDialogConfig) {
+    this.contactType = this.config.data.contactType;
+
     if(config.data.mode == 'edit'){
       this.contactObj = JSON.parse(JSON.stringify(config.data.object)); 
     }
@@ -28,7 +31,13 @@ export class contactEntry {
     }
     initializeObjects(tableStructure) {
       this.contactObj = JSON.parse(JSON.stringify(tableStructure[this.tableName]));
-      this.contactObj['contactType'] = 'owner';
+      if(this.contactType == 'Primary'){
+        this.contactObj['contactType'] = 'owner';
+      }
+      else{
+        this.contactObj['contactType'] = 'others';
+
+      }
     }
   
     createFormGroup() {
@@ -36,7 +45,6 @@ export class contactEntry {
         contact: this.formBuilder.group({
           contactName: ['', Validators.compose([Validators.maxLength(80), Validators.required])],
           contactNameInTamil: [''],
-          contactType: ['', Validators.compose([Validators.required])],
           contactMobile: ['', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]] , 
           licenseNumber: [''],
 
@@ -51,7 +59,6 @@ export class contactEntry {
         contact: {
           contactName: this.contactObj['contactName'],
           contactNameInTamil: this.contactObj['contactNameInTamil'],
-          contactType: this.contactObj['contactType'],
           contactMobile: this.contactObj['contactMobile'],
           licenseNumber: this.contactObj['licenseNumber']
 
