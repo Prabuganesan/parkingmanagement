@@ -16,18 +16,26 @@ export class contactEntry {
   public tableName = 'contact'
   public savedSuccessMessage = 'Data saved successfully';
   public contactType = "";
+  public vehicleandContactAssgObj: any = {};
+  public assignmenttableName = 'vehicleContactAssignment'
+  public vehicleId;
+  public contactId;
 
   constructor(public router: Router, private dbconfig: dbConfiguration, public formBuilder: FormBuilder, private dbprovider: dbProvider, private messageService: MessageService, public ref: DynamicDialogRef,public config: DynamicDialogConfig) {
     this.contactType = this.config.data.contactType;
-
+    this.vehicleId = this.config.data.vehicleId;
     if(config.data.mode == 'edit'){
       this.contactObj = JSON.parse(JSON.stringify(config.data.object)); 
     }
     else{
       this.initializeObjects(this.dbconfig.configuration.tableStructure)
+      this.initializeAssignmentObjects(this.dbconfig.configuration.tableStructure)
     }
     this.createFormGroup();
+    }
 
+    initializeAssignmentObjects(tableStructure) {
+      this.vehicleandContactAssgObj = JSON.parse(JSON.stringify(tableStructure[this.assignmenttableName]));
     }
     initializeObjects(tableStructure) {
       this.contactObj = JSON.parse(JSON.stringify(tableStructure[this.tableName]));
@@ -74,7 +82,13 @@ export class contactEntry {
                 return;
               }
               this.messageService.add({ key: "contactEntry", severity: 'success', summary: this.savedSuccessMessage, detail: '' });
-              setTimeout(() => this.ref.close('SUCCESS'), 1000);
+              this.contactId = result['id'];
+              if(this.config.data.mode != 'edit' && this.contactObj['contactType'] == 'others')
+              {
+                 this.saveContactAndVehicleAssignment()
+              }else{
+                setTimeout(() => this.ref.close('SUCCESS'), 1000);
+              }
   
             }).catch(error => {
               console.log(error)
@@ -105,6 +119,22 @@ export class contactEntry {
         return alreadyExist;
       })
   
+    }
+    saveContactAndVehicleAssignment(){
+      this.vehicleandContactAssgObj['contact_lookup'] = this.contactId
+      this.vehicleandContactAssgObj['vehicle_lookup'] = this.vehicleId
+
+      console.log(this.vehicleandContactAssgObj)
+      this.dbprovider.save(this.assignmenttableName, this.vehicleandContactAssgObj).then(result => {
+        console.log(result)
+        if (result['status'] != 'SUCCESS'){
+          console.log("Vehicle assignment save failed",result)
+        }else{
+          console.log("Vehicle assignment save Success")
+        }
+        setTimeout(() => this.ref.close('SUCCESS'), 1000);
+
+      })
     }
 
 }

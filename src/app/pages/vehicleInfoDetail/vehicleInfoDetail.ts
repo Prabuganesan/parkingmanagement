@@ -154,12 +154,8 @@ export class vehicleInfoDetail {
      
 
     }))
-    taskList.push(this.fetchAdditionalContactInfoAgainstVehicle().then(res => {
-      vehicleInfo['additionalContacts'] = [{
-        "contactName": "Shunmugam",
-        "contactNameInTamil": "ஷன்மு123",
-        "contactMobile": "1234567896"
-      }]
+    taskList.push(this.fetchAdditionalContactInfoAgainstVehicle(vehicleId).then(res => {
+      vehicleInfo['additionalContacts'] = res
 
     }))
 
@@ -198,11 +194,46 @@ export class vehicleInfoDetail {
         else{
           return null
         }
-      })
+      }).catch(error => {
+        return null
+      });
   }
 
-  fetchAdditionalContactInfoAgainstVehicle() {
-    return Promise.resolve("")
+  fetchAdditionalContactInfoAgainstVehicle(vehicleId) {
+    return this.dbprovider.fetchDocsWithoutRelationshipUsingFindOption({ selector: { 'data.vehicle_lookup': vehicleId, 'data.type': this.vehicleContactAssignmentTableName }, sort: ['data.vehicle_lookup'] }).then(res => {
+      console.log(res)
+      if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+        let contactIds = res['records'].map(a => a.contact_lookup);
+        const contactRelIds = contactIds.map(i => this.contactTableName + '_2_' + i)
+        return this.fetchContactListAgainstVehicle(contactRelIds)
+
+      } else {
+          return []
+      }
+    }).catch(error => {
+      return []
+    });
+  }
+  fetchContactListAgainstVehicle(contactIds) {
+    console.log(contactIds)
+    var contactList = [];
+    return this.dbprovider.fetchDocsWithDocIds(contactIds).then(res => {
+      console.log(res)
+      if (res['status'] == 'SUCCESS' && res['response'].length > 0) {
+        res['response'].forEach(element => {
+          console.log(element)
+          if (element.contactType == 'others') {
+            contactList.push(element)
+          }
+        })
+        return contactList
+      }
+      else {
+        return []
+      }
+    }).catch(error => {
+      return []
+    });
   }
 
   fetchAlternateVehicleInfoAgainstVehicle(vehicleId){
@@ -261,16 +292,20 @@ export class vehicleInfoDetail {
   }
 
   async showAlternateContactList() {
-    const popover = await this.popoverController.create({
-      component: contactListAgainstCar,
-      translucent: true,
-      mode: 'md'
+    console.log("alternate contact detail")
+
+    const ref = this.dialogService.open(contactListAgainstCar, {
+      header: this.translate.instant('contactList.title'),
+      width: '50%',
+      data: { 'vehicle': this.selectedVehicle }
+
+
     });
-    await popover.present();
+    ref.onClose.subscribe(res => {
+      this.fetchVehicle()
+    });
 
-    const { role } = await popover.onDidDismiss();
   }
-
 
   // Navigation methods
   backButtonOnclick() {

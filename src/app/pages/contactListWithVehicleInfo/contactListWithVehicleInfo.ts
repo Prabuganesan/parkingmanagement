@@ -22,6 +22,7 @@ export class contactListWithVehicleInfo {
 
   contactList = []
   vehicleList = []
+  allContactList = []
   items: MenuItem[];
   active;
   queryText = "";
@@ -89,7 +90,7 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(contactEntry, {
       header: this.translate.instant('contactEntry.title'),
       width: '50%',
-      data: { 'object': contactObj, 'mode': 'edit', 'contactType': 'Primary' }
+      data: { 'object': contactObj, 'mode': 'edit', 'contactType': 'Primary','vehicleId':'' }
 
     });
     ref.onClose.subscribe(res => {
@@ -105,7 +106,7 @@ export class contactListWithVehicleInfo {
     const ref = this.dialogService.open(contactEntry, {
       header: this.translate.instant('contactEntry.title'),
       width: '50%',
-      data: { 'object': '', 'mode': 'new', 'contactType': 'Primary' }
+      data: { 'object': '', 'mode': 'new', 'contactType': 'Primary','vehicleId':''  }
 
     });
     ref.onClose.subscribe(res => {
@@ -151,7 +152,7 @@ export class contactListWithVehicleInfo {
 
 
   fetchContactList() {
-
+    this.contactList=[];
     this.dbprovider.fetchDocsWithoutRelationshipByType(this.contactTableName).then(res => {
       if (res && res['status'] == "SUCCESS") {
         console.log(res)
@@ -163,6 +164,8 @@ export class contactListWithVehicleInfo {
             }
           });
           // this.contactList = res['records'];
+          this.allContactList = [...this.contactList]
+
           if (this.contactList.length > 0) {
             this.selectedContact = this.contactList[0]
             this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
@@ -229,12 +232,9 @@ export class contactListWithVehicleInfo {
 
 
     }))
-    taskList.push(this.fetchAdditionalContactInfoAgainstVehicle().then(res => {
-      vehicleInfo['additionalContacts'] = [{
-        "contactName": "Shunmugam",
-        "contactNameInTamil": "ஷன்மு123",
-        "contactMobile": "1234567896"
-      }]
+    taskList.push(this.fetchAdditionalContactInfoAgainstVehicle(vehicleId).then(res => {
+      vehicleInfo['additionalContacts'] = res
+    
 
     }))
 
@@ -271,11 +271,46 @@ export class contactListWithVehicleInfo {
       else {
         return null
       }
-    })
+    }).catch(error => {
+      return null
+    });
   }
 
-  fetchAdditionalContactInfoAgainstVehicle() {
-    return Promise.resolve("")
+  fetchAdditionalContactInfoAgainstVehicle(vehicleId) {
+    return this.dbprovider.fetchDocsWithoutRelationshipUsingFindOption({ selector: { 'data.vehicle_lookup': vehicleId, 'data.type': this.vehicleContactAssignmentTableName }, sort: ['data.vehicle_lookup'] }).then(res => {
+      console.log(res)
+      if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+        let contactIds = res['records'].map(a => a.contact_lookup);
+        const contactRelIds = contactIds.map(i => this.contactTableName + '_2_' + i)
+        return this.fetchContactListAgainstVehicle(contactRelIds)
+
+      } else {
+          return []
+      }
+    }).catch(error => {
+      return []
+    });
+  }
+  fetchContactListAgainstVehicle(contactIds) {
+    console.log(contactIds)
+    var contactList = [];
+    return this.dbprovider.fetchDocsWithDocIds(contactIds).then(res => {
+      console.log(res)
+      if (res['status'] == 'SUCCESS' && res['response'].length > 0) {
+        res['response'].forEach(element => {
+          console.log(element)
+          if (element.contactType == 'others') {
+            contactList.push(element)
+          }
+        })
+        return contactList
+      }
+      else {
+        return []
+      }
+    }).catch(error => {
+      return []
+    });
   }
 
   fetchAlternateVehicleInfoAgainstVehicle(vehicleId) {
@@ -300,18 +335,21 @@ export class contactListWithVehicleInfo {
   }
 
   async showAlternateContactList() {
-    const popover = await this.popoverController.create({
-      component: contactListAgainstCar,
-      translucent: true,
-      mode: 'md'
-    });
-    await popover.present();
+    console.log("alternate contact detail")
 
-    const { role } = await popover.onDidDismiss();
+    const ref = this.dialogService.open(contactListAgainstCar, {
+      header: this.translate.instant('contactList.title'),
+      width: '50%',
+      data: { 'vehicle': this.selectedVehicle }
+
+
+    });
+    ref.onClose.subscribe(res => {
+      this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+    });
+
   }
   async alternateVehicleList() {
-
-
     console.log("alternate vehicle detail")
 
     const ref = this.dialogService.open(alternateVehicleList, {
@@ -353,7 +391,19 @@ export class contactListWithVehicleInfo {
   }
 
   searchByKeyword() {
-    console.log("search")
+    console.log("search",this.queryText)
+    this.contactList = []
+    if(this.queryText.length>0){
+      this.allContactList.forEach(element => {
+        if(element.contactName.includes(this.queryText) || element.contactMobile.toString().includes(this.queryText) ){
+          this.contactList.push(element)
+        }
+      });
+    }else{
+      this.contactList = [...this.allContactList]
+    }
+    
+
   }
 
   // Navigation methods
