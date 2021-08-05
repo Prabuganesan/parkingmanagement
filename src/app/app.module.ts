@@ -48,14 +48,14 @@ import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 import {DropdownModule} from 'primeng/dropdown';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import {LogMonitorModule} from 'ngx-log-monitor';
-import { billGenerate } from './pages/billGenerate/billGenerate';
+// import { billGenerate } from './pages/billGenerate/billGenerate';
 
 export function createTranslateLoader(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 }
 
 @NgModule({
-  declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry,billGenerate],
+  declarations: [AppComponent,MenuPage,rentPlanEntry,settingPage,vehicleEntry,contactEntry,applicationUserEntry,contactAssignment,contactListAgainstCar,alternateVehicleAssignment,alternateVehicleList,accountCreation,accountDetail,accountHistory,rentPlanPopupList,alternateVehicleEntry],
   entryComponents: [],
   imports: [BrowserModule,DialogModule,CommonModule,HttpClientModule,OrderListModule,DynamicDialogModule, InputTextModule,FormsModule,RippleModule,ButtonModule, BrowserAnimationsModule, IonicModule.forRoot(), AppRoutingModule, TableModule, transactionEntrymodule,DataViewModule, CalendarModule, ToastModule, RadioButtonModule,transactionHistoryModule,
     MenuModule,NgxPubSubModule,ReactiveFormsModule,DropdownModule,ConfirmDialogModule,LogMonitorModule,
