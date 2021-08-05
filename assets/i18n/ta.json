@@ -97,11 +97,13 @@
     "history":"வரலாறு",
     "accountHistory.title":"கணக்கு வரலாறு",
     "actions.assignContact":"வாடிக்கையாளர் நிர்ணயம்",
-    "actions.contactList":"வாடிக்கையாளர் பட்டியல்",
+    "actions.contactList":"மாற்று வாடிக்கையாளர் பட்டியல்",
     "actions.createAccount":"கணக்கு உருவாக்கம்",
     "actions.assignAlternateVehicle":"மாற்று வாகன நிர்ணயம்",
     "actions.alternateVehicleList":"மாற்று வாகன பட்டியல்",
     "actions.accountDetail":"கணக்கு விவரம்",
-    "actions.editVehicle": "வாகனத்தைத் திருத்து"
+    "actions.editVehicle": "வாகனத்தைத் திருத்து",
+    "billGenerate.title":"பில் கணக்கு உருவாக்கம் "
+
 
 }
