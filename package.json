@@ -27,6 +27,7 @@
     "@pscoped/ngx-pub-sub": "3.0.2",
     "cordova-plugin-file-opener2": "3.0.5",
     "cordova-plugin-sqlite-2": "1.0.7",
+    "ngx-log-monitor": "1.2.0",
     "pouchdb": "7.0.0",
     "pouchdb-adapter-cordova-sqlite": "2.0.8",
     "pouchdb-find": "7.0.0",

@@ -588,6 +588,30 @@ export class dbProvider {
         }
     }
 
+    // Fetch single table docs with relationship
+    fetchDocsWithRelationshipByType(type, withchild: boolean, referencedetail?) {
+        const validateStatus = this.validateReferenceDetails(referencedetail);
+        if (validateStatus.status === this.success) {
+            return this.db.rel.find(type + '_only').then(result => {
+                if (withchild) {
+                    return this.checkChildObjectsForFetch(type, result, referencedetail).then(res => {
+                        return this.checkLookupObjectFetchMethod(type, res, referencedetail);
+});
+                } else {
+                    return this.checkLookupObjectsForFetch(type, result, referencedetail).then(result => {
+                        this.response = { status: this.success, message: '', records: result };
+                        return this.response;
+                    });
+                }
+            }).catch(error => {
+                this.response = { status: this.failed, message: error.message, records: [] };
+                return Promise.resolve(this.response);
+            });
+        } else {
+            return Promise.resolve(validateStatus);
+        }
+    }
+
     // Fetch single table docs by parent doc id with relationship
     fetchChildDocsWithRelationshipByParentTypeAndId(child_type, parent_type, parent_id, withchild: boolean, referencedetail?) {
     

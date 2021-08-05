@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'vehicleInfoDetail',
     loadChildren: () => import('./pages/vehicleInfoDetail/vehicleInfoDetail.module').then(m => m.vehicleInfoDetailModule)
+  },
+  {
+    path: 'billGenerate',
+    loadChildren: () => import('./pages/billGenerate/billGenerate.module').then(m => m.billGenerateModule)
   }
 
   

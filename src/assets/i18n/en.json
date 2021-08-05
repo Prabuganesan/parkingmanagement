@@ -102,7 +102,8 @@
   "actions.assignAlternateVehicle":"Assign Alternate vehicle",
   "actions.alternateVehicleList":"Alternate vehicle List",
   "actions.accountDetail":"Account detail",
-  "actions.editVehicle":"Edit vehicle"
+  "actions.editVehicle":"Edit vehicle",
+  "billGenerate.title":"Bill generate"
 
 
 

@@ -41,7 +41,9 @@ export class accountCreation {
 
     const ref = this.dialogService.open(rentPlanPopupList, {
       header: this.translate.instant('rentPlanList.title'),
-      width: '50%'
+      width: '50%',
+      data: { 'vehicleType': this.selectedVehicle.vehicleType }
+
 
     });
     ref.onClose.subscribe(res => {

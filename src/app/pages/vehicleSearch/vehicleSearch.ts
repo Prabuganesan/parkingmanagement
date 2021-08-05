@@ -5,6 +5,7 @@ import { transactionEntry } from 'src/app/components/transactionEntry/transactio
 import {MessageService} from 'primeng/api';
 import {Location} from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { dbProvider } from 'src/app/core/dbProvider';
 
 @Component({
   selector: 'vehicleSearch',
@@ -19,8 +20,10 @@ export class vehicleSearch {
   frozenCols = [];
   queryText = ''
   appLanguage = 'ta'
+  public vehicleTableName = 'vehicle'
 
-  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location,private translate: TranslateService) {
+
+  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location,private translate: TranslateService,private dbprovider: dbProvider) {
 
    this.appLanguage = this.translate.getDefaultLang()
     this.cols = [
@@ -817,6 +820,11 @@ export class vehicleSearch {
   backButtonOnclick() {
     this.location.back();
   }
+  billGeneration(){
+    console.log('Generate bill')
+
+this.router.navigate(['billGenerate'])
+}
 
   searchByKeyword(){
     console.log(this.queryText)
