@@ -15,7 +15,7 @@
   "transactionEntry.totalPayable":"Total payable",
   "transactionEntry.amountMode":"Amount mode",
   "transactionEntry.totalPendingAmount":"Total pending amount",
-  "transactionEntry.currentPendingAmount":" pending amount",
+  "transactionEntry.currentPendingAmount":" Pending amount",
   "save":"SAVE",
   "transactionHistory.month":"Month",
   "transactionHistory.date":"Date",

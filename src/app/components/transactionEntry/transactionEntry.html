@@ -48,36 +48,43 @@
   <div style="text-align: center;">
     <input type="datetime-local" id="myLocalDate" [(ngModel)]="billdate" style="background-color:lightgray;align-self: center;width: 60%;">
   </div>
-  <form *ngIf="amountDetail">
+  <form *ngIf="billdetail">
 
     <ion-item lines="inset">
       <h5> {{'transactionEntry.totalPendingAmount' | translate}} : {{totalPendingAmount}} {{'rs' | translate}}</h5>
     </ion-item>
 
-    <ion-item lines="inset">
+    <!-- <ion-item lines="inset">
       <h5> {{monthName}} {{'transactionEntry.currentPendingAmount' | translate}} : {{currentMonthPendingAmount}} {{'rs' | translate}}</h5>
-    </ion-item>
+    </ion-item> -->
 
     <ion-item lines="inset">
       <ion-label position="floating"> {{'transactionEntry.amount' | translate}}</ion-label>
-      <ion-input type="number" required [value]="amount" (input)='onInputTime($event)' ></ion-input>
+      <ion-input type="number" required [value]="amount" (input)='onInputAmount($event)' ></ion-input>
     </ion-item>
 
     <ion-item lines="inset">
       <ion-label position="floating">{{'transactionEntry.discount' | translate}}</ion-label>
-      <ion-input type="number" [value]="discount" (input)='onInputTime1($event)' ></ion-input>
+      <ion-input type="number" [value]="discount" (input)='onInputDiscount($event)' ></ion-input>
     </ion-item>
 
     <ion-item lines="inset">
       <ion-label position="floating">{{'transactionEntry.totalPayable' | translate}}</ion-label>
-      <ion-input type="text" readonly [value]="totalPayable"></ion-input>
+      <ion-input type="number" readonly [value]="totalPayable"></ion-input>
     </ion-item>
+
+    <ion-item lines="inset">
+      <ion-label position="floating"> {{'transactionHistory.receivedFrom' | translate}}</ion-label>
+      <ion-input type="text" [value]="receivedFrom" (input)='onInputReceivedFrom($event)'></ion-input>
+    </ion-item>
+
     <ion-item>
     <ion-label >{{'transactionEntry.amountMode' | translate}}</ion-label>
     <p-radioButton name="cash" value="cash" [(ngModel)]="paymentMode" inputId="cash"></p-radioButton><label style="padding-left: 2px;padding-right: 7px;">Cash </label>
     <p-radioButton name="upi" value="upi" [(ngModel)]="paymentMode" inputId="upi"></p-radioButton><label style="padding-left: 2px;padding-right: 7px;">UPI </label>
     <p-radioButton name="card" value="card" [(ngModel)]="paymentMode" inputId="card"></p-radioButton><label style="padding-left: 2px;">Card </label>
     </ion-item>
+
 
     <ion-row>
       <ion-col>
@@ -86,3 +93,4 @@
     </ion-row>
   </form>
   </div>
+  <p-toast key="transactionEntry" position="center"></p-toast>

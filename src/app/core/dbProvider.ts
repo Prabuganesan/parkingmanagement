@@ -226,6 +226,40 @@ export class dbProvider {
         });
     }
 
+
+    //Ddoc save
+   saveDdoc(ddoc){
+    return this.db.put(ddoc)
+    .catch(err => {
+        if (err.name !== "conflict") {
+            throw err;
+        }
+    })
+    .then(res => {
+        return res;
+    });
+   }
+
+   //query by view
+   queryByView(viewName,query){
+    return this.db.query(viewName, query).then( result => {
+        console.log(result)
+        return Promise.resolve({
+            status: this.success,
+            message: "",
+            records: result['rows']
+        });
+      }).catch( err => {
+        console.log(err)
+        return Promise.resolve({
+            status: this.failed,
+            message: "Error",
+            records: []
+        });
+
+      });
+   }
+
     // Save single document
     save(type, doc) {
         const copieddoc = JSON.parse(JSON.stringify(doc));
@@ -325,7 +359,7 @@ export class dbProvider {
     }
 
     // Convert relationship id to normal doc id
-    private convertRelIdToDocId(relid) {
+     convertRelIdToDocId(relid) {
         const parsedId = this.db.rel.parseDocID(relid);
         return parsedId.id;
     }

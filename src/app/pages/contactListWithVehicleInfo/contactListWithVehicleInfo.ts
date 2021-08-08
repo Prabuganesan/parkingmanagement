@@ -395,12 +395,17 @@ export class contactListWithVehicleInfo {
     this.contactList = []
     if(this.queryText.length>0){
       this.allContactList.forEach(element => {
-        if(element.contactName.includes(this.queryText) || element.contactMobile.toString().includes(this.queryText) ){
+        if(element.contactName.toLowerCase().includes(this.queryText.toLowerCase()) || element.contactMobile.toString().toLowerCase().includes(this.queryText.toLowerCase()) ){
           this.contactList.push(element)
         }
       });
     }else{
       this.contactList = [...this.allContactList]
+    }
+
+    if (this.contactList.length > 0) {
+      this.selectedContact = this.contactList[0]
+      this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
     }
     
 

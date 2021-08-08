@@ -28,7 +28,7 @@
 
   <ion-toolbar style="position:fixed;" >
     <ion-item class="center" ion-fixed>
-      <input pInputText [(ngModel)]="queryText" type="text" placeholder="{{'vehicleSearch.searchPlaceholder' | translate}}"  style="width:100%">
+      <input pInputText [(ngModel)]="queryText" type="text" placeholder="{{'vehicleSearch.searchPlaceholder' | translate}}"  style="width:100%" (keyup.enter)="searchByKeyword()">
       <span style="padding-left: 5px;width: 50px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
     </ion-item>
       <ion-button slot="end" (click)="billGeneration()" >Bill Generate
@@ -36,7 +36,7 @@
   </ion-toolbar>
 
 <div style="top:60px">
-  <p-table [columns]="cols" [value]="vehiclelist" [alwaysShowPaginator]="true" [scrollable]="true" [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="10"
+  <p-table [columns]="cols" [value]="vehicleList" [alwaysShowPaginator]="true" [scrollable]="true" [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="10"
     [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-lg" >
 
@@ -72,22 +72,22 @@
   <ng-template pTemplate="body" let-vehicle let-columns="columns">
     <tr>
         <td *ngFor="let col of columns">
-          <div *ngIf="col.field == 'vehicleInfo'" (click)="vehicleCellClick(vehicle.vehicleInfo)">
+          <div *ngIf="col.field == 'vehicleInfo' && vehicle['vehicleInfo'] " (click)="vehicleCellClick(vehicle)">
           <label>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </label>
           <br />
           <label>{{vehicle.vehicleInfo.vehicleNumber}}</label>
           <br />
           
-          <label *ngIf="appLanguage && appLanguage == 'en'"><b>{{vehicle.primaryContact.contactName}}</b></label>
-          <label *ngIf="appLanguage && appLanguage == 'ta'"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
+          <label *ngIf="appLanguage && appLanguage == 'en' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactName}}</b></label>
+          <label *ngIf="appLanguage && appLanguage == 'ta' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
 
         </div>
-        <div *ngIf="col.field != 'vehicleInfo'" (click)="amountCellClick($event,vehicle[col.field])">
-          <label>T-{{vehicle[col.field].totalAmount}} {{'rs' | translate}}</label>
+        <div *ngIf="col.field != 'vehicleInfo' && vehicle[col.field]" (click)="amountCellClick($event,vehicle[col.field])">
+          <label>T - {{vehicle[col.field].totalAmount}} {{'rs' | translate}}</label>
           <br />
-          <label>R-{{vehicle[col.field].receivedAmount}} {{'rs' | translate}}</label>
+          <label>R - {{vehicle[col.field].receivedAmount}} {{'rs' | translate}}</label>
           <br />
-          <label>P-{{vehicle[col.field].pendingAmount}} {{'rs' | translate}}</label>
+          <label>P - {{vehicle[col.field].pendingAmount}} {{'rs' | translate}}</label>
           <br/>
           <!-- <label style="background-color: brown;">hi</label> -->
 
@@ -97,6 +97,9 @@
 
 
         </div>
+        <div *ngIf="!vehicle[col.field]" style="text-align: center;">
+          <label>----</label>
+          </div>
         </td>
     </tr>
 </ng-template>
@@ -147,7 +150,7 @@
     </ng-template> -->
   </p-table>
 </div>
-<p-toast position="bottom-center"></p-toast>
+<p-toast position="center"></p-toast>
 
 
 </ion-content>

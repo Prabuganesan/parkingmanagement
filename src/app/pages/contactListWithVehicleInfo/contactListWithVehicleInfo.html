@@ -22,7 +22,7 @@
   <div class="container">
     <div class="left">
       <ion-toolbar style="position:fixed;width: 30%;background-color: white;padding-right: 5px;padding-left: 3px;">
-        <input pInputText [(ngModel)]="queryText" type="text" placeholder="Search contact" style="width:70%">
+        <input pInputText [(ngModel)]="queryText" type="text" placeholder="Search contact" style="width:70%" (keyup.enter)="searchByKeyword()">
         <span style="padding-left: 7px;;"><button pButton pRipple type="button" icon="pi pi-search"
             class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
         <span style="float: right;"><button pButton pRipple type="button" icon="pi pi-user-plus"

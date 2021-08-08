@@ -342,6 +342,7 @@ export class dbConfiguration {
         "transactionMode": null,
         "discountAmount": null,
         "transactionDate": null,
+        "receivedFrom":null,
         "paidAmount": null,
         "billDetail":null,
         "lastmodifiedon": null,

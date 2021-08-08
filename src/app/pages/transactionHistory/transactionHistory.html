@@ -28,22 +28,30 @@
     <ion-item ion-fixed>
       <ion-col size="7">
         <label style="padding-right: 5px;padding-left: 5px;">From : </label>
-        <input style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="start" name="start" min="2020-03"
+        <input [(ngModel)]="startYearMonth" style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="start" name="start" min="2000-01"
           value="2021-03">
         <label style="padding-right: 5px;padding-left: 5px;">To : </label>
-        <input style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="end" name="end" min="2020-03"
+        <input [(ngModel)]="endYearMonth" style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="end" name="end" min="2000-01"
           value="2021-04">
 
-          <span style="padding-left: 7px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
+          <span style="padding-left: 7px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="search()"></button></span>
 
         <!-- <ion-button mode="ios" class="my-button" clear item-right icon-only (click)="searchByKeyword()">
           <ion-icon style="font-size: 30px;color: rgb(5, 5, 5);" name="search"></ion-icon>
         </ion-button> -->
       </ion-col>
       <ion-col size="5">
-        <div style="text-align: right;">
+        <div style="text-align: right;" *ngIf='vehicle'>
+
+          <label>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} - {{vehicle.vehicleInfo.vehicleNumber}}</label>
+          <br />
+          <label *ngIf="appLanguage && appLanguage == 'en' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactName}}</b></label>
+          <label *ngIf="appLanguage && appLanguage == 'ta' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
+          <br />
+          <!-- {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
+
           <label style="text-align: right;">Tata Tiago  -  TN 69 R5279</label><br>
-          <label style="text-align: right;">Prabu ganesan</label>
+          <label style="text-align: right;">Prabu ganesan</label> -->
         </div>
       </ion-col>
     </ion-item>
@@ -51,7 +59,7 @@
 
 
   <div style="top:60px">
-    <p-table [columns]="cols" [value]="ransactionlist" [alwaysShowPaginator]="true" [scrollable]="true"
+    <p-table [columns]="cols" [value]="transactionList" [alwaysShowPaginator]="true" [scrollable]="true"
       [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="10" [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,15]"
       styleClass="p-datatable-lg">
@@ -89,9 +97,11 @@
       <ng-template pTemplate="body" let-vehicle let-columns="columns">
         <tr>
           <td *ngFor="let col of columns">
-            <div (click)="vehicleCellClick(vehicle.vehicleInfo)">
+            <div>
+              <label *ngIf="col.field=='transactionDate'">{{vehicle['transactionDate'] | date:'dd/MM/yyyy hh:mm a'}}</label>
+              
               <label
-                *ngIf="col.field!='transactionAmount' && col.field!='discountAmount' && col.field!='paidAmount'">{{vehicle[col.field]}}</label>
+                *ngIf="col.field!='transactionAmount' && col.field!='discountAmount' && col.field!='paidAmount' && col.field!='transactionDate'">{{vehicle[col.field]}}</label>
               <label
                 *ngIf="col.field=='transactionAmount' || col.field=='discountAmount' || col.field=='paidAmount'">{{vehicle[col.field]}} {{'rs' | translate}}</label>
             </div>
@@ -99,4 +109,6 @@
       </ng-template>
     </p-table>
   </div>
+  <p-toast key="transactionHistory" position="bottom-center"></p-toast>
+
 </ion-content>

@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { transactionEntry } from 'src/app/components/transactionEntry/transactionEntry';
-import {MessageService} from 'primeng/api';
-import {Location} from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { dbProvider } from 'src/app/core/dbProvider';
+import { promise } from 'selenium-webdriver';
 
 @Component({
   selector: 'vehicleSearch',
@@ -15,853 +16,208 @@ import { dbProvider } from 'src/app/core/dbProvider';
 
 
 export class vehicleSearch {
-  vehiclelist = [];
+  vehicleList = [];
+  allvehicleList = [];
+
   cols = [];
   frozenCols = [];
   queryText = ''
   appLanguage = 'ta'
   public vehicleTableName = 'vehicle'
+  public accountTableName = 'account'
+  public vehicleContactAssignmentTablename = 'vehicleContactAssignment'
+  public billTable = 'billDetail'
 
 
-  constructor(public router: Router,public popoverController: PopoverController,private messageService: MessageService,private location : Location,private translate: TranslateService,private dbprovider: dbProvider) {
+  constructor(public router: Router, public popoverController: PopoverController, private messageService: MessageService, private location: Location, private translate: TranslateService, private dbprovider: dbProvider) {
 
-   this.appLanguage = this.translate.getDefaultLang()
-    this.cols = [
-      { field: 'vehicleInfo', header: 'vehicleSearch.vehicleInfo' },
-      { field: 'May21', header: 'May 21' },
-      { field: 'Apr21', header: 'Apr 21' },
-      { field: 'Mar21', header: 'Mar 21' },
-      { field: 'Feb21', header: 'Feb 21' },
-      { field: 'Jan21', header: 'Jan 21' },
-      { field: 'Dec20', header: 'Dec 21' },
-      { field: 'Nov20', header: 'Nov 21' },
-      { field: 'Oct20', header: 'Oct 21' },
-      { field: 'Sep20', header: 'Sep 21' },
-      { field: 'Aug20', header: 'Aug 21' }
+    this.appLanguage = this.translate.getDefaultLang()
+    let month_mapping = { '1': 'Jan', '2': 'Feb', '3': 'Mar', '4': 'Apr', '5': 'May', '6': 'Jun', '7': 'Jul', '8': 'Aug', '9': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec' }
+    var today = new Date();
+    var currentMonth = today.getMonth() + 1
+    var currentYearInTwoDigit = Number(today.getFullYear().toString().substr(-2))
+    var currentYearInFourDigit = today.getFullYear()
 
-  ];
-  console.log(this.translate.getDefaultLang())
-//   this.frozenCols = [
-//     { field: 'vehicleInfo', header: 'Vehicle Info' }
-// ];
-    this.vehiclelist = [
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Tiago",
-          "vehicleNumber": "TN 69 A1234"
-        },
-        "primaryContact": {
-          "contactName": "Prabu ganesan",
-          "contactNameInTamil":"பிரபு கணேசன்"
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000,
-          "Month":"May 21"
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 500,
-          "pendingAmount": 500,
-          "Month":"Apr 21"
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Mar 21"
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Feb 21"
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Jan 21"
 
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Dec 20"
-
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Nov 20"
-
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Oct 20"
-
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0,
-          "Month":"Aug 20"
-
+    for (var i = 0; i <= 10; i++) {
+      if (i == 10) {
+        this.cols.splice(0, 0, { field: 'vehicleInfo', header: 'vehicleSearch.vehicleInfo' });
+      } else {
+        if (currentMonth == 0) {
+          currentMonth = 12;
+          currentYearInTwoDigit = currentYearInTwoDigit - 1;
+          currentYearInFourDigit = currentYearInFourDigit - 1;
         }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Bolt",
-          "vehicleNumber": "TN 69 A 7863"
-        },
-        "primaryContact": {
-          "contactName": "Shunmu",
-          "contactNameInTamil":"ஷன்மு"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Zest",
-          "vehicleNumber": "TN 19 A 1263"
-        },
-        "primaryContact": {
-          "contactName": "Shunmugam",
-          "contactNameInTamil":"ஷன்முகம்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Tiago",
-          "vehicleNumber": "TN 69 A1234"
-        },
-        "primaryContact": {
-          "contactName": "Prabu ganesan",
-          "contactNameInTamil":"பிரபு கணேசன்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 500,
-          "pendingAmount": 500
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Bolt",
-          "vehicleNumber": "TN 69 A 7863"
-        },
-        "primaryContact": {
-          "contactName": "Shunmu",
-          "contactNameInTamil":"ஷன்மு"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Zest",
-          "vehicleNumber": "TN 19 A 1263"
-        },
-        "primaryContact": {
-          "contactName": "Shunmugam",
-          "contactNameInTamil":"ஷன்முகம்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Tiago",
-          "vehicleNumber": "TN 69 A1234"
-        },
-        "primaryContact": {
-          "contactName": "Prabu ganesan",
-          "contactNameInTamil":"பிரபு கணேசன்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 500,
-          "pendingAmount": 500
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Bolt",
-          "vehicleNumber": "TN 69 A 7863"
-        },
-        "primaryContact": {
-          "contactName": "Shunmu",
-          "contactNameInTamil":"ஷன்மு"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Zest",
-          "vehicleNumber": "TN 19 A 1263"
-        },
-        "primaryContact": {
-          "contactName": "Shunmugam",
-          "contactNameInTamil":"ஷன்முகம்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Tiago",
-          "vehicleNumber": "TN 69 A1234"
-        },
-        "primaryContact": {
-          "contactName": "Prabu ganesan",
-          "contactNameInTamil":"பிரபு கணேசன்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 500,
-          "pendingAmount": 500
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Bolt",
-          "vehicleNumber": "TN 69 A 7863"
-        },
-        "primaryContact": {
-          "contactName": "Shunmu",
-          "contactNameInTamil":"ஷன்மு"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
-      },
-      {
-        "vehicleInfo": {
-          "vehicleType": "Car",
-          "vehicleBrand": "Tata",
-          "vehicleModel": "Zest",
-          "vehicleNumber": "TN 19 A 1263"
-        },
-        "primaryContact": {
-          "contactName": "Shunmugam",
-          "contactNameInTamil":"ஷன்முகம்"
-
-        },
-        "May21": {
-          "totalAmount": 1000,
-          "receivedAmount": 0,
-          "pendingAmount": 1000
-        },
-        "Apr21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Mar21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Feb21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Jan21": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Dec20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Nov20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Oct20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Sep20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        },
-        "Aug20": {
-          "totalAmount": 1000,
-          "receivedAmount": 1000,
-          "pendingAmount": 0
-        }
+        var col = {}
+        col['month'] = currentMonth
+        let monthValue = currentMonth--;
+        col['field'] = month_mapping[monthValue] + currentYearInTwoDigit
+        col['header'] = month_mapping[monthValue] + ' ' + currentYearInTwoDigit
+        col['year'] = currentYearInFourDigit
+        this.cols.push(col)
       }
-    ]
-    
-   }
+    }
+
+    console.log(this.translate.getDefaultLang())
+
+    this.fetchVehicle();
+
+  }
   backButtonOnclick() {
     this.location.back();
   }
-  billGeneration(){
+  billGeneration() {
     console.log('Generate bill')
 
-this.router.navigate(['billGenerate'])
-}
+    this.router.navigate(['billGenerate'])
+  }
+  search(event) {
+    console.log(event)
+  }
+  searchByKeyword() {
 
-  searchByKeyword(){
-    console.log(this.queryText)
+    console.log("search", this.queryText)
+    this.vehicleList = []
+    if (this.queryText.length > 0) {
+      this.allvehicleList.forEach(element => {
+        if (element.vehicleInfo.vehicleNumber.toLowerCase().includes(this.queryText.toLowerCase())) {
+          this.vehicleList.push(element)
+        }
+      });
+    } else {
+      this.vehicleList = [...this.allvehicleList]
+
+    }
+
   }
   // amountCellClick(amountDetail){
   //   console.log("amount",amountDetail)
   // }
-  vehicleCellClick(vehicle){
-    console.log("vehicle",vehicle)
-    this.router.navigate(['transactionHistory'])
+  vehicleCellClick(vehicle) {
+    console.log("vehicle", vehicle)
+    if (vehicle['billAvailable'] == false) {
+      this.messageService.add({ severity: 'info', summary: "Account not available", detail: 'Active account not available for this vehicle' });
+
+    } else {
+      this.router.navigate(['transactionHistory'], {
+        queryParams: { 'vehicle': JSON.stringify(vehicle), appLanguage: this.appLanguage }
+      });
+    }
 
   }
-  async amountCellClick(ev: any,amountDetail) {
-    console.log("amount",amountDetail)
-    if(amountDetail.pendingAmount>0)
-    {
+  async amountCellClick(ev: any, amountDetail) {
+    console.log("amount", amountDetail)
+    if (amountDetail['pendingAmount'] > 0) {
       const popover = await this.popoverController.create({
         component: transactionEntry,
-        componentProps: { amountDetail: amountDetail },
+        componentProps: { billdetail: amountDetail },
         translucent: false,
-        showBackdrop:true,
-        backdropDismiss:false
+        showBackdrop: true,
+        backdropDismiss: false
       });
       await popover.present();
-  
+
       const { role } = await popover.onDidDismiss();
       console.log('onDidDismiss resolved with role', role);
     }
-    else
-    {
-      this.messageService.add({severity:'success', summary:this.translate.instant('vehicleSearch.alreadyPaid')+amountDetail.Month, detail:''});
+    else {
+      this.messageService.add({ severity: 'success', summary: this.translate.instant('vehicleSearch.alreadyPaid') + amountDetail.Month, detail: '' });
 
-      
+
 
     }
 
-    
+
+  }
+
+  fetchVehicle() {
+    this.vehicleList = []
+    this.allvehicleList = []
+
+    this.dbprovider.fetchDocsWithRelationshipUsingFindOption({ selector: { 'data.type': this.vehicleTableName } }, true, { 'childreference': ['account'] }).then(res => {
+      if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+        res['records'].forEach(element => {
+          let fullVehicleInfo = {}
+          let vehicleInfo = {}
+          vehicleInfo['vehicleType'] = element['vehicleType']
+          vehicleInfo['vehicleBrand'] = element['vehicleBrand']
+          vehicleInfo['vehicleModel'] = element['vehicleModel']
+          vehicleInfo['vehicleNumber'] = element['vehicleNumber']
+          vehicleInfo['vehicleId'] = element['id']
+          fullVehicleInfo['vehicleInfo'] = vehicleInfo
+          fullVehicleInfo['accounts'] = element['accounts']
+
+          var taskList = []
+          taskList.push(this.fetchContact(fullVehicleInfo))
+          taskList.push(this.fetchBillDetail(fullVehicleInfo))
+
+          Promise.all(taskList).then(result => {
+            this.vehicleList.push(fullVehicleInfo)
+            this.allvehicleList = [...this.vehicleList]
+
+          })
+
+        });
+      }
+    })
+
+  }
+
+  fetchContact(fullVehicleInfo) {
+    this.dbprovider.fetchDocsWithRelationshipUsingFindOption({ selector: { 'data.type': this.vehicleContactAssignmentTablename, 'data.vehicle_lookup': fullVehicleInfo['vehicleInfo']['vehicleId'] } }, true, { 'masterandlookupreference': ['contact'] }).then(res => {
+      var contactInfo = {}
+      if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+        res['records'].forEach(element => {
+          if (element['contact_lookup']['contactType'] == 'owner') {
+            contactInfo['contactName'] = element['contact_lookup']['contactName']
+            contactInfo['contactNameInTamil'] = element['contact_lookup']['contactNameInTamil']
+          }
+        })
+        fullVehicleInfo['primaryContact'] = contactInfo
+      } else {
+        fullVehicleInfo['primaryContact'] = {}
+      }
+    }).catch(err => {
+      fullVehicleInfo['primaryContact'] = {}
+    })
+  }
+  fetchBillDetail(fullVehicleInfo) {
+    var accounts = fullVehicleInfo['accounts']
+    var activeAccount;
+    if (accounts.length > 0) {
+      accounts.forEach(element => {
+        if (element['closeDate'] == null) {
+          activeAccount = element
+        }
+      });
+      if (activeAccount) {
+        fullVehicleInfo['activeAccountId']= activeAccount['id']
+        this.dbprovider.fetchDocsWithoutRelationshipByParentTypeAndId(this.billTable, this.accountTableName, activeAccount['id']).then(res => {
+          console.log('bill', res)
+          if (res['status'] == 'SUCCESS' && res['records'].length > 0) {
+            this.cols.forEach(col => {
+              if (col['month']) {
+                res['records'].forEach(bill => {
+                  if (bill['billMonth'] == col['month'] && bill['billYear'] == col['year']) {
+                    fullVehicleInfo[col['field']] = bill;
+                  }
+                });
+              }
+            });
+          }
+          console.log('fullVehicleInfo', fullVehicleInfo)
+        }).catch(err => {
+          console.log(err)
+        })
+      } else {
+        fullVehicleInfo['billAvailable'] = false
+      }
+    }
+    else {
+      console.log('account length 0')
+
+      fullVehicleInfo['billAvailable'] = false
+    }
   }
 }
 

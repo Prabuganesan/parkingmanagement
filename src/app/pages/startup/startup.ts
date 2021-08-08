@@ -20,7 +20,8 @@ export class startup {
   public users = []
 
   constructor(public router: Router, private util: appUtility, private messageService: MessageService, private dbprovider: dbProvider) {
-    this.createFirstAdmin()
+    this.createFirstAdmin();
+    this.createViewDoc();
   }
 
   openMenu(item) {
@@ -170,6 +171,22 @@ export class startup {
     }).catch(error => {
       this.messageService.add({ key: "startup", severity: 'error', summary: "User fetching failed", detail: '' });
       return [];
+    })
+  }
+  createViewDoc(){
+    var ddoc = {
+      _id: '_design/billIndex',
+      views: {
+        billIndex: {
+          map: 'function (doc) {var month;if (doc.data.billMonth < 10) { month = \'0\' + doc.data.billMonth;} else {month = doc.data.billMonth;} emit(doc.data.account+\'-\'+doc.data.billYear+\'-\'+month) }'
+        }
+      }
+    };
+    // save it
+    this.dbprovider.saveDdoc(ddoc).then(res=>{
+      console.log('index',res)
+    }).catch(err=>{
+      console.log('index error',err)
     })
   }
 
