@@ -18,6 +18,7 @@ import { dbConfiguration } from 'src/app/core/dbConfiguration';
 export class billGenerate {
 
   public billTableName = 'billDetail'
+  public accountTableName = 'account'
   public loginActivityTableName = 'loginActivities'
   public vehicleTableName = 'vehicle'
   public billNeedToGenerate = [];
@@ -25,7 +26,6 @@ export class billGenerate {
   public selectedYearmonth;
   public savedSuccessMessage = 'Data saved successfully';
   public disableGenerate = false
-
 
   constructor(public router: Router, private dbconfig: dbConfiguration, private location: Location, private util: appUtility, private messageService: MessageService, private dbprovider: dbProvider) {
     var today = new Date();
@@ -101,10 +101,9 @@ export class billGenerate {
           if (result['records'].length > 0) {
             console.log(result)
             this.setLogMessage({ message: 'Already bill generated for ' + account['vehicle']['vehicleNumber'], type: 'INFO' })
-
-
           }
           else {
+            this.util.billGenerate = true;
             var tableStructure = this.dbconfig.configuration.tableStructure
             var billObject = JSON.parse(JSON.stringify(tableStructure[this.billTableName]));
             billObject['totalAmount'] = account['rentPlan_lookup']['rentAmount']
@@ -113,11 +112,12 @@ export class billGenerate {
             billObject['billMonth'] = Number(selectedMonth)
             billObject['billYear'] = Number(selectedYear)
             billObject['account'] = account['id'];
-            this.dbprovider.save(this.billTableName, billObject).then(result => {
+             this.dbprovider.save(this.billTableName, billObject).then(result => {
               if (result['status'] != 'SUCCESS') {
                 this.logEntry({ message: 'Bill generation failed for ' + account['vehicle']['vehicleNumber'], type: 'ERR' });
                 return;
               }
+              this.saveAccount(account,billObject)
               this.logEntry({ message: 'Bill generated for ' + account['vehicle']['vehicleNumber'] + ' and bill amount is ' + billObject['totalAmount'] + ' Rs', type: 'SUCCESS' });
 
             }).catch(error => {
@@ -139,6 +139,19 @@ export class billGenerate {
       this.disableGenerate = false;
 
     }
+  }
+
+  saveAccount(account,billdetail){
+    console.log(account)
+    account['totalBillAmount'] = account['totalBillAmount'] + Number(billdetail['totalAmount']);
+    if(!account['receivedAmount']){
+      account['receivedAmount'] = 0;
+    }
+    this.dbprovider.save(this.accountTableName, account).then(result => {
+    console.log(result)
+    }).catch(error => {
+      console.log(error)
+    });
   }
 
   setLogMessage(message) {

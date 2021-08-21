@@ -24,8 +24,10 @@ export class transactionEntry implements OnInit {
   transactionObj;
   tableName = 'transaction'
   billTableName = 'billDetail'
-  receivedFrom=''
+  accountTableName = 'account'
 
+  receivedFrom=''
+  account;
   public savedSuccessMessage = 'Data saved successfully';
 
   // Lookup
@@ -44,6 +46,18 @@ export class transactionEntry implements OnInit {
     this.totalPayable = this.amount - this.discount;
     this.monthName = this.billdetail.Month;
     this.totalPendingAmount = this.billdetail.totalAmount;
+    this.fetchAccount(this.billdetail.account)
+  }
+
+  fetchAccount(accountId){
+    this.dbprovider.fetchDocWithoutRelationshipByTypeAndId(this.accountTableName,accountId).then(res=>{
+      console.log(res)
+      if(res && res['status'] == "SUCCESS"){
+        if(res['records'].length>0){
+            this.account = res['records'][0]
+        }
+      }
+    })
   }
   ngAfterViewInit() {
 
@@ -108,6 +122,16 @@ export class transactionEntry implements OnInit {
     if (result['status'] == 'SUCCESS') {
       this.billdetail['rev'] = result['rev']
     }
+    this.saveAccount()
+    }).catch(error => {
+      this.popoverController.dismiss()
+      console.log(error)
+    });
+  }
+  saveAccount(){
+    this.account['receivedAmount'] = this.account['receivedAmount'] + Number(this.amount);
+    this.dbprovider.save(this.accountTableName, this.account).then(result => {
+    console.log(result)
     this.popoverController.dismiss()
 
     }).catch(error => {

@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { contactAssignment } from '../contactAssignment/contactAssignment';
-import { PopoverController } from '@ionic/angular';
+import { LoadingController, PopoverController } from '@ionic/angular';
 import { contactListAgainstCar } from '../contactListAgainstCar/contactListAgainstCar';
 import { alternateVehicleList } from '../alternateVehicleList/alternateVehicleList';
 import { accountDetail } from '../accountDetail/accountDetail';
@@ -35,11 +34,15 @@ export class contactListWithVehicleInfo {
   alternateVehicleTableName = 'alternateVehicle'
 
   vehicleContactAssignmentTableName = 'vehicleContactAssignment'
+  loading;
 
 
-  constructor(public router: Router, public dialogService: DialogService, public popoverController: PopoverController, private location: Location, private translate: TranslateService, private dbprovider: dbProvider, private messageService: MessageService) {
+  constructor(public router: Router,public loadingController: LoadingController, public dialogService: DialogService, public popoverController: PopoverController, private location: Location, private translate: TranslateService, private dbprovider: dbProvider, private messageService: MessageService) {
     this.appLanguage = this.translate.getDefaultLang()
-    this.fetchContactList();
+    this.presentLoading();
+    setTimeout(() => {
+      this.fetchContactList();
+    }, 500);
 
 
     this.items = [{
@@ -76,11 +79,20 @@ export class contactListWithVehicleInfo {
       ]
     }
     ];
-
-
-
-
   }
+
+    async presentLoading() {
+       this.loading = await this.loadingController.create({
+        message: 'Please wait...'
+      });
+
+    }
+    dismissLoading(){
+      if(this.loading){
+        this.loading.dismiss();
+      }
+    }
+  
 
   //Add edit methods
   editContact(contactObj) {
@@ -152,6 +164,7 @@ export class contactListWithVehicleInfo {
 
 
   fetchContactList() {
+     this.loading.present();
     this.contactList=[];
     this.dbprovider.fetchDocsWithoutRelationshipByType(this.contactTableName).then(res => {
       if (res && res['status'] == "SUCCESS") {
@@ -171,9 +184,12 @@ export class contactListWithVehicleInfo {
             this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
           }
 
+        }else{
+          this.dismissLoading()
         }
       }
       else {
+        this.dismissLoading()
         this.messageService.add({ key: "contactList", severity: 'error', summary: res['message'], detail: '' });
       }
     })
@@ -189,6 +205,7 @@ export class contactListWithVehicleInfo {
         this.fetchVehicleListAgainstContact(vehicleRelIds)
 
       } else {
+        this.dismissLoading()
         this.vehicleList = [];
         this.selectedVehicle = null;
       }
@@ -205,15 +222,20 @@ export class contactListWithVehicleInfo {
             result['vehicleInfo'] = element
             console.log("result==>", result)
             this.vehicleList.push(result)
+            if(this.vehicleList.length == res['response'].length){
+              this.dismissLoading()
+            }
           })
         })
 
       }
       else {
         this.vehicleList = []
+        this.dismissLoading()
       }
     }).catch(error => {
       this.vehicleList = []
+      this.dismissLoading()
     });
   }
   fetchAccountAndAdditionalContactInfo(vehicleId) {

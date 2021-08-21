@@ -20,8 +20,23 @@ export class startup {
   public users = []
 
   constructor(public router: Router, private util: appUtility, private messageService: MessageService, private dbprovider: dbProvider) {
-    this.createFirstAdmin();
-    this.createViewDoc();
+    dbprovider.oneTimeReplicationFromServer().then(res=>{
+      console.log(res)
+      if(!res['ok']){
+        console.log('Replication failed, Please up the server')
+        this.messageService.add({ key: "startup", severity: 'error', summary: "Replication failed, Please up the server", detail: '', closable: true });
+      }
+      this.dbprovider.startSync();
+      this.createViewDoc();
+      this.createFirstAdmin();
+    }).catch(error=>{
+      console.log('Replication failed, Please up the server')
+      this.messageService.add({ key: "startup", severity: 'error', summary: "Replication failed, Please up the server", detail: '', closable: true });
+      this.dbprovider.startSync();
+      this.createViewDoc();
+      this.createFirstAdmin();
+    })
+    
   }
 
   openMenu(item) {

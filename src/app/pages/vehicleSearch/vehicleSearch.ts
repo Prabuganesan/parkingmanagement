@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PopoverController } from '@ionic/angular';
+import { LoadingController, PopoverController } from '@ionic/angular';
 import { transactionEntry } from 'src/app/components/transactionEntry/transactionEntry';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { dbProvider } from 'src/app/core/dbProvider';
-import { promise } from 'selenium-webdriver';
+import { appUtility } from 'src/app/core/appUtility';
 
 @Component({
   selector: 'vehicleSearch',
@@ -23,14 +23,15 @@ export class vehicleSearch {
   frozenCols = [];
   queryText = ''
   appLanguage = 'ta'
+  loading;
   public vehicleTableName = 'vehicle'
   public accountTableName = 'account'
   public vehicleContactAssignmentTablename = 'vehicleContactAssignment'
   public billTable = 'billDetail'
 
 
-  constructor(public router: Router, public popoverController: PopoverController, private messageService: MessageService, private location: Location, private translate: TranslateService, private dbprovider: dbProvider) {
-
+  constructor(public router: Router, private util: appUtility,public loadingController: LoadingController, public popoverController: PopoverController, private messageService: MessageService, private location: Location, private translate: TranslateService, private dbprovider: dbProvider) {
+    this.presentLoading()
     this.appLanguage = this.translate.getDefaultLang()
     let month_mapping = { '1': 'Jan', '2': 'Feb', '3': 'Mar', '4': 'Apr', '5': 'May', '6': 'Jun', '7': 'Jul', '8': 'Aug', '9': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec' }
     var today = new Date();
@@ -60,9 +61,23 @@ export class vehicleSearch {
 
     console.log(this.translate.getDefaultLang())
 
-    this.fetchVehicle();
+    setTimeout(() => {
+      this.fetchVehicle();
+    }, 500);
 
   }
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter')
+    if(this.util.billGenerate){
+      this.util.billGenerate = false;
+      setTimeout(() => {
+        this.fetchVehicle();
+      }, 500);
+    }
+
+  }
+
+
   backButtonOnclick() {
     this.location.back();
   }
@@ -90,9 +105,6 @@ export class vehicleSearch {
     }
 
   }
-  // amountCellClick(amountDetail){
-  //   console.log("amount",amountDetail)
-  // }
   vehicleCellClick(vehicle) {
     console.log("vehicle", vehicle)
     if (vehicle['billAvailable'] == false) {
@@ -130,7 +142,16 @@ export class vehicleSearch {
 
   }
 
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+     message: 'Please wait...'
+   });
+
+ }
+
   fetchVehicle() {
+   this.loading.present();
+
     this.vehicleList = []
     this.allvehicleList = []
 
@@ -154,10 +175,12 @@ export class vehicleSearch {
           Promise.all(taskList).then(result => {
             this.vehicleList.push(fullVehicleInfo)
             this.allvehicleList = [...this.vehicleList]
-
+            this.loading.dismiss()
           })
 
         });
+      }else{
+        this.loading.dismiss()
       }
     })
 
@@ -191,7 +214,7 @@ export class vehicleSearch {
         }
       });
       if (activeAccount) {
-        fullVehicleInfo['activeAccountId']= activeAccount['id']
+        fullVehicleInfo['activeAccountId'] = activeAccount['id']
         this.dbprovider.fetchDocsWithoutRelationshipByParentTypeAndId(this.billTable, this.accountTableName, activeAccount['id']).then(res => {
           console.log('bill', res)
           if (res['status'] == 'SUCCESS' && res['records'].length > 0) {

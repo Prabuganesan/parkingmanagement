@@ -12,25 +12,15 @@ import { Platform } from '@ionic/angular';
 export class appUtility {
 
     public loggedUserObject: any;
-    private _userGroups: any
-    private _userResponsibilities: any
+
     public _loggedUserInfo: any;
     public _loggedActivityInfo: any;
-    private _orgTimeZone = '';
+
     private _isMobile: boolean = true;
-    private _isEmbeddingEnabled: boolean = false;
-    private _osType: string = 'android';
+  
     private _userId: number;
-    private _roleId: number;
-    private _accessToken: string;
-    private _orgId: number;
-    // private _versionNumber: Number;
-    private platformJsonPath = './platform.json';
-    private _sessionId: string;
-    private _appBuilderURL: string;
-    private _socketServerURL: string;
-    private _userTimeZone = '';
-    private _userDateFormat = '';
+   public billGenerate = false;
+  
     public hoursFormat = 'hh:mm a'; // hour format
     public userZoneOffsetValue = ''; // user timezone offset value. For eg: +0530, -0400
     public orgZoneOffsetValue = ''; // user timezone offset value. For eg: +0530, -0400
@@ -56,11 +46,7 @@ export class appUtility {
     }
     eventSubscriptionObject = {}
     public notifications = []
-    private _isTopHorizonatalMenu: boolean = false;
-    private couchDbListenerStopped = false;
-    private couchDbProviderList = {}
-    private couchServerCheckedCount = 0;
-    private maxCouchServerCheckCount = 3;
+
     public profilePicSrc: string;
 
     constructor(

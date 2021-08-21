@@ -106,6 +106,26 @@ export class dbProvider {
             this.db.setMaxListeners(50);
         }
     }
+
+
+    oneTimeReplicationFromServer() {
+        const options = {
+            live: false,
+            retry: false,
+            include_docs: true
+        };
+        return this.db.replicate.from('http://localhost:1000/db/parking', options)
+    }
+
+    startSync() {
+        const options = {
+            live: true,
+            retry: true,
+            include_docs: true,
+        };
+        this.db.sync('http://localhost:1000/db/parking', options);
+    }
+
     dumbdata(){
         console.log("dumb started")
         this.db.allDocs({include_docs: true}, (error, doc) => {
