@@ -1,6 +1,7 @@
 var PouchDB = require('pouchdb');
 var replicationStream = require('pouchdb-replication-stream');
 PouchDB.adapter('writableStream', replicationStream.adapters.writableStream);
+const bodyParser = require("body-parser");
 
 const fs = require('fs');
 var express = require('express');
@@ -11,9 +12,15 @@ PouchDB.plugin(replicationStream.plugin);
 app.use('/db', require('express-pouchdb')(PouchDB));
 var parkingPouch = new PouchDB('parking');
 
-app.get('/', (req,res) =>{
-    res.send("It works");
-})
+app.use(bodyParser.json());
+var path = __dirname
+var str = path.substring(0, path.length - 6);
+var filePath = str+"/www/"
+app.use(express.static(filePath));
+
+app.get('/', (req,res) => {
+    res.sendFile(filePath+"/index.html")
+  });
 
 
 
