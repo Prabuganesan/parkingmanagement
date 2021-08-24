@@ -18,7 +18,7 @@ Open node_modules/relational-pouch/lib
 
 Add default in pouch-utils.js (var Promise = require('pouchdb-promise').default;)
 
-3.ng build
+3.ng build --prod
 
 4.cd server
 
