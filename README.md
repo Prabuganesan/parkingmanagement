@@ -8,7 +8,11 @@ Angular - 7.3.5 (npm i -g @angular/cli@7.3.5)
 
 Ionic - 4.12.0 (npm i - g ionic@4.12.0)
 
-**Steps to run project**
+**Steps to run project automaticaly**
+
+run initialsetup.sh
+
+**Steps to run project manually**
 
 1.npm i
 
