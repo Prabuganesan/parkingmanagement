@@ -1,20 +1,16 @@
-
-
-
-
-<ion-content style="height: 400px;">
-  <ion-row>
-    <ion-list style="width: 100%;">
-      <ion-item *ngFor="let rentplan of rentplans" (click)="itemSelect(rentplan);$event.stopPropagation();" >
+<ion-content class="pm-rpe-popup" style="height: 400px;">
+  <ion-row class="pm-rpe-batch">
+    <ion-list>
+      <ion-item lines="none" *ngFor="let rentplan of rentplans" (click)="itemSelect(rentplan);$event.stopPropagation();">
         <ion-label>
-          <h2>Account open date :<b> {{rentplan.rentPlan}}</b></h2>
-          <h2>Account close date :<b> {{rentplan.rentAmount}}</b></h2>
-          <h2>Total amount :<b> {{rentplan.vehicleType}}</b></h2>
-          </ion-label>
+          <h3><span class="pm-v-label">Account open date : </span><span class="pm-camelcase"><strong>{{rentplan.rentPlan}}</strong></span></h3>
+          <h3><span class="pm-v-label">Account close date : </span><span class="pm-camelcase"><strong>{{rentplan.rentAmount}}</strong></span></h3>
+          <h3><span class="pm-v-label">Total amount : </span><span class="pm-camelcase"><strong>{{rentplan.vehicleType}}</strong></span></h3>
+        </ion-label>
       </ion-item>
     </ion-list>
-</ion-row>
-<p-toast key="rentPlanPopupList" position="center"></p-toast>
+  </ion-row>
+  <p-toast key="rentPlanPopupList" position="center"></p-toast>
 
 
 </ion-content>

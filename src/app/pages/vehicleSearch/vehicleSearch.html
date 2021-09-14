@@ -1,21 +1,17 @@
-<ion-header no-border="">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-buttons class="pm-clickaction" slot="start">
+      <ion-button (click)="backButtonOnclick()">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">
-      {{'vehicleSearch.title' | translate}} 
+    <ion-title size="large" class="ion-text-center pm-header-title">
+      {{'vehicleSearch.title' | translate}}
     </ion-title>
-
-   
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="pm-content">
 
   <!-- <ion-toolbar style="position:fixed;" >
     <ion-item class="center"  ion-fixed>
@@ -26,22 +22,24 @@
     </ion-item>
   </ion-toolbar> -->
 
-  <ion-toolbar style="position:fixed;" >
-    <ion-item class="center" ion-fixed>
-      <input pInputText [(ngModel)]="queryText" type="text" placeholder="{{'vehicleSearch.searchPlaceholder' | translate}}"  style="width:100%" (keyup.enter)="searchByKeyword()">
-      <span style="padding-left: 5px;width: 50px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span>
+  <div class="pm-vn-header-search">
+    <ion-item class="pm-vn-h-ion-item" lines="none" ion-fixed>
+      <input pInputText [(ngModel)]="queryText" type="text" placeholder="{{'vehicleSearch.searchPlaceholder' | translate}}" (keyup.enter)="searchByKeyword()">
+      <button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button>
+      <div class="pm-paidindicater">
+        <span class="pm-unPaid">UnPaid</span> 
+        <span class="pm-Partial">Partial</span> 
+        <span class="pm-Paid" >Paid</span> 
+      </div>
     </ion-item>
-      <ion-button slot="end" (click)="billGeneration()" >Bill Generate
-      </ion-button>
-  </ion-toolbar>
+    <ion-button slot="end" (click)="billGeneration()">Bill Generate</ion-button>
+  </div>
 
-<div style="top:60px">
-  <p-table [columns]="cols" [value]="vehicleList" [alwaysShowPaginator]="true" [scrollable]="true" [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="10"
-    [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-lg" >
+  <div *ngIf='vehicleList.length>0'>
+    <p-table [columns]="cols" [value]="vehicleList" [alwaysShowPaginator]="true" [scrollable]="true" [paginator]="true" paginatorPosition="top" sortMode="multiple" [rows]="5" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5,10,15]" styleClass="p-datatable-lg">
 
-    <ng-template pTemplate="colgroup" let-columns >
-      <colgroup>
+      <ng-template pTemplate="colgroup" let-columns>
+        <colgroup>
           <col style="width:200px">
           <col style="width:150px">
           <col style="width:150px">
@@ -54,57 +52,55 @@
           <col style="width:150px">
           <col style="width:150px">
 
-      </colgroup>
-  </ng-template>
+        </colgroup>
+      </ng-template>
 
-    <ng-template pTemplate="header" let-columns >
-      <tr>
-          <th  *ngFor="let col of columns">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns">
             <div class="p-d-flex p-jc-between p-ai-center">
-              {{col.header | translate}} 
+              {{col.header | translate}}
               <p-columnFilter *ngIf="col.header == 'Vehicle Info'" type="text" field="vehicleInfo.vehicleNumber" display="menu"></p-columnFilter>
-          </div>
-              
+            </div>
           </th>
-      </tr>
-  </ng-template>
+        </tr>
+      </ng-template>
 
-  <ng-template pTemplate="body" let-vehicle let-columns="columns">
-    <tr>
-        <td *ngFor="let col of columns">
-          <div *ngIf="col.field == 'vehicleInfo' && vehicle['vehicleInfo'] " (click)="vehicleCellClick(vehicle)">
-          <label>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </label>
-          <br />
-          <label>{{vehicle.vehicleInfo.vehicleNumber}}</label>
-          <br />
-          
-          <label *ngIf="appLanguage && appLanguage == 'en' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactName}}</b></label>
-          <label *ngIf="appLanguage && appLanguage == 'ta' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
+      <ng-template pTemplate="body" let-vehicle let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            <div *ngIf="col.field == 'vehicleInfo' && vehicle['vehicleInfo'] " (click)="vehicleCellClick(vehicle)">
+              <label>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </label>
+              <br />
+              <label>{{vehicle.vehicleInfo.vehicleNumber}}</label>
+              <br />
 
-        </div>
-        <div *ngIf="col.field != 'vehicleInfo' && vehicle[col.field]" (click)="amountCellClick($event,vehicle[col.field])">
-          <label>T - {{vehicle[col.field].totalAmount}} {{'rs' | translate}}</label>
-          <br />
-          <label>R - {{vehicle[col.field].receivedAmount}} {{'rs' | translate}}</label>
-          <br />
-          <label>P - {{vehicle[col.field].pendingAmount}} {{'rs' | translate}}</label>
-          <br/>
-          <!-- <label style="background-color: brown;">hi</label> -->
+              <label *ngIf="appLanguage && appLanguage == 'en' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactName}}</b></label>
+              <label *ngIf="appLanguage && appLanguage == 'ta' && vehicle['primaryContact']"><b>{{vehicle.primaryContact.contactNameInTamil}}</b></label>
 
-          <p *ngIf="vehicle[col.field].pendingAmount == 0" style="width: 100%; height: 15px; background-color: green;"></p>
-          <p *ngIf="vehicle[col.field].receivedAmount > 0 && vehicle[col.field].pendingAmount > 0" style="width: 100%; height: 15px; background-color: yellow;"></p>
-          <p *ngIf="vehicle[col.field].receivedAmount == 0" style="width: 100%; height: 15px; background-color: red;"></p>
+            </div>
+            <div *ngIf="col.field != 'vehicleInfo' && vehicle[col.field]" (click)="amountCellClick($event,vehicle[col.field])">
+              <label>T - {{vehicle[col.field].totalAmount}} {{'rs' | translate}}</label>
+              <br />
+              <label>R - {{vehicle[col.field].receivedAmount}} {{'rs' | translate}}</label>
+              <br />
+              <label>P - {{vehicle[col.field].pendingAmount}} {{'rs' | translate}}</label>
+              <br />
+              <!-- <label style="background-color: brown;">hi</label> -->
 
+              <p *ngIf="vehicle[col.field].pendingAmount == 0" style="width: 100%; height: 10px; background-color: green; border-radius: 15px;"></p>
+              <p *ngIf="vehicle[col.field].receivedAmount > 0 && vehicle[col.field].pendingAmount > 0" style="width: 100%; height: 10px; background-color: yellow; border-radius: 15px;"></p>
+              <p *ngIf="vehicle[col.field].receivedAmount == 0" style="width: 100%; height: 10px; background-color: red; border-radius: 15px;"></p>
 
-        </div>
-        <div *ngIf="!vehicle[col.field]" style="text-align: center;">
-          <label>----</label>
-          </div>
-        </td>
-    </tr>
-</ng-template>
+            </div>
+            <div *ngIf="!vehicle[col.field]" style="text-align: left;">
+              <label>----</label>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
 
-<!--
+      <!--
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="car.vehicleInfo.vehicleNumber"> 
@@ -134,7 +130,7 @@
         </th> 
       </tr>
     </ng-template>-->
-    <!-- <ng-template pTemplate="body" let-car>
+      <!-- <ng-template pTemplate="body" let-car>
       <tr>
         <td>
           <label>{{car.vehicleInfo.vehicleNumber}}</label>
@@ -148,9 +144,9 @@
         <td>{{car.Mar21.receivedAmount}}</td>
       </tr>
     </ng-template> -->
-  </p-table>
-</div>
-<p-toast position="center"></p-toast>
+    </p-table>
+  </div>
+  <p-toast position="center"></p-toast>
 
 
 </ion-content>

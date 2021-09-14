@@ -1,55 +1,47 @@
-<ion-header no-border="">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-buttons class="pm-clickaction" slot="start">
+      <ion-button (click)="backButtonOnclick()">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons class="pm-clickaction" slot="end">
       <ion-button slot="end" (click)="userAddClick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="add"></ion-icon>
-        </h2>
+        <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">
+    <ion-title size="large" class="ion-text-center pm-header-title">
       {{'applicationUserList.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <div style="padding: 20px;">
+
+
+
+
+
+<ion-content class="pm-content">
+  <div class="pm-container">
     <p-dataView #dv [value]="users" layout="grid">
-        <ng-template let-user pTemplate="gridItem">
-            <div class="p-col-12 p-md-4" style="padding:5px;" (click)='editaction(user)'>
-              
-                <div class="p-shadow-5" >
-                  <div *ngIf="user.userType == 'Admin'" style="padding: 13px;">
-                    <i class="pi pi-user" style="font-size: 4rem"></i>
-                  </div>
-                  <div *ngIf="user.userType!='Admin'" style="padding:13px;">
-                    <i class="pi pi-id-card" style="font-size: 4rem"></i>
-                  </div>
-                  <div style="padding: 13px;">
-                    <h2>
-                      {{user.userName}}
-                    </h2>
-                    <h3>
-                      {{user.mobile}}
-                    </h3>
-                    <ion-label>
-                      Code - {{user.code}}
-                    </ion-label>
-                  </div>
-                </div>
-            </div>
-        </ng-template>
+      <ng-template let-user pTemplate="gridItem">
+        <div class="p-col-12 p-md-4 pm-card-seg" (click)='editaction(user)'>
+          <div class="pm-aul-card" *ngIf="user.userType == 'Admin'">
+            <i class="pi pi-user" title="Admin" style="font-size: 4rem"></i>
+            <!-- <div>Admin</div> -->
+          </div>
+          <div *ngIf="user.userType!='Admin'" class="pm-aul-card">
+            <i class="pi pi-id-card" title="User" style="font-size: 4rem"></i>
+            <!-- <div>User</div> -->
+          </div>
+          <div class="pm-aul-card-seg">
+            <div><span class="pm-v-label">Name : </span><span class="pm-camelcase"><strong>{{user.userName}}</strong></span></div>
+            <div><span class="pm-v-label">Mobile : </span><span class="pm-camelcase"><strong>{{user.mobile}}</strong></span></div>
+            <div><span class="pm-v-label">Code : </span><span class="pm-camelcase"><strong>{{user.code}}</strong></span></div>
+          </div>
+        </div>
+      </ng-template>
     </p-dataView>
-</div>
-<p-toast key="userList" position="center"></p-toast>
+  </div>
+  <p-toast key="userList" position="center"></p-toast>
 
 </ion-content>
-
-  

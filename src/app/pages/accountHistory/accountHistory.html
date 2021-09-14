@@ -1,23 +1,25 @@
-<ion-content style="height: 400px;">
-  <ion-title size="large" class="ion-text-center">
-    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
-
+<ion-content class="pm-rpe-popup" style="height: 400px;">
+  <ion-title class="ion-text-center pm-rpep-title">
+    <span class="pm-rpep-label">Vehical Detail : </span> <span class="pm-rpep-vd">{{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}</span>
   </ion-title>
-  <ion-list style="width: 100%;">
-    <ion-item lines="full" *ngFor="let account of accountList">
+
+
+  <ion-row class="pm-rpe-batch">
+    <ion-list>
+    <ion-item lines="none" *ngFor="let account of accountList">
       <ion-label>
-      <h2>{{'accountDetail.accOpenDate' | translate}} :<b> {{account.openDate |  date:'dd/MM/yyyy hh:mm a'}}</b></h2>
-      <h2>{{'accountDetail.accCloseDate' | translate}} :<b> {{account.closeDate |  date:'dd/MM/yyyy hh:mm a'}}</b></h2>
-      <h2>{{'accountDetail.totalAmount' | translate}} :<b> {{account.totalBillAmount}} {{'rs' | translate}}</b></h2>
-      <h2>{{'accountDetail.amountReceived' | translate}} :<b> {{account.receivedAmount}} {{'rs' | translate}}</b></h2>
-      <h2>{{'accountDetail.pendingAmount' | translate}} :<b> {{account.pendingAmount}} {{'rs' | translate}}</b></h2>
-      <h2>{{'accountDetail.rentPlan' | translate}} :<b> {{account['rentPlan_lookup']['rentPlan']}}</b></h2>
-      <p>{{'accountDetail.accAddBy' | translate}} : {{account.accountAddedBy}}</p>
+        <h3><span class="pm-v-label">{{'accountDetail.accOpenDate' | translate}} : </span><span class="pm-camelcase"><strong>{{account.openDate | date:'dd/MM/yyyy hh:mm a'}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.accCloseDate' | translate}} : </span><span class="pm-camelcase"><strong>{{account.closeDate | date:'dd/MM/yyyy hh:mm a'}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.totalAmount' | translate}} : </span><span class="pm-camelcase"><strong>{{account.totalBillAmount}} {{'rs' | translate}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.amountReceived' | translate}} : </span><span class="pm-camelcase"><strong>{{account.receivedAmount}} {{'rs' | translate}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.pendingAmount' | translate}} : </span><span class="pm-camelcase"><strong>{{account.pendingAmount}} {{'rs' | translate}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.rentPlan' | translate}} : </span><span class="pm-camelcase"><strong>{{account['rentPlan_lookup']['rentPlan']}}</strong></span></h3>
+        <h3><span class="pm-v-label">{{'accountDetail.accAddBy' | translate}} : </span><span class="pm-camelcase"><strong>{{account.accountAddedBy}}</strong></span></h3>
+
       </ion-label>
     </ion-item>
   </ion-list>
+  </ion-row>
   <p-toast key="accountHistory" position="center"></p-toast>
 
 </ion-content>
-
-  

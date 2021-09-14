@@ -1,123 +1,86 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title size="large" class="ion-text-center">
+<ion-header class="pm-header">
+  <ion-toolbar class="pm-toolbar">
+    <ion-title size="large" class="ion-text-center pm-header-title">
       Parking management
     </ion-title>
-    <ion-buttons slot="start">
-      <ion-button (click)="switchLanguage()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="language"></ion-icon>
-        </h2>
-      </ion-button>
+    <ion-buttons slot="start" class="pm-logo">
+      <img src="../../assets/parking-l.png" alt="">
     </ion-buttons>
-      <ion-buttons slot="end">
-      <ion-button (click)="logoutAction()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="log-out"></ion-icon>
-        </h2>
+    <ion-buttons slot="end" class="pm-clickaction">
+      <ion-button (click)="switchLanguage()">
+        <ion-icon name="language"></ion-icon>
       </ion-button>
-      
+      <ion-button (click)="logoutAction()">
+        <ion-icon name="log-out-outline" name="log-out"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="background">
-
-
-  <ion-grid style="padding-top: 50px;padding-bottom: 50px;">
-    <ion-row style="padding: 30px">
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('1')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="car"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.vehicleSearch' | translate}}</h3>
+<ion-content [fullscreen]="true" class="pm-body">
+  <ion-grid class="pm-grid">
+    <ion-row class="pm-row">
+      <ion-col class="pm-col" class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('1')">
+          <ion-icon name="car"></ion-icon>
+          <h3>{{'menu.vehicleSearch' | translate}}</h3>
         </div>
       </ion-col>
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('2')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="person"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.contactList' | translate}} </h3>
+      <ion-col class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('2')">
+          <ion-icon name="person"></ion-icon>
+          <h3>{{'menu.contactList' | translate}} </h3>
         </div>
       </ion-col>
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('3')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="reader"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.rentPlan' | translate}}</h3>
+      <ion-col class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('3')">
+          <ion-icon name="reader"></ion-icon>
+          <h3>{{'menu.rentPlan' | translate}}</h3>
         </div>
       </ion-col>
     </ion-row>
-    <ion-row style="padding: 30px">
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('4')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="person-circle"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.applicationUsers' | translate}}</h3>
+    <ion-row class="pm-row">
+      <ion-col class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('4')">
+          <ion-icon name="person-circle"></ion-icon>
+          <h3>{{'menu.applicationUsers' | translate}}</h3>
         </div>
       </ion-col>
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('5')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="create"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.inOutEntry' | translate}}</h3>
+      <ion-col class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('5')">
+          <ion-icon name="create"></ion-icon>
+          <h3>{{'menu.inOutEntry' | translate}}</h3>
         </div>
       </ion-col>
-      <ion-col style="padding: 30px">
-        <div style="background-color:#fcfbf9;width:100%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('6')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="settings"></ion-icon>
-          <h3 style="font-size:3vw;">{{'menu.settings' | translate}}</h3>
+      <ion-col class="pm-col">
+        <div class="pm-col-seg" (click)="openMenu('6')">
+          <ion-icon name="settings"></ion-icon>
+          <h3>{{'menu.settings' | translate}}</h3>
         </div>
       </ion-col>
     </ion-row>
 
 
 
-    <!-- <ion-row style="padding: 30px">
+    <!-- <ion-row>
       <ion-col >
         <div style="background-color:#f8d406;width:60%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('4')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="people"></ion-icon>
-          <h3 style="font-size:3vw;">Application users</h3>
+          <ion-icon name="people"></ion-icon>
+          <h3>Application users</h3>
         </div>
       </ion-col>
       <ion-col >
         <div style="background-color:#f8d406;width:60%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('5')">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="people"></ion-icon>
-          <h3 style="font-size:3vw;">IN & OUT Entry</h3>
+          <ion-icon name="people"></ion-icon>
+          <h3>IN & OUT Entry</h3>
         </div>
       </ion-col>
       <ion-col>
       <div style="background-color:#f8d406;width:60%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;" (click)="openMenu('6')">
-        <ion-icon style="font-size: 70px;padding: 10px;" name="settings"></ion-icon>
-        <h3 style="font-size:3vw;">Settings</h3>
+        <ion-icon name="settings"></ion-icon>
+        <h3>Settings</h3>
       </div>
     </ion-col>
     </ion-row> -->
   </ion-grid>
 </ion-content>
-
-<!-- 
-<ion-content [fullscreen]="true">
-  
-
-  <ion-grid style="padding: 10px">
-    <ion-row style="padding: 30px">
-      <ion-col  class="container">
-        <div>
-          <div class="vertical-center">
-            <p>I am vertically centered.</p>
-          </div>
-        </div>
-      </ion-col>
-      <ion-col style="padding: 30px">
-        <div>2</div>
-      </ion-col>
-      <ion-col style="padding: 30px">
-        <div>3</div>
-      </ion-col>
-    </ion-row>
-    <ion-row style="padding: 30px">
-      <ion-col style="padding: 30px">
-        <div>4</div>
-      </ion-col>
-      <ion-col style="padding: 30px">
-        <div>5</div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content> -->

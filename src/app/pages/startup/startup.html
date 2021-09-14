@@ -1,25 +1,27 @@
 <ion-content [fullscreen]="true" class="auth-form background">
   <div>
-    <ion-title style="height: 50px;" size="large" class="ion-text-center">
+    <ion-title style="height: 50px; font-size: 22px;" size="large" class="ion-text-center">
       Parking management
     </ion-title>
   </div>
-  <ion-grid>
-    <ion-row></ion-row>
-
-    <ion-row>
-      <ion-col *ngFor="let item of users">
-        <div style="background:#fdfdfd;width:60%;text-align:center;padding:5px;margin:0 auto;border-radius: 10px;"
-          (click)="openMenu(item)">
-          <ion-icon style="font-size: 70px;padding: 10px;" name="person"></ion-icon>
-          <h3 style="font-size:3vw;">{{item.userName}}</h3>
+  <div class="pm-landing-page">
+    <div class="pm-startup-bg">
+      <img src="../../../assets/parking.jpg" alt="parking">
+    </div>
+    <div class="pm-startup-ulist">
+      <div class="pm-l-p" *ngFor="let item of users">
+        <div class="pm-l-p-s" (click)="openMenu(item)">
+          <div class="pm-u-icon-p">
+            <ion-icon class="pm-u-icon" name="person"></ion-icon>
+          </div>
+          
+          <span class="pm-truncate pm-width-option">{{item.userName}}</span>
         </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </div>
+    </div>
+  </div>
 
-  <p-dialog header="Enter password" [(visible)]="display" [modal]="true" [style]="{width: '300px'}" [responsive]="true"
-    [appendTo]="'body'">
+  <p-dialog header="Enter password" [(visible)]="display" [modal]="true" [style]="{width: '300px'}" [responsive]="true" [appendTo]="'body'">
     <ion-input pInputText [(ngModel)]="password" type="text" placeholder=" Password"></ion-input>
     <ng-template pTemplate="footer">
       <p-button icon="pi pi-check" (click)="login()" label="Login" class="p-button-text"></p-button>

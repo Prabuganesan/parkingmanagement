@@ -1,88 +1,43 @@
+<div class="pm-te">
+  <span class="pm-close-action" style="">
+    <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="closePopover()"></button>
+  </span>
+  <h1 class="pm-monthName" style="text-align: center;">{{monthName}}</h1>
 
-<!-- <div id="{{dropdownId}}" class="dropdown" style="position:absolute; z-index:12000;">
-  <a class="dropdown-toggle" id="{{dropDownToggleId}}" data-toggle="dropdown" aria-haspopup="true"
-    aria-expanded="false">
-    Actions
-    <span class="caret"></span>
-  </a>
-  <div class="dropdown-menu padding10 cs-status-popover-box">
-    <div *ngIf="!fieldType && info && !cspfmEditorType && !info['type']">
-      <cs-whocolumn-popover [setItem]="dataContext" [setTitle]="info['cspfmObjectName']" [setType]="info['auditType']">
-      </cs-whocolumn-popover>
-    </div>
-    <div *ngIf="fieldType && fieldType === 'STATUSWORKFLOW'">
-      <cs-status-workflow-popover [configStyle]="3" [displayName]="label" [callingFrom]="'external'" [entryComments]=""
-        (popoverStatusChanged)="popoverStatusChanged($event)" [selectedObject]="dataContext"
-        [dbServiceProvider]="dbservice" [fieldName]="fieldName" [selectedStatus]="previousStatus"
-        [popUpType]="'slickgrid'" [fieldIdValue]="fieldId"
-        [slickgridRowIdentificationValues]="slickgridRowIdentificationValues" [selectedItems]="selectedItems"
-        [previousStatus]="previousStatus">
-      </cs-status-workflow-popover>
-    </div>
-    <div *ngIf="cspfmEditorType && cspfmEditorType === 'LOOKUP'" style="width: 500px; height: 464px;">
-      <app-cspfmweblookuppage [slickgridRowIdentificationValues]="slickgridRowIdentificationValues"
-        [serviceObject]="info['data']['serviceObject']" [callingFrom]="'slickgrid'"
-        [dataSource]="info['data']['dataSource']" [lookupColumnName]="info['data']['lookupColumnName']"
-        (lookupSelected)="lookupSelected($event)" [lookupInput]="info['data']['lookupInput']"
-        [objectName]="info['data']['objectName']">
-      </app-cspfmweblookuppage>
-    </div>
-
-    <div *ngIf="info && info['type'] ==='USER ASSIGNMENT'">
-      <cspfmUserAssignmentPopover [setIcon]="'icon-mat-person_add cs-editact'" [setIsHeaderAction]=false>
-      </cspfmUserAssignmentPopover>
-    </div>
-
-  </div>
-</div> -->
-
-<div>
-  <!-- <ion-button mode="ios" class="my-button"  item-right icon-only (click)="closePopover()" style="float: right;margin-top: -20px;">
-    <ion-icon style="font-size: 30px;color: rgb(5, 5, 5);" name="close"></ion-icon>
-  </ion-button> -->
-  <span style="float: right; padding-bottom: 5px;padding-right: 10px;">
-  <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger" (click)="closePopover()" ></button>
-</span>
-  <h1 style="text-align: center;">{{monthName}}</h1>
-
-  <div style="text-align: center;">
+  <div class="pm-dateselect" style="text-align: center;">
     <input type="datetime-local" id="myLocalDate" [(ngModel)]="billdate" style="background-color:lightgray;align-self: center;width: 60%;">
   </div>
   <form *ngIf="billdetail">
 
-    <ion-item lines="inset">
+    <ion-item lines="none">
       <h5> {{'transactionEntry.totalPendingAmount' | translate}} : {{totalPendingAmount}} {{'rs' | translate}}</h5>
     </ion-item>
 
-    <!-- <ion-item lines="inset">
-      <h5> {{monthName}} {{'transactionEntry.currentPendingAmount' | translate}} : {{currentMonthPendingAmount}} {{'rs' | translate}}</h5>
-    </ion-item> -->
-
-    <ion-item lines="inset">
+    <ion-item lines="none">
       <ion-label position="floating"> {{'transactionEntry.amount' | translate}}</ion-label>
-      <ion-input type="number" required [value]="amount" (input)='onInputAmount($event)' ></ion-input>
+      <ion-input type="number" required [value]="amount" (input)='onInputAmount($event)'></ion-input>
     </ion-item>
 
-    <ion-item lines="inset">
+    <ion-item lines="none">
       <ion-label position="floating">{{'transactionEntry.discount' | translate}}</ion-label>
-      <ion-input type="number" [value]="discount" (input)='onInputDiscount($event)' ></ion-input>
+      <ion-input type="number" [value]="discount" (input)='onInputDiscount($event)'></ion-input>
     </ion-item>
 
-    <ion-item lines="inset">
+    <ion-item lines="none">
       <ion-label position="floating">{{'transactionEntry.totalPayable' | translate}}</ion-label>
       <ion-input type="number" readonly [value]="totalPayable"></ion-input>
     </ion-item>
 
-    <ion-item lines="inset">
+    <ion-item lines="none">
       <ion-label position="floating"> {{'transactionHistory.receivedFrom' | translate}}</ion-label>
       <ion-input type="text" [value]="receivedFrom" (input)='onInputReceivedFrom($event)'></ion-input>
     </ion-item>
 
-    <ion-item>
-    <ion-label >{{'transactionEntry.amountMode' | translate}}</ion-label>
-    <p-radioButton name="cash" value="cash" [(ngModel)]="paymentMode" inputId="cash"></p-radioButton><label style="padding-left: 2px;padding-right: 7px;">Cash </label>
-    <p-radioButton name="upi" value="upi" [(ngModel)]="paymentMode" inputId="upi"></p-radioButton><label style="padding-left: 2px;padding-right: 7px;">UPI </label>
-    <p-radioButton name="card" value="card" [(ngModel)]="paymentMode" inputId="card"></p-radioButton><label style="padding-left: 2px;">Card </label>
+    <ion-item lines="none">
+      <ion-label>{{'transactionEntry.amountMode' | translate}}</ion-label>
+      <p-radioButton name="cash" value="cash" [(ngModel)]="paymentMode" inputId="cash"></p-radioButton><label style="padding-left: 5px;padding-right: 10px;">Cash </label>
+      <p-radioButton name="upi" value="upi" [(ngModel)]="paymentMode" inputId="upi"></p-radioButton><label style="padding-left: 5px;padding-right: 10px;">UPI </label>
+      <p-radioButton name="card" value="card" [(ngModel)]="paymentMode" inputId="card"></p-radioButton><label style="padding-left: 5px;padding-right: 10px;">Card </label>
     </ion-item>
 
 
@@ -92,5 +47,5 @@
       </ion-col>
     </ion-row>
   </form>
-  </div>
-  <p-toast key="transactionEntry" position="center"></p-toast>
+</div>
+<p-toast key="transactionEntry" position="center"></p-toast>

@@ -1,49 +1,30 @@
-<ion-header no-border="">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()" disabled={{disableGenerate}}>
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-buttons class="pm-clickaction" slot="start">
+      <ion-button (click)="backButtonOnclick()" disabled={{disableGenerate}}>
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">
-      {{'billGenerate.title' | translate}} 
+    <ion-title size="large" class="ion-text-center pm-header-title">
+      {{'billGenerate.title' | translate}}
     </ion-title>
-
-   
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-  <ion-toolbar style="position:fixed;">
-    <ion-item  class="center" ion-fixed>
-      <label style="padding-right: 5px;padding-left: 5px;">Month : </label>
-        <input [(ngModel)]="selectedYearmonth"  style="background-color:lightgray;align-self: center;padding-bottom: 3px;padding-top: 2px;" type="month" id="start" name="start" min="2000-01"
-          value="2021-03">
-      <!-- <ion-col size="3"> -->
-        
-          <!-- <span style="padding-left: 7px;"><button pButton pRipple type="button" icon="pi pi-search" class="p-button-rounded p-button-success" (click)="searchByKeyword()"></button></span> -->
+<ion-content class="pm-content">
 
-        <!-- <ion-button mode="ios" class="my-button" clear item-right icon-only (click)="searchByKeyword()">
-          <ion-icon style="font-size: 30px;color: rgb(5, 5, 5);" name="search"></ion-icon>
-        </ion-button> -->
-      <!-- </ion-col> -->
+  <div class="pm-bg-header">
+    <ion-item lines="none">
+      <label>Month : </label>
+      <input [(ngModel)]="selectedYearmonth" type="month" id="start" name="start" min="2000-01" value="2021-03">
       <ion-button slot='end' (click)="filterValidAccounts()" disabled={{disableGenerate}}>Generate
       </ion-button>
     </ion-item>
-   
-  </ion-toolbar>
+  </div>
 
-  <log-monitor
-    [logStream]="logStream$ | async"
-    theme="light"
-    title="Bill generation logs"
-    [animated]="true"
-    [icons]="true"
-></log-monitor>
-  
+  <log-monitor [logStream]="logStream$ | async" theme="light" title="Bill generation logs" [animated]="true" [icons]="true"></log-monitor>
+
   <p-toast key="billgen" position="bottom-center"></p-toast>
 
 </ion-content>

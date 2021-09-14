@@ -1,0 +1,25 @@
+.pm-rpe-popup {
+  min-height: 235px;
+  max-height: 300px;
+  --background: #fff;
+  form {
+    ion-item {
+      color: #313131;
+      --background: #ffffff;
+      background: #fff;
+      border-bottom: 1px solid #c7c7c7;
+    }
+    ion-radio-group{
+      padding-top: 5px;
+      ion-label{
+        font-size: 12px;
+      }
+      ion-item{
+        ion-label{
+          padding-left: 3px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

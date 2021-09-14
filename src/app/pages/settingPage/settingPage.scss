@@ -1,0 +1,49 @@
+.pm-setting-page {
+  height: 408px;
+    overflow: hidden;
+  ion-segment-button {
+    background: #fff;
+    color: #000;
+    &:hover {
+      ion-label {
+        color: #000;
+      }
+    }
+  }
+  .segment-button-checked {
+    ion-label {
+      color: #3880ff;
+    }
+    &:hover {
+      ion-label {
+        color: #3880ff;
+      }
+    }
+  }
+  --background: #fff;
+  .pm-showLoggeduserDetail{
+    overflow: auto;
+    height: 360px;
+    background: #fff;
+    ion-card{
+      background: #fff;
+      box-shadow: #00000026 0px 2px 8px;
+      ion-card-title{
+        color: #212e3f;
+      }
+      ion-card-content{
+        color: #212e3f;
+      }
+    }
+  }
+  .pm-noshowLoggeduserDetail{
+    background: #fff;
+    ion-item{
+      box-shadow: #00000026 0px 2px 8px;
+      --background: #fff;
+      color: #212e3f;
+      margin: 10px;
+      border-radius: 5px;
+    }
+  }
+}

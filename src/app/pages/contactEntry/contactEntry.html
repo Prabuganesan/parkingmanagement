@@ -1,27 +1,27 @@
 
-<ion-content style="height: 400px;">
+<ion-content class="pm-rpe-popup" style="height: 290px;">
 
-  <form [formGroup]="formGroup" style="height: 100%;">
-    <ion-item lines="full" formGroupName="contact">
+  <form [formGroup]="formGroup">
+    <ion-item lines="none" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactName' | translate}} </ion-label>
       <ion-input type="text" [(ngModel)]="contactObj['contactName']" formControlName="contactName" required></ion-input>
     </ion-item>
-    <ion-item lines="full" formGroupName="contact">
+    <ion-item lines="none" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactNameInTamil' | translate}}</ion-label>
       <ion-input type="text" [(ngModel)]="contactObj['contactNameInTamil']" formControlName="contactNameInTamil"></ion-input>
     </ion-item>
   
-    <ion-item lines="full" formGroupName="contact">
+    <ion-item lines="none" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.contactMobile' | translate}}</ion-label>
       <ion-input type="number" [(ngModel)]="contactObj['contactMobile']" formControlName="contactMobile" required></ion-input>
 
     </ion-item>
-    <ion-item lines="full" formGroupName="contact">
+    <ion-item lines="none" formGroupName="contact">
       <ion-label position="floating">{{'contactEntry.licenseNumber' | translate}}</ion-label>
       <ion-input type="text" [(ngModel)]="contactObj['licenseNumber']" formControlName="licenseNumber"></ion-input>
 
     </ion-item>
-    <ion-row>
+    <ion-row class="pm-tmar">
       <ion-col>
         <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}} </ion-button>
       </ion-col>

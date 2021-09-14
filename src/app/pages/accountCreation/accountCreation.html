@@ -1,69 +1,32 @@
-<!-- <ion-header [translucent]="true">
-  <ion-toolbar>
-    <div >
-      <button mat-icon-button="" title="Back" (click)="backButtonOnclick()">
-        <ion-icon style="font-size: 30px;padding: 10px;" name="people"></ion-icon>
-
-      </button>
-    </div>
-    <ion-title size="large" class="ion-text-center">
-      Vehicle Search
+  <ion-content class="pm-rpe-popup" style="height: 255px;">
+    <ion-title class="ion-text-center pm-rpep-title">
+      <span class="pm-rpep-label"> Vehical Details : </span> <span class="pm-rpep-vd">{{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}</span>
     </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-<!-- 
-<ion-header no-border="">
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        Sign Up
-      </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-<!-- <ion-header >
-  <ion-toolbar >
-      <ion-title size="large" class="ion-text-center">
-        {{'accountCreation.title' | translate}}
-      </ion-title>
-       <ion-buttons slot="end">
-          <button ion-button slot="end"> <h4>{{'save' | translate}}</h4>
-          </button>
-      </ion-buttons>
-  </ion-toolbar>
-</ion-header>  -->
+    <div class="pm-ac-c">
+      <ion-item lines="none" class="pm-bg-header" style="padding: 0px;">
+        <ion-label>{{'accountCreation.openDate' | translate}}</ion-label>
+        <input type="datetime-local" [(ngModel)]="openDate">
+      </ion-item>
+    
+      <ion-item lines="none">
+        <ion-label>{{'accountCreation.selectRentPlan' | translate}}</ion-label>
+        <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentPlan']}}</ion-label>
+        <ion-button (click)="openRentPlanList()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-item>
 
+      <ion-item lines="none">
+        <ion-label>{{'rentPlanEntry.rentAmount' | translate}}</ion-label>
+        <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentAmount']}}</ion-label>
+      </ion-item>
 
-<ion-content style="height: 400px;">
-  <ion-title size="large" class="ion-text-center">
-    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
-  </ion-title>
-
-  <!-- <form > -->
-    <ion-item lines="full">
-      <ion-label>{{'accountCreation.openDate' | translate}}</ion-label>
-      <input type="datetime-local" [(ngModel)]="openDate" style="background-color:lightgray;">
-    </ion-item>
-   
-    <ion-item lines="full">
-      <ion-label>{{'accountCreation.selectRentPlan' | translate}}</ion-label>
-      <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentPlan']}}</ion-label>
-      <ion-button (click)="openRentPlanList()">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-item>
-     <ion-item lines="full">
-      <ion-label>{{'rentPlanEntry.rentAmount' | translate}}</ion-label>
-      <ion-label *ngIf="selectedRentPlan" style="float: right;text-align: right;">{{selectedRentPlan['rentAmount']}}</ion-label>
-    </ion-item>
-
-  
-
-    <ion-row>
-      <ion-col>
-        <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
-      </ion-col>
-    </ion-row>
-  <!-- </form> -->
-
+      <ion-row class="pm-tmar">
+        <ion-col>
+          <ion-button type="submit" color="danger" expand="block" (click)="saveAction()">{{'save' | translate}}</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
   <p-toast key="accCreation" position="center"></p-toast>
 
 </ion-content>

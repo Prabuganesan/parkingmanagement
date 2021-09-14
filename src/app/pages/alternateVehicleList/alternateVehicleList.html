@@ -1,43 +1,37 @@
-
-<ion-content style="height: 400px;">
-  <ion-title size="large" class="ion-text-center">
-    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
+<ion-content class="pm-rpe-popup" style="height: 400px;">
+  <ion-title class="ion-text-center pm-rpep-title">
+    <span class="pm-rpep-label">Vehical Details : </span> <span class="pm-rpep-vd">{{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}</span>
   </ion-title>
-<ion-row>
-    <ion-list style="width: 100%;">
-      <ion-item *ngFor="let vehicle of vehicleList"  (click)="itemSelect(vehicle);$event.stopPropagation();" >
+
+
+  <ion-row class="pm-rpe-batch">
+    <ion-list *ngIf='vehicleList.length != 0'>
+      <ion-item lines="none" *ngFor="let vehicle of vehicleList" (click)="itemSelect(vehicle);$event.stopPropagation();">
         <ion-avatar slot="start">
           <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
         </ion-avatar>
         <ion-label>
-          <h3>{{vehicle.vehicleType}}</h3>
-        <h2>{{vehicle.vehicleBrand}} {{vehicle.vehicleModel}} </h2>
-        <h2><b>{{vehicle.vehicleNumber}}</b></h2>
-        <h2>{{vehicle.vehicleColor}}</h2>
-        <p>Added By : {{vehicle.addedBy}}</p>
+          <h3><span class="pm-v-label">Vehicle Type : </span><span class="pm-camelcase"><strong>{{vehicle.vehicleType}}</strong></span></h3>
+          <h3><span class="pm-v-label">Vehicle Brand : </span><span class="pm-camelcase"><strong>{{vehicle.vehicleBrand}} {{vehicle.vehicleModel}}</strong></span></h3>
+          <h3><span class="pm-v-label">Vehicle Number : </span><span class="pm-camelcase"><strong>{{vehicle.vehicleNumber}}</strong></span></h3>
+          <h3><span class="pm-v-label">Vehicle Color : </span><span class="pm-camelcase"><strong>{{vehicle.vehicleColor}}</strong></span></h3>
+          <h3><span class="pm-v-label">Added By : </span><span class="pm-camelcase"><strong>{{vehicle.addedBy}}</strong></span></h3>
         </ion-label>
       </ion-item>
     </ion-list>
-</ion-row>
-<div *ngIf='vehicleList.length==0'>
-  <br>
-  <div></div>
-  <div style="text-align: center;">
-  <ion-label>Alternate vehicle not available.</ion-label><br><br>
-  <button pButton type="button" label="Create alternate vehicle" icon="pi pi-plus" (click)="createAlternateVehicle()"></button>
+  </ion-row>
+  
+  <div class="pm-rpe-batch-avna" *ngIf='vehicleList.length == 0'>
+    <div class="pm-a-c">
+      <ion-label>Alternate vehicle not available.</ion-label><br><br>
+      <button pButton type="button" label="Create alternate vehicle" icon="pi pi-plus" (click)="createAlternateVehicle()"></button>
+    </div>
   </div>
-</div>
-
   <p-toast key="alternateVehicleList" position="center"></p-toast>
-
-
 </ion-content>
 
 <ion-footer style="text-align: center;" *ngIf='vehicleList.length>0'>
-
   <span class="p-buttonset" style="text-align: center;">
     <button pButton type="button" label="Create alternate vehicle" icon="pi pi-plus" (click)="createAlternateVehicle()"></button>
   </span>
-
-
 </ion-footer>

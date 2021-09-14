@@ -1,52 +1,37 @@
-<ion-header no-border="">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-buttons class="pm-clickaction" slot="start">
+      <ion-button (click)="backButtonOnclick()">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="end">
+    <ion-buttons class="pm-clickaction" slot="end">
       <ion-button slot="end" (click)="planAddClick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="add"></ion-icon>
-        </h2>
+        <ion-icon name="add"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">
-      {{'rentPlanList.title' | translate}} 
-
+    <ion-title size="large" class="ion-text-center pm-header-title">
+      {{'rentPlanList.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <div style="padding: 20px;">
+
+
+<ion-content class="pm-content">
+  <div class="pm-container">
     <p-dataView #dv [value]="rentplans" layout="grid">
-        <ng-template let-rentplan pTemplate="gridItem" >
-            <div class="p-col-12 p-md-4" style="padding:5px;" (click)='editaction(rentplan)'>
-                <div class="p-shadow-5" >
-                  <div style="padding:13px;">
-                    <i class="pi pi-money-bill" style="font-size: 4rem"></i>
-                  </div>
-                  <div style="padding: 13px;">
-                    <h2>
-                      {{rentplan.rentPlan}}
-                    </h2>
-                    <h3>
-                      {{rentplan.rentAmount}} {{'rs' | translate}}
-                    </h3>
-                    <ion-label>
-                      {{rentplan.vehicleType}}
-                    </ion-label>
-                  </div>
-                </div>
-            </div>
-        </ng-template>
+      <ng-template let-rentplan pTemplate="gridItem">
+        <div class="p-col-12 p-md-4 pm-card-seg" (click)='editaction(rentplan)'>
+          <i class="pi pi-money-bill"></i>
+          <div class="pm-rpl-detail">
+            <div><span class="pm-v-label">Rent Plan : </span><span class="pm-camelcase"><strong>{{rentplan.rentPlan}}</strong></span></div>
+            <div><span class="pm-v-label">Rent Amount : </span><span class="pm-camelcase"><strong>{{rentplan.rentAmount}} {{'rs' | translate}}</strong></span></div>
+            <div><span class="pm-v-label">Vehicle Type : </span><span class="pm-camelcase"><strong>{{rentplan.vehicleType}}</strong></span></div>
+          </div>
+        </div>
+      </ng-template>
     </p-dataView>
-</div>
-<p-toast key="rentPlanList" position="center"></p-toast>
+  </div>
+  <p-toast key="rentPlanList" position="center"></p-toast>
 
 </ion-content>
-
-  

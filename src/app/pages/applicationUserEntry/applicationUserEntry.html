@@ -1,28 +1,28 @@
 
-<ion-content style="height: 350px;">
+<ion-content class="pm-rpe-popup">
 
-  <form [formGroup]="formGroup" style="height: 100%;">
-    <ion-item lines="full" formGroupName="applicationUser">
+  <form [formGroup]="formGroup">
+    <ion-item lines="none" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.username' | translate}}</ion-label>
       <ion-input type="text" [(ngModel)]="applicationUserObj['userName']" formControlName="userName" required=""></ion-input>
     </ion-item>
 
-    <ion-item lines="full" formGroupName="applicationUser">
+    <ion-item lines="none" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.mobile' | translate}}</ion-label>
       <ion-input type="number" [(ngModel)]="applicationUserObj['mobile']" formControlName="mobile"></ion-input>
     </ion-item>
 
-    <ion-item lines="full" formGroupName="applicationUser">
+    <ion-item lines="none" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.code' | translate}}</ion-label>
       <ion-input type="number" [(ngModel)]="applicationUserObj['code']" formControlName="code" required=""></ion-input>
     </ion-item>
 
-    <ion-item lines="full" formGroupName="applicationUser">
+    <ion-item lines="none" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.password' | translate}}</ion-label>
       <ion-input type="password" [(ngModel)]="applicationUserObj['password']" formControlName="password" required=""></ion-input>
     </ion-item>
 
-    <ion-item lines="full" formGroupName="applicationUser">
+    <ion-item lines="none" formGroupName="applicationUser">
       <ion-label position="floating">{{'applicationUserEntry.confirmpassword' | translate}}</ion-label>
       <ion-input type="text" [(ngModel)]="applicationUserObj['confirmPassword']" formControlName="confirmPassword" required=""></ion-input>
     </ion-item>

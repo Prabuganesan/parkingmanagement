@@ -1,1 +1,66 @@
+// .pm-header {
+//   .pm-toolbar {
+//     --background: #fff;
+//     .pm-header-title {
+//       color: #212e3f;
+//       font-weight: 500;
+//     }
+//     .pm-clickaction {
+//       ion-button {
+//         ion-icon {
+//           color: #212e3f;
+//           font-size: 30px;
+//           padding-left: 5px;
+//         }
+//         &:hover {
+//           ion-icon {
+//             color: #2196f3;
+//           }
+//         }
+//       }
+//     }
+//   }
+//   &:after {
+//     background-image: none;
+//   }
+//   border-bottom: 2px solid #ececec;
+//   ion-toolbar:last-of-type {
+//     --border-width: 0px;
+//   }
+// }
 
+.pm-content {
+  --background: #fff;
+  .pm-container {
+    margin: 15px;
+    .pm-card-seg {
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      margin: 20px;
+      padding: 20px !important;
+      border-radius: 15px;
+      display: inline-flex;
+      color: #212e3f;
+      i {
+        font-size: 3rem !important;
+        margin-right: 15px;
+        padding-top: 3px;
+      }
+      .pm-rpl-detail {
+        font-size: 20px;
+        text-transform: capitalize;
+        width: calc(100% - 50px);
+        .pm-v-label {
+          color: #212e3f;
+          padding-right: 5px;
+          line-height: 1.5;
+        }
+      }
+      &:hover {
+        i {
+          color: #2196f3;
+        }
+        cursor: pointer;
+      }
+    }
+  }
+}

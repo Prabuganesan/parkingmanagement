@@ -1,28 +1,79 @@
-
-ion-col > div {
-  background-color: #f7f7f7;
-  border: solid 1px #ddd;
-  padding: 100px;
+// .pm-header {
+//   .pm-toolbar {
+//     --background: #fff;
+//     .pm-header-title {
+//     }
+//     .pm-logo {
+//       margin-left: 30px;
+//       cursor: pointer;
+//       img {
+//         width: 40px;
+//         height: 40px;
+//       }
+//     }
+//     .pm-clickaction {
+//       margin-right: 30px;
+//       ion-button {
+//         color: #212e3f;
+//         font-size: 20px;
+//         &:hover{
+//           color: #2196f3;
+//         }
+//       }
+//     }
+//   }
+//   &:after {
+//     background-image: none;
+//   }
+//   border-bottom: 2px solid #ececec;
+//   ion-toolbar:last-of-type {
+//     --border-width: 0px;
+//   }
+// }
+.pm-header .pm-logo {
+  cursor: auto;
 }
-
-:root {
-  --ion-safe-area-top: 20px;
-  --ion-safe-area-bottom: 22px;
+.pm-body {
+  --background: #fff;
+  --offset-top: 0px!important;
+  .pm-grid {
+    margin: 20px;
+    padding: 0px;
+    .pm-row {
+      margin: 15px 0px;
+      .pm-col {
+        margin: 15px;
+        box-shadow: 0 2px 30px -10px #96aab480;
+        border-radius: 15px;
+        background: #fff;
+        .pm-col-seg {
+          background-color: #fff;
+          width: 100%;
+          display: inline-flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 20px 0px;
+          h3 {
+            color: #212e3f;
+            font-size: 32px;
+            text-align:center;
+          }
+          ion-icon {
+            color: #212e3f;
+            font-size: 70px;
+            padding: 10px;
+          }
+          &:hover{
+            h3 {
+              color: #2196f3;
+            }
+            ion-icon {
+              color: #2196f3;
+            } 
+          }
+        }
+      }
+    }
+  }
 }
-
-.vertical-center {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
-
-.container {
-  position: relative;
-  border: 3px solid rgb(252, 253, 252);
-}
-
-.background {
-  --background: url("/assets/bg2.jpeg") 0 0/100% 100% no-repeat
- }

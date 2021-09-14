@@ -1,13 +1,12 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title size="large" class="ion-text-center">
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-title size="large" class="ion-text-center pm-header-title">
       {{'settings.title' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content style="height: 50%;">
+<ion-content class="pm-setting-page">
   <ion-segment (ionChange)="segmentChanged($event)" value="loggeduser">
     <ion-segment-button value="loggeduser">
       <ion-label> {{'settings.loggedUser' | translate}} </ion-label>
@@ -16,7 +15,7 @@
       <ion-label> {{'settings.loginActivity' | translate}} </ion-label>
     </ion-segment-button>
   </ion-segment>
-  <div *ngIf="showLoggeduserDetail">
+  <div class="pm-showLoggeduserDetail" *ngIf="showLoggeduserDetail">
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{this.util.loggedUserInfo['userName']}}</ion-card-title>
@@ -30,15 +29,12 @@
     </ion-card>
   </div>
 
-  <ion-list style="width: 100%;" *ngIf="!showLoggeduserDetail">
+  <ion-list class="pm-noshowLoggeduserDetail" lines="none" style="width: 100%;" *ngIf="!showLoggeduserDetail">
     <div style="text-align: center;">
       <p-dropdown appendTo="body" [options]="users" [(ngModel)]="selectedUser" optionLabel="userName" [filter]="true"
         optionDisabled="inactive" placeholder="{{'settings.selectUser' | translate}}" (onChange)="onChange()"></p-dropdown>
     </div>
     <ion-item *ngFor="let user of loginActivity">
-      <!-- <ion-avatar slot="start">
-          <ion-icon name="user-outline" style="font-size: 50px;"></ion-icon>
-        </ion-avatar> -->
       <ion-label>
         <h3>{{user.applicationUser['userName']}}</h3>
         <h2>{{'settings.inTime' | translate}} : {{user.inTime | date:'dd/MM/yyyy hh:mm a'}}</h2>

@@ -1,47 +1,38 @@
-
-
-
-
-<ion-content style="height: 400px;">
-  <ion-title size="large" class="ion-text-center">
-    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
+<ion-content class="pm-rpe-popup" style="height: 400px;">
+  <ion-title class="ion-text-center pm-rpep-title">
+    <span class="pm-rpep-label"> Vehical Details : </span> <span class="pm-rpep-vd">{{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}</span>
   </ion-title>
-<ion-row>
-  <ion-list style="width: 100%;">
-    <ion-item *ngFor="let contact of contactList" (click)="editContact(contact);$event.stopPropagation();" >
-      <ion-avatar slot="start">
-        <ion-icon name="person-circle-outline" style="font-size: 50px;"></ion-icon>
-      </ion-avatar>
-      <ion-label>
-        <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
-        <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
-        <h3>{{contact.contactMobile}}</h3>
-        <p>DL : {{contact.licenseNumber}}</p>
-        <p>Added By : {{contact.securityName}}</p>
 
-      </ion-label>
-    </ion-item>
-  </ion-list>
-</ion-row>
-<div *ngIf='contactList.length==0'>
-  <br>
-  <div></div>
-  <div style="text-align: center;">
-  <ion-label>Alternate contact not available.</ion-label><br><br>
-  <button pButton type="button" label="Create alternate contact" icon="pi pi-plus" (click)="createAlternateContact()"></button>
+  <ion-row class="pm-rpe-batch">
+    <ion-list  *ngIf='contactList.length != 0'>
+      <ion-item lines="none" *ngFor="let contact of contactList" (click)="editContact(contact);$event.stopPropagation();">
+        <ion-avatar slot="start">
+          <ion-icon name="person-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label>
+          <h3 *ngIf="appLanguage && appLanguage == 'en'"><span class="pm-v-label">Name : </span><span class="pm-camelcase"><strong>{{contact.contactName}}</strong></span></h3>
+          <h3 *ngIf="appLanguage && appLanguage == 'ta'"><span class="pm-v-label">பெயர் : </span><span class="pm-camelcase"><strong>{{contact.contactNameInTamil}}</strong></span></h3>
+          <h3><span class="pm-v-label">Mobile Number : </span><span class="pm-camelcase"><strong>{{contact.contactMobile}}</strong></span></h3>
+          <h3><span class="pm-v-label">License Number : </span><span class="pm-camelcase"><strong>{{contact.licenseNumber}}</strong></span></h3>
+          <h3><span class="pm-v-label">Security Name : </span><span class="pm-camelcase"><strong>{{contact.securityName}}</strong></span></h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-row>
+
+  <div class="pm-rpe-batch-avna" *ngIf='contactList.length==0'>
+    <div class="pm-a-c">
+      <ion-label>Alternate contact not available.</ion-label><br><br>
+      <button pButton type="button" label="Create alternate contact" icon="pi pi-plus" (click)="createAlternateContact()"></button>
+    </div>
   </div>
-</div>
 
   <p-toast key="alternateContactList" position="center"></p-toast>
-
 
 </ion-content>
 
 <ion-footer style="text-align: center;" *ngIf='contactList.length>0'>
-
   <span class="p-buttonset" style="text-align: center;">
     <button pButton type="button" label="Create alternate contact" icon="pi pi-plus" (click)="createAlternateContact()"></button>
   </span>
-
-
 </ion-footer>

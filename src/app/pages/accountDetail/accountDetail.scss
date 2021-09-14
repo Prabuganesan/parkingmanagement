@@ -3,3 +3,11 @@ ion-footer {
         background-image: none;
     }
 }
+
+.pm-ac-d-list{
+    ion-item{
+        --background:#fff;
+        color: #212e3f;
+        border-bottom: 1px solid #ececec;
+    }
+}

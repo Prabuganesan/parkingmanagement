@@ -1,36 +1,34 @@
-
-
-
-<ion-content style="height: 400px;">
-  <ion-title size="large" class="ion-text-center" *ngIf="selectedVehicle">
-    {{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}
+<ion-content class="pm-rpe-popup" style="height: 375px;">
+  <ion-title class="ion-text-center pm-rpep-title">
+    <span class="pm-rpep-label"> Vehical Details : </span> <span class="pm-rpep-vd">{{selectedVehicle['vehicleBrand']+' '+selectedVehicle['vehicleModel'] + ' '+selectedVehicle['vehicleNumber']}}</span>
   </ion-title>
-  <div *ngIf='selectedAccount'>
-    <ion-item lines="full">
+
+  <div *ngIf='selectedAccount' class="pm-r-car-list pm-ac-d-list">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.rentPlan' | translate}}</ion-label>
       <h5>{{selectedAccount['rentPlan_lookup']['rentPlan']}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.totalAmount' | translate}}</ion-label>
       <h5>{{selectedAccount['totalBillAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.amountReceived' | translate}}</ion-label>
       <h5>{{selectedAccount['receivedAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.pendingAmount' | translate}}</ion-label>
       <h5>{{selectedAccount['totalBillAmount'] - selectedAccount['receivedAmount']}} {{'rs' | translate}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.accOpenDate' | translate}}</ion-label>
-      <h5>{{selectedAccount['openDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5> 
+      <h5>{{selectedAccount['openDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.accCloseDate' | translate}}</ion-label>
-      <h5>{{selectedAccount['closeDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5> 
+      <h5>{{selectedAccount['closeDate'] | date:'dd/MM/yyyy hh:mm a'}}</h5>
     </ion-item>
-    <ion-item lines="full">
+    <ion-item lines="none">
       <ion-label>{{'accountDetail.accAddBy' | translate}}</ion-label>
       <h5>Security 1</h5>
     </ion-item>
@@ -39,8 +37,8 @@
     <br>
     <div></div>
     <div style="text-align: center;">
-    <ion-label>Active account not available. Create new account.</ion-label>
-</div>
+      <ion-label>Active account not available. Create new account.</ion-label>
+    </div>
   </div>
   <p-toast key="accountDetail" position="center"></p-toast>
   <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

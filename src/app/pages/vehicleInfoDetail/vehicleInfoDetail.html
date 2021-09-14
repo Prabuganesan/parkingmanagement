@@ -1,265 +1,132 @@
-<ion-header no-border="">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button slot="start" (click)="backButtonOnclick()">
-        <h2>
-          <ion-icon style="font-size: 30px;color: black;" name="arrow-back"></ion-icon>
-        </h2>
+<ion-header class="pm-header" no-border="">
+  <ion-toolbar class="pm-toolbar">
+    <ion-buttons class="pm-clickaction" slot="start">
+      <ion-button (click)="backButtonOnclick()">
+        <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center">
-       {{'vehicleSearch.vehicleInfo' | translate}}
+    <ion-title size="large" class="ion-text-center pm-header-title">
+      {{'vehicleSearch.vehicleInfo' | translate}}
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content>
-  <ion-grid style="height: 100%;">
-    <ion-row style="background-color: white;height: 33.3%;width: 100%;max-height: 200px;min-height: 180px;">
-      <ion-col size="5.6" style="height: 99%;">
-        <h2>{{'contactListWithVehicle.primaryVehicleInfo' | translate}}</h2>
-        <div>
-          <div class="alignleft" style="text-align:center; width: 30%;">
-            <ion-avatar style="margin: auto;">
-              <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
-            </ion-avatar>
-            <ion-label style="text-align: center;">
-              <h3>{{vehicle.vehicleInfo.vehicleColor}}</h3>
-            </ion-label>
-          </div>
-          <div class="alignleft" style="width: 67%;">
-            <ion-label>
-              <h2>{{vehicle.vehicleInfo.vehicleType}}</h2>
-              <h2>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </h2>
-              <h2><b>{{vehicle.vehicleInfo.vehicleNumber}}</b></h2>
-              <p>Added By : {{vehicle.vehicleInfo.addedBy}}</p>
-            </ion-label>
-          </div>
-          <div class="vl alignright"></div>
-        </div>
+<ion-content class="pm-content">
 
-      </ion-col>
-      <ion-col size="5.6" style="height: 99%;">
-        <h2>{{'contactListWithVehicle.accountInfo' | translate}}</h2>
-        <div class="alignleft" style="width: 100%;padding-left: 10px;">
-          <ion-label>
-            <h2>{{'rentPlanEntry.rentPlanName' | translate}} : {{vehicle.rentPlanInfo.rentPlan}}</h2>
-            <h2>{{vehicle.rentPlanInfo.rentAmount}} {{'rs' | translate}}</h2>
-            <p>{{'contactListWithVehicle.accountOpenDate' | translate}} :</p>
-            <p>{{vehicle.accountInfo.openDate | date:'dd/MM/yyyy hh:mm a'}}</p>
-          </ion-label>
-        </div>
-      </ion-col>
-      <ion-col size="0.8" style="background-color: white;">
-        <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text"
-        label="" (click)="menu.toggle($event);menuClick(vehicle);$event.stopPropagation();"></button>
-        <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu> 
+  <div class="pm-container">
+    <div>
+      <button class="pm-v-option-select" type="button" (click)="menu.toggle($event);menuClick(vehicle);$event.stopPropagation();">
+        <strong>
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </strong>
+        <span>Options</span>
+      </button>
+      <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
+    </div>
+    <ion-grid class="pm-ion-grid">
+      <ion-row class="pm-ion-row">
 
-      </ion-col>
-
-      <div class="hl"></div>
-
-    </ion-row>
-    <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
-      <ion-col size="5.6" style="height: 99%;">
-        <div>
-        <h2>{{'contactListWithVehicle.outstandingInfo' | translate}}</h2>
-        <div class="alignleft" style="width: 97%;">
-        <ion-label style="padding-left: 10px;">
-          <h2>{{'contactListWithVehicle.totalAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount}} {{'rs' | translate}}</h2>
-          <h2>{{'contactListWithVehicle.paidAmount' | translate}} : {{vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</h2>
-          <h2><b>{{'contactListWithVehicle.pendingAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</b>
-          </h2>
-        </ion-label>
-        </div>
-        <div class="vl alignright"></div>
-      </div>
-      </ion-col>
-      <ion-col size="5.6" style="height: 99%;">
-        <h2>{{'contactListWithVehicle.alternateVehicleInfo' | translate}}</h2>
-        <div *ngIf="vehicle.alternateVehicleInfo['vehicleType']">
-          <div class="alignleft" style="text-align:center; width: 30%;">
-            <ion-avatar style="margin: auto;">
-              <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
-            </ion-avatar>
-            <ion-label style="text-align: center;">
-              <h3>{{vehicle.alternateVehicleInfo.vehicleColor}}</h3>
-            </ion-label>
-          </div>
-          <div class="alignleft" style="width: 67%;">
-            <ion-label>
-              <h2>{{vehicle.alternateVehicleInfo.vehicleType}}</h2>
-              <h2>{{vehicle.alternateVehicleInfo.vehicleBrand}} {{vehicle.alternateVehicleInfo.vehicleModel}} </h2>
-              <h2><b>{{vehicle.alternateVehicleInfo.vehicleNumber}}</b></h2>
-              <p>Added By : {{vehicle.alternateVehicleInfo.addedBy}}</p>
-            </ion-label>
-          </div>
-        </div>
-        <div *ngIf="!vehicle.alternateVehicleInfo['vehicleType']">
-          <ion-label style="text-align: center;">
-            <br>
-            <h3>Alternate vehicle not available</h3>
-          </ion-label>
-        </div>
-      </ion-col>
-      <div class="hl"></div>
-    </ion-row>
-    <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
-      <ion-row style="width: 100%;height: 30%;">
-        <h2 style="padding-left: 4px;">{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
-      </ion-row>
-      <ion-row style="width: 100%;height: 70%;">
-      <ion-col *ngFor="let contact of vehicle.additionalContacts" style="min-width: 25%;max-width: 25%;">
-        <!-- <ion-row *ngFor="let contact of vehicle.additionalContacts; let i = index" style="padding: 0px;"> -->
-          <div>
-            <ion-label style="padding-left: 10px;">
-              <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
-              <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
-              <h2>{{contact.contactMobile}}</h2>
-            </ion-label>
-          </div>
-      </ion-col>
-    </ion-row>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <ion-content>
-    <div *ngIf="vehicle">
-      <ion-grid style="height: 100%;">
-        <ion-row style="height: 33.3%;width: 100%; max-height: 200px;min-height: 180px;">
-          <ion-col size="5.6" style="height: 99%;">
+        <ion-col class="pm-ion-col" class="pm-ion-col" size="5.8">
+          <div class="pm-col-seg pm-rm-15">
             <h2>{{'contactListWithVehicle.primaryVehicleInfo' | translate}}</h2>
             <div>
-              <div class="alignleft" style="text-align:center; width: 30%;">
-                <ion-avatar style="margin: auto;">
-                  <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
+              <div class="pm-alignleft">
+                <ion-avatar>
+                  <ion-icon name="car-sport-outline"></ion-icon>
                 </ion-avatar>
-                <ion-label style="text-align: center;">
-                  <h3>{{vehicle.vehicleInfo.vehicleColor}}</h3>
-                </ion-label>
               </div>
-              <div class="alignleft" style="width: 67%;">
+              <div class="pm-alignleft">
                 <ion-label>
-                  <h2>{{vehicle.vehicleInfo.vehicleType}}</h2>
-                  <h2>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </h2>
-                  <h2><b>{{vehicle.vehicleInfo.vehicleNumber}}</b></h2>
-                  <p>Added By : {{vehicle.vehicleInfo.addedBy}}</p>
+                  <h3><span class="pm-v-label">Type : </span><span class="pm-camelcase"><strong>{{vehicle.vehicleInfo.vehicleType}}</strong></span></h3>
+                  <h3><span class="pm-v-label">Model : </span><strong>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}}</strong></h3>
+                  <h3><span class="pm-v-label">Vehicle No :</span><strong>{{vehicle.vehicleInfo.vehicleNumber}}</strong></h3>
+                  <h3><span class="pm-v-label">Color : </span><strong>{{vehicle.vehicleInfo.vehicleColor}}</strong></h3>
+                  <!-- <p><span class="pm-v-label">Added By :</span> {{vehicle.vehicleInfo.addedBy}}</p> -->
                 </ion-label>
               </div>
-              <div class="vl alignright"></div>
             </div>
-          </ion-col>
-          <ion-col size="5.6" style="height: 99%;">
-            <h2>{{'contactListWithVehicle.accountInfo' | translate}}</h2>
-            <div class="alignleft" style="width: 100%;padding-left: 10px;">
+          </div>
+        </ion-col>
+
+        <ion-col class="pm-ion-col" size="5.8">
+          <div class="pm-col-seg pm-lm-15">
+            <h2 class="pm-title-name">{{'contactListWithVehicle.accountInfo' | translate}}</h2>
+            <div class="pm-alignleft">
               <ion-label>
-                <h2>{{'rentPlanEntry.rentPlanName' | translate}} : {{vehicle.rentPlanInfo.rentPlan}}</h2>
-                <h2>{{vehicle.rentPlanInfo.rentAmount}} {{'rs' | translate}}</h2>
-                <p>{{'contactListWithVehicle.accountOpenDate' | translate}} :</p>
-                <p>{{vehicle.accountInfo.openDate | date:'dd/MM/yyyy hh:mm a'}}</p>
+                <h3><span class="pm-v-label">{{'rentPlanEntry.rentPlanName' | translate}} :</span><strong>{{vehicle.rentPlanInfo.rentPlan}}</strong></h3>
+                <h3><span class="pm-v-label">Rent Cost :</span><strong> {{vehicle.rentPlanInfo.rentAmount}} {{'rs' | translate}}</strong></h3>
+                <h3><span class="pm-v-label">{{'contactListWithVehicle.accountOpenDate' | translate}} :</span><strong>{{vehicle.accountInfo.openDate | date:'dd/MM/yyyy hh:mm a'}}</strong></h3>
+              </ion-label>
+            </div>
+          </div>
+        </ion-col>
+
+        <!-- <ion-col class="pm-ion-col" size="0.8">
+          <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text" label="" (click)="menu.toggle($event);menuClick(vehicle);$event.stopPropagation();"></button>
+          <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu>
+        </ion-col> -->
+      </ion-row>
+
+      <ion-row class="pm-ion-row">
+        <ion-col class="pm-ion-col " size="5.8">
+          <div class="pm-col-seg pm-rm-15">
+            <h2 class="pm-title-name">{{'contactListWithVehicle.outstandingInfo' | translate}}</h2>
+            <div class="pm-alignleft">
+              <ion-label>
+                <h3><span class="pm-v-label">{{'contactListWithVehicle.totalAmount' | translate}} : </span><strong> {{vehicle.accountInfo.totalBillAmount}} {{'rs' | translate}}</strong></h3>
+                <h3><span class="pm-v-label">{{'contactListWithVehicle.paidAmount' | translate}} : </span><strong> {{vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</strong></h3>
+                <h3><span class="pm-v-label">{{'contactListWithVehicle.pendingAmount' | translate}} : </span><strong> {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</strong></h3>
+              </ion-label>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col class="pm-ion-col " size="5.8">
+          <div class="pm-col-seg pm-lm-15">
+            <h2 class="pm-title-name">{{'contactListWithVehicle.alternateVehicleInfo' | translate}}</h2>
+            <div *ngIf="vehicle.alternateVehicleInfo['vehicleType']">
+              <div class="pm-alignleft">
+                <ion-avatar>
+                  <ion-icon name="car-sport-outline"></ion-icon>
+                </ion-avatar>
+              </div>
+              <div class="pm-alignleft">
+                <ion-label>
+                  <h3><span class="pm-v-label">Type : </span><span class="pm-camelcase"><strong>{{vehicle.alternateVehicleInfo.vehicleType}}</strong></span></h3>
+                  <h3><span class="pm-v-label">Model : </span><strong>{{vehicle.alternateVehicleInfo.vehicleBrand}} {{vehicle.alternateVehicleInfo.vehicleModel}}</strong> </h3>
+                  <h3><span class="pm-v-label">Vehicle No :</span><strong>{{vehicle.alternateVehicleInfo.vehicleNumber}}</strong></h3>
+                  <h3><span class="pm-v-label">Color : </span><strong>{{vehicle.alternateVehicleInfo.vehicleColor}}</strong></h3>
+                  <!-- <p><span class="pm-v-label">Added By :</span> {{vehicle.alternateVehicleInfo.addedBy}}</p> -->
+                </ion-label>
+              </div>
+            </div>
+
+            <div *ngIf="!vehicle.alternateVehicleInfo['vehicleType']" class="pm-alt-norec">
+              <ion-label>
+                <h3>Alternate vehicle not available</h3>
               </ion-label>
             </div>
 
-          </ion-col>
-
-          <ion-col size="0.8" style="background-color: white;">
-            <button pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text"
-            label="" (click)="menu.toggle($event);menuClick(vehicle);$event.stopPropagation();"></button>
-            <p-menu #menu [popup]="true" appendTo="body" [model]="items"></p-menu> 
-    
-          </ion-col>
-
-         
-
-          <div class="hl"></div>
-
-        </ion-row>
-
-        <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
-         
-
-
-          <ion-col size="5.6" style="height: 99%;">
-            <div>
-            <h2>{{'contactListWithVehicle.outstandingInfo' | translate}}</h2>
-            <div class="alignleft" style="width: 97%;">
-            <ion-label style="padding-left: 10px;">
-              <h2>{{'contactListWithVehicle.totalAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount}} {{'rs' | translate}}</h2>
-              <h2>{{'contactListWithVehicle.paidAmount' | translate}} : {{vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</h2>
-              <h2><b>{{'contactListWithVehicle.pendingAmount' | translate}} : {{vehicle.accountInfo.totalBillAmount - vehicle.accountInfo.receivedAmount}} {{'rs' | translate}}</b>
-              </h2>
-            </ion-label>
-            </div>
-            <div class="vl alignright"></div>
           </div>
-          </ion-col>
-        
-          <ion-col size="5.6" style="height: 99%;">
-            <h2>{{'contactListWithVehicle.alternateVehicleInfo' | translate}}</h2>
-            <div *ngIf="vehicle.alternateVehicleInfo['vehicleType']">
-              <div class="alignleft" style="text-align:center; width: 30%;">
-                <ion-avatar style="margin: auto;">
-                  <ion-icon name="car-sport-outline" style="font-size: 50px;"></ion-icon>
-                </ion-avatar>
-                <ion-label style="text-align: center;">
-                  <h3>{{vehicle.vehicleInfo.vehicleColor}}</h3>
-                </ion-label>
-              </div>
-              <div class="alignleft" style="width: 67%;">
-                <ion-label>
-                  <h2>{{vehicle.vehicleInfo.vehicleType}}</h2>
-                  <h2>{{vehicle.vehicleInfo.vehicleBrand}} {{vehicle.vehicleInfo.vehicleModel}} </h2>
-                  <h2><b>{{vehicle.vehicleInfo.vehicleNumber}}</b></h2>
-                  <p>Added By : {{vehicle.vehicleInfo.addedBy}}</p>
-                </ion-label>
-              </div>
-              <div *ngIf="!vehicle.alternateVehicleInfo['vehicleType']">
-                <ion-label style="text-align: center;">
-                  <br>
-                  <h3>Alternate vehicle not available</h3>
-                </ion-label>
-              </div>
-              <div class="vl alignright"></div>
-            </div>
-          </ion-col>
-          <div class="hl"></div>
+        </ion-col>
+      </ion-row>
 
 
-        </ion-row>
-       
-
-        <ion-row style="height: 33.3%;max-height: 200px;min-height: 180px;">
-          <ion-row style="width: 100%;height: 30%;">
-            <h2 style="padding-left: 4px;">{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
-          </ion-row>
-          <ion-row style="width: 100%;height: 70%;">
-          <ion-col *ngFor="let contact of vehicle.additionalContacts" style="min-width: 25%;max-width: 25%;">
-            <ion-row *ngFor="let contact of vehicle.additionalContacts; let i = index" style="padding: 0px;"> 
+      <ion-row class="pm-ion-row">
+          <ion-col class="pm-ion-col" size="5.8" *ngFor="let contact of vehicle.additionalContacts">
+            <div class="pm-col-seg pm-rm-15">
+              <h2>{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
               <div>
-                <ion-label style="padding-left: 10px;">
+                <ion-label>
                   <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
                   <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
                   <h2>{{contact.contactMobile}}</h2>
                 </ion-label>
               </div>
+            </div>
           </ion-col>
-        </ion-row>
-        </ion-row>
+      </ion-row>
 
-
-      </ion-grid>
-    </div>
-</ion-content> -->
+    </ion-grid>
+  </div>
+</ion-content>
