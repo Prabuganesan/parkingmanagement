@@ -185,17 +185,17 @@
           </ion-col>
         </ion-row>
         <!-- need to -->
-        <ion-row class="pm-ion-row">
-          <ion-row style="width: 100%;height: 30%;">
-            <h2 style="padding-left: 4px;">{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
+        <ion-row class="pm-ion-row-2">
+          <ion-row class="pm-title-h2">
+            <h2>{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
           </ion-row>
-          <ion-row style="width: 100%;height: 70%;">
-            <ion-col *ngFor="let contact of vehicle.additionalContacts" style="min-width: 25%;max-width: 25%;">
+          <ion-row>
+            <ion-col  class="pm-ion-row-alter-contact" size="4" *ngFor="let contact of vehicle.additionalContacts">
               <div>
-                <ion-label style="padding-left: 10px;">
-                  <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
-                  <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
-                  <h2>{{contact.contactMobile}}</h2>
+                <ion-label>
+                  <h3 *ngIf="appLanguage && appLanguage == 'en'"><span class="pm-v-label">Name : </span><strong> {{contact.contactName}}</strong></h3>
+                  <h3 *ngIf="appLanguage && appLanguage == 'ta'"><span class="pm-v-label">Name : </span><strong> {{contact.contactNameInTamil}}</strong></h3>
+                  <h3><span class="pm-v-label">Mobile : </span><strong> {{contact.contactMobile}}</strong></h3>
                 </ion-label>
               </div>
             </ion-col>

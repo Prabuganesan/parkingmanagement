@@ -49,6 +49,19 @@ export class billGenerate {
     console.log(this.selectedYearmonth)
     var selectedMonth = this.selectedYearmonth.split('-')[1]
     var selectedYear = this.selectedYearmonth.split('-')[0]
+    var today = new Date();
+    var currentMonth = today.getMonth() + 1
+    if(Number(selectedYear) > today.getFullYear()){
+      this.messageService.add({ key: "billgen", severity: 'error', summary: "Please choose year below or equal to current year", detail: '', closable: true });
+      this.disableGenerate = false;
+      return;
+    }else{
+      if(Number(selectedYear) == today.getFullYear() && Number(selectedMonth)>currentMonth){
+        this.messageService.add({ key: "billgen", severity: 'error', summary: "Please choose month below or equal to current month", detail: '', closable: true });
+        this.disableGenerate = false;
+        return;
+      }
+    }
 
     const monthLastDate = new Date(Number(selectedYear), Number(selectedMonth), 0, 23, 59, 59);
     // const firstDate = new Date(Number(selectedYear), Number(selectedMonth) - 1, 1);

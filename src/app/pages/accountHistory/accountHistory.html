@@ -6,7 +6,7 @@
 
   <ion-row class="pm-rpe-batch">
     <ion-list>
-    <ion-item lines="none" *ngFor="let account of accountList">
+    <ion-item lines="none" *ngFor="let account of accountList" (click)="openTransactionHistory(account['id'])">
       <ion-label>
         <h3><span class="pm-v-label">{{'accountDetail.accOpenDate' | translate}} : </span><span class="pm-camelcase"><strong>{{account.openDate | date:'dd/MM/yyyy hh:mm a'}}</strong></span></h3>
         <h3><span class="pm-v-label">{{'accountDetail.accCloseDate' | translate}} : </span><span class="pm-camelcase"><strong>{{account.closeDate | date:'dd/MM/yyyy hh:mm a'}}</strong></span></h3>

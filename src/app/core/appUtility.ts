@@ -20,6 +20,7 @@ export class appUtility {
   
     private _userId: number;
    public billGenerate = false;
+   public vehicleModified = false;
   
     public hoursFormat = 'hh:mm a'; // hour format
     public userZoneOffsetValue = ''; // user timezone offset value. For eg: +0530, -0400

@@ -4,7 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { accountHistory } from '../accountHistory/accountHistory';
 import { dbProvider } from 'src/app/core/dbProvider';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TranslateService } from '@ngx-translate/core';
 import { accountCreation } from '../accountCreation/accountCreation';
 @Component({
@@ -21,12 +21,13 @@ export class accountDetail {
   public savedSuccessMessage = 'Account closed successfully';
 
 public accountList = []
-  constructor(private confirmationService: ConfirmationService,public router:Router,public popoverController: PopoverController,private translate: TranslateService,public dialogService: DialogService,private messageService: MessageService,private dbprovider:dbProvider,public config: DynamicDialogConfig) {
+  constructor(private confirmationService: ConfirmationService,public dlgref: DynamicDialogRef,public router:Router,public popoverController: PopoverController,private translate: TranslateService,public dialogService: DialogService,private messageService: MessageService,private dbprovider:dbProvider,public config: DynamicDialogConfig) {
     this.selectedVehicle = JSON.parse(JSON.stringify(config.data.vehicle)); 
     this.fetchAccounts()
   }
   async accountHistory(){
     console.log("history")
+    this.dlgref.close();
 
     const ref = this.dialogService.open(accountHistory, {
       header: this.translate.instant('accountHistory.title'),

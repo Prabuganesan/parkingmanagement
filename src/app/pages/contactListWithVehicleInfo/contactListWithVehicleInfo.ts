@@ -11,6 +11,7 @@ import { contactEntry } from '../contactEntry/contactEntry';
 import { Location } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { dbProvider } from 'src/app/core/dbProvider';
+import { appUtility } from 'src/app/core/appUtility';
 
 @Component({
   selector: 'contactListWithVehicleInfo',
@@ -37,7 +38,7 @@ export class contactListWithVehicleInfo {
   loading;
 
 
-  constructor(public router: Router,public loadingController: LoadingController, public dialogService: DialogService, public popoverController: PopoverController, private location: Location, private translate: TranslateService, private dbprovider: dbProvider, private messageService: MessageService) {
+  constructor(public router: Router,public util:appUtility, public loadingController: LoadingController, public dialogService: DialogService, public popoverController: PopoverController, private location: Location, private translate: TranslateService, private dbprovider: dbProvider, private messageService: MessageService) {
     this.appLanguage = this.translate.getDefaultLang()
     this.presentLoading();
     setTimeout(() => {
@@ -430,6 +431,17 @@ export class contactListWithVehicleInfo {
       this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
     }
     
+
+  }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter')
+    if(this.util.vehicleModified){
+      this.util.vehicleModified = false;
+      setTimeout(() => {
+        this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
+      }, 500);
+    }
 
   }
 

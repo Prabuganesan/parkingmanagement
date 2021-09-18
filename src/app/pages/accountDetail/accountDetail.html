@@ -33,13 +33,14 @@
       <h5>Security 1</h5>
     </ion-item>
   </div>
-  <div *ngIf='!selectedAccount'>
-    <br>
-    <div></div>
-    <div style="text-align: center;">
+
+  <div class="pm-rpe-batch-avna" *ngIf='!selectedAccount'>
+    <div class="pm-a-c">
       <ion-label>Active account not available. Create new account.</ion-label>
     </div>
   </div>
+
+
   <p-toast key="accountDetail" position="center"></p-toast>
   <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
 

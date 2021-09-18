@@ -119,11 +119,16 @@ export class transactionHistory {
     Promise.all(taskList).then(res => {
       const mergeArray = [].concat.apply([], res);
       console.log(mergeArray)
-      mergeArray.forEach(element => {
-        element['month'] = this.month_mapping[element['billDetail']['billMonth']] + ' ' + element['billDetail']['billYear']
-        delete element['billDetail']
-        this.transactionList.push(element)
-      });
+      if(mergeArray.length>0){
+        mergeArray.forEach(element => {
+          element['month'] = this.month_mapping[element['billDetail']['billMonth']] + ' ' + element['billDetail']['billYear']
+          delete element['billDetail']
+          this.transactionList.push(element)
+        });
+      }else{
+        this.transactionList = []
+      }
+      
 
 
     })

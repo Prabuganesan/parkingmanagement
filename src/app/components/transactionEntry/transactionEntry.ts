@@ -29,6 +29,7 @@ export class transactionEntry implements OnInit {
   receivedFrom=''
   account;
   public savedSuccessMessage = 'Data saved successfully';
+  public month_mapping = { '1': 'Jan', '2': 'Feb', '3': 'Mar', '4': 'Apr', '5': 'May', '6': 'Jun', '7': 'Jul', '8': 'Aug', '9': 'Sep', '10': 'Oct', '11': 'Nov', '12': 'Dec' }
 
   // Lookup
   cspfmEditorType = '';
@@ -44,7 +45,7 @@ export class transactionEntry implements OnInit {
     this.billdate = localISOTime
     this.amount = this.billdetail.pendingAmount;
     this.totalPayable = this.amount - this.discount;
-    this.monthName = this.billdetail.Month;
+    this.monthName =  this.month_mapping[this.billdetail.billMonth] +' '+ this.billdetail.billYear
     this.totalPendingAmount = this.billdetail.totalAmount;
     this.fetchAccount(this.billdetail.account)
   }

@@ -174,11 +174,11 @@ log-monitor{
     background: #fff;
     ion-list{
       background: #fff;
-      box-shadow: #00000005 0px 1px 3px 0px, #1b1f2326 0px 0px 0px 1px;
-      border-radius: 15px;
-      margin: 10px;
       width: 100%;
       ion-item{
+        box-shadow: #00000005 0px 1px 3px 0px, #1b1f2326 0px 0px 0px 1px;
+        border-radius: 15px;
+        margin: 10px;
         --background: #fff;
         color: #212e3f;
         ion-avatar{
@@ -291,4 +291,8 @@ ion-item.ion-invalid{
   .p-datatable-scrollable-body{
     height: calc(100vh - 255px);
   }
+}
+
+.popover-content{
+  max-height: 465px!important;
 }

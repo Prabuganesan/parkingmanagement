@@ -113,7 +113,7 @@
     .pm-ion-grid {
       overflow: auto;
       height: calc(100% - 45px);
-      padding-bottom: 20px;
+      padding-bottom: 40px;
       .pm-ion-row {
         .pm-ion-col {
           color: #5d646d;
@@ -135,6 +135,66 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             border-radius: 15px;
             padding: 5px 20px;
+          }
+          .pm-v-label {
+            color: #212e3f;
+            padding-right: 5px;
+            line-height: 1.5;
+          }
+          .pm-lm-15 {
+            margin-left: 15px;
+          }
+          .pm-rm-15 {
+            margin-right: 15px;
+          }
+          .pm-alt-norec{
+            display: inline-flex;
+            width: 100%;
+            height: calc(100% - 70px);
+            align-items: center;
+            justify-content: center;
+            h3{
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      .pm-ion-row-2 {
+        background: white;
+        width: calc(100% - 38px);
+        box-shadow: #00000005 0px 1px 3px 0px, #1b1f2326 0px 0px 0px 1px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-radius: 15px;
+        padding: 5px 20px;
+        margin-top: 15px;
+        margin-left: 15px;
+        display: inline-flex;
+        color: #5d646d;
+        flex-direction: column;
+        padding-bottom: 20px;
+        .pm-title-h2{
+
+        }
+        .pm-ion-row-alter-contact:nth-child(n+4){
+          border-top: 1px solid gainsboro;
+          padding: 10px 0px 0px 0px;
+          margin: 10px 0px 0px 0px;
+        }
+      
+        .pm-ion-col {
+          color: #5d646d;
+          .pm-title-name {
+            margin-top: 10px;
+          }
+          ion-avatar {
+            ion-icon {
+              color: #2196f3;
+              font-size: 50px;
+            }
+          }
+          .pm-col-seg {
+            margin: 10px;
+            background: white;
           }
           .pm-v-label {
             color: #212e3f;

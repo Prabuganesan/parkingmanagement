@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { MessageService } from 'primeng/api';
-import {DialogService, DynamicDialogConfig} from 'primeng/dynamicdialog';
+import {DialogService, DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
 import { dbProvider } from 'src/app/core/dbProvider';
 
 
@@ -16,7 +17,7 @@ export class accountHistory {
 
   accountList=[];
   selectedVehicle;
-    constructor(public dialogService: DialogService,public config: DynamicDialogConfig,public popoverController: PopoverController,private messageService: MessageService,private dbprovider:dbProvider) { 
+    constructor(public router: Router,public dialogService: DialogService,public ref: DynamicDialogRef,public config: DynamicDialogConfig,public popoverController: PopoverController,private messageService: MessageService,private dbprovider:dbProvider) { 
       this.selectedVehicle = JSON.parse(JSON.stringify(config.data.vehicle)); 
       this.fetchAccounts()
     }
@@ -31,6 +32,13 @@ export class accountHistory {
           this.messageService.add({ key:"accountHistory", severity: 'error', summary: res['message'], detail: ''});
         }
       })
+    }
+
+    openTransactionHistory(activeAccountId){
+      this.ref.close();
+      this.router.navigate(['transactionHistory'], {
+        queryParams: { 'vehicle': JSON.stringify({"vehicleInfo":this.selectedVehicle,"activeAccountId":activeAccountId}) }
+      });
     }
     
   

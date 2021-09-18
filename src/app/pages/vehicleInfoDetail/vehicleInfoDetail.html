@@ -112,15 +112,15 @@
       </ion-row>
 
 
-      <ion-row class="pm-ion-row">
-          <ion-col class="pm-ion-col" size="5.8" *ngFor="let contact of vehicle.additionalContacts">
+      <ion-row class="pm-ion-row-2">
+          <ion-col class="pm-ion-col" size="5.73" >
             <div class="pm-col-seg pm-rm-15">
               <h2>{{'contactListWithVehicle.additionalContactInfo' | translate}}</h2>
-              <div>
+              <div class="pm-divider" *ngFor="let contact of vehicle.additionalContacts">
                 <ion-label>
-                  <h2 *ngIf="appLanguage && appLanguage == 'en'">{{contact.contactName}}</h2>
-                  <h2 *ngIf="appLanguage && appLanguage == 'ta'">{{contact.contactNameInTamil}}</h2>
-                  <h2>{{contact.contactMobile}}</h2>
+                  <h3 *ngIf="appLanguage && appLanguage == 'en'"><span class="pm-v-label">Name: </span><strong>{{contact.contactName}}</strong></h3>
+                  <h3 *ngIf="appLanguage && appLanguage == 'ta'"><span class="pm-v-label">பெயர்: </span><strong>{{contact.contactNameInTamil}}</strong></h3>
+                  <h3><span class="pm-v-label">Mobile: </span><strong>{{contact.contactMobile}}</strong></h3>
                 </ion-label>
               </div>
             </div>

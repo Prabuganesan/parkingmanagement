@@ -11,6 +11,7 @@ import { vehicleEntry } from '../vehicleEntry/vehicleEntry';
 import {Location} from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { dbProvider } from 'src/app/core/dbProvider';
+import { appUtility } from 'src/app/core/appUtility';
 
 @Component({
   selector: 'vehicleInfoDetail',
@@ -36,7 +37,7 @@ export class vehicleInfoDetail {
 
   vehicleContactAssignmentTableName = 'vehicleContactAssignment'
 
-  constructor(public router: Router, public activatRoute: ActivatedRoute,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService,private dbprovider: dbProvider, private messageService: MessageService) {
+  constructor(public router: Router,public util: appUtility, public activatRoute: ActivatedRoute,public dialogService: DialogService,public popoverController: PopoverController,private location : Location,private translate: TranslateService,private dbprovider: dbProvider, private messageService: MessageService) {
     this.appLanguage = this.translate.getDefaultLang()
 
     this.activatRoute.queryParams.subscribe(params => {
@@ -100,6 +101,7 @@ export class vehicleInfoDetail {
     });
     ref.onClose.subscribe(res => {
       if (res && res == "SUCCESS") {
+        this.util.vehicleModified = true;
         this.fetchVehicle()
       }
     });
@@ -270,6 +272,7 @@ export class vehicleInfoDetail {
 
     });
     ref.onClose.subscribe(res => {
+      this.util.vehicleModified = true;
         this.fetchVehicle()
     });
   }
@@ -285,6 +288,7 @@ export class vehicleInfoDetail {
 
     });
     ref.onClose.subscribe(res => {
+      this.util.vehicleModified = true;
         this.fetchVehicle()
     });
 
@@ -302,6 +306,7 @@ export class vehicleInfoDetail {
 
     });
     ref.onClose.subscribe(res => {
+      this.util.vehicleModified = true;
       this.fetchVehicle()
     });
 
