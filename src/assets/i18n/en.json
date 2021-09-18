@@ -102,6 +102,7 @@
   "actions.assignAlternateVehicle":"Assign Alternate vehicle",
   "actions.alternateVehicleList":"Alternate vehicle List",
   "actions.accountDetail":"Account detail",
+  "actions.whatsappmsg":"Send WhatsApp reminder",
   "actions.editVehicle":"Edit vehicle",
   "billGenerate.title":"Bill generate"
 

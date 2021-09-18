@@ -29,6 +29,7 @@ export class contactListWithVehicleInfo {
   appLanguage = 'ta'
   selectedContact;
   selectedVehicle;
+  selectedVehicleAccount;
   contactTableName = 'contact'
   vehicleTableName = 'vehicle'
   accountTableName = 'account'
@@ -76,11 +77,19 @@ export class contactListWithVehicleInfo {
           command: () => {
             this.accountDetail();
           }
+        },
+        {
+          label: this.translate.instant('actions.whatsappmsg'),
+          icon: 'pi pi-angle-right',
+          command: () => {
+            this.sendWhatsAppMsg();
+          }
         }
       ]
     }
     ];
   }
+ 
 
     async presentLoading() {
        this.loading = await this.loadingController.create({
@@ -348,11 +357,26 @@ export class contactListWithVehicleInfo {
     })
   }
 
+  sendWhatsAppMsg(){
+    var text = "";
+    if(this.appLanguage == 'ta'){
+      text = "அன்புள்ள "+this.selectedContact['contactName']+",%0D%0Aஉங்கள் வாகனத்("+this.selectedVehicle['vehicleNumber']+") தொகை விவரம் %0D%0Aமொத்த தொகை :"+this.selectedVehicleAccount['totalBillAmount']+" ரூ %0D%0Aசெலுத்திய தொகை :"+this.selectedVehicleAccount['receivedAmount']+" ரூ %0D%0Aநிலுவையில் உள்ள தொகை :"+ (this.selectedVehicleAccount['totalBillAmount']-this.selectedVehicleAccount['receivedAmount']) + " ரூ"
+    }
+    else{
+     text = "Dear "+this.selectedContact['contactName']+",%0D%0AYour vehicle("+this.selectedVehicle['vehicleNumber']+") amount due detail below %0D%0AYour total bill amount :"+this.selectedVehicleAccount['totalBillAmount']+" Rs %0D%0APaid amount :"+this.selectedVehicleAccount['receivedAmount']+" Rs %0D%0APending amount :"+ (this.selectedVehicleAccount['totalBillAmount']-this.selectedVehicleAccount['receivedAmount']) + " Rs"
+
+    }
+    var mobile = '+91'+ this.selectedContact['contactMobile']
+
+    window.open("https://api.whatsapp.com/send?phone="+mobile+"&text="+text, '_blank').focus();
+  }
+
 
   //Other menu click actions
 
   menuClick(vehicle) {
     this.selectedVehicle = vehicle['vehicleInfo']
+    this.selectedVehicleAccount = vehicle['accountInfo']
     console.log('menu click', this.selectedVehicle)
 
   }
@@ -394,8 +418,6 @@ export class contactListWithVehicleInfo {
       header: this.translate.instant('accountDetail.title'),
       width: '50%',
       data: { 'vehicle': this.selectedVehicle }
-
-
     });
     ref.onClose.subscribe(res => {
       this.fetchVehicleContactAssignemntAgainstContact(this.selectedContact.id)
@@ -452,7 +474,7 @@ export class contactListWithVehicleInfo {
 
   vehicleDetail(vehicle) {
     this.router.navigate(['vehicleInfoDetail'], {
-      queryParams: { 'vehicle': JSON.stringify(vehicle), 'selectedContactId': this.selectedContact.id }
+      queryParams: { 'vehicle': JSON.stringify(vehicle), 'selectedContactId': this.selectedContact.id, 'selectedContact':JSON.stringify(this.selectedContact) }
     });
   }
 }

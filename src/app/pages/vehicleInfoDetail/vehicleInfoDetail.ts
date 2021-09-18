@@ -30,6 +30,8 @@ export class vehicleInfoDetail {
   appLanguage = 'ta'
   selectedVehicle;
   selectedContactId;
+  selectedContact;
+  selectedVehicleAccount;
   contactTableName = 'contact'
   vehicleTableName = 'vehicle'
   accountTableName = 'account'
@@ -45,6 +47,7 @@ export class vehicleInfoDetail {
       if (params["vehicle"]) {
         this.vehicle = JSON.parse(params["vehicle"]);
         this.selectedContactId = params["selectedContactId"];
+        this.selectedContact = JSON.parse(params["selectedContact"]);
         console.log(this.vehicle)
     }
     });
@@ -79,6 +82,13 @@ export class vehicleInfoDetail {
           icon: 'pi pi-angle-right',
           command: () => {
             this.accountDetail();
+          }
+        },
+        {
+          label: this.translate.instant('actions.whatsappmsg'),
+          icon: 'pi pi-angle-right',
+          command: () => {
+            this.sendWhatsAppMsg();
           }
         }
       ]
@@ -255,6 +265,7 @@ export class vehicleInfoDetail {
 
   menuClick(vehicle) {
     this.selectedVehicle = vehicle['vehicleInfo']
+    this.selectedVehicleAccount = vehicle['accountInfo']
     console.log('menu click', this.selectedVehicle)
 
   }
@@ -310,6 +321,19 @@ export class vehicleInfoDetail {
       this.fetchVehicle()
     });
 
+  }
+
+  sendWhatsAppMsg(){
+    var text = "";
+    if(this.appLanguage == 'ta'){
+      text = "அன்புள்ள "+this.selectedContact['contactName']+",%0D%0Aஉங்கள் வாகனத்("+this.selectedVehicle['vehicleNumber']+") தொகை விவரம் %0D%0Aமொத்த தொகை :"+this.selectedVehicleAccount['totalBillAmount']+" ரூ %0D%0Aசெலுத்திய தொகை :"+this.selectedVehicleAccount['receivedAmount']+" ரூ %0D%0Aநிலுவையில் உள்ள தொகை :"+ (this.selectedVehicleAccount['totalBillAmount']-this.selectedVehicleAccount['receivedAmount']) + " ரூ"
+    }
+    else{
+     text = "Dear "+this.selectedContact['contactName']+",%0D%0AYour vehicle("+this.selectedVehicle['vehicleNumber']+") amount due detail below %0D%0AYour total bill amount :"+this.selectedVehicleAccount['totalBillAmount']+" Rs %0D%0APaid amount :"+this.selectedVehicleAccount['receivedAmount']+" Rs %0D%0APending amount :"+ (this.selectedVehicleAccount['totalBillAmount']-this.selectedVehicleAccount['receivedAmount']) + " Rs"
+
+    }
+
+    window.open("https://api.whatsapp.com/send?phone=+917397794262&text="+text, '_blank').focus();
   }
 
   // Navigation methods
