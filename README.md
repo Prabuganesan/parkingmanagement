@@ -39,3 +39,19 @@ Add default in pouch-utils.js (var Promise = require('pouchdb-promise').default;
 
 run initialsetup.sh
 
+
+
+**For backup and restore**
+**Backup**
+Enter below url
+http://localhost:1000/backup
+
+Backup file will generated in server folder as output.txt
+
+**Restore**
+Befor open http://localhost:1000, move backup file(output.txt) into server folder. Then enter below url
+http://localhost:1000/load
+
+After data restored you can open http://localhost:1000
+
+
