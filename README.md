@@ -15,7 +15,7 @@ Ionic - 4.12.0 (npm i - g ionic@4.12.0)
 
 2.Next naviagte to parkingmanagement folder (cd parkingmanagement)
 
-**Steps to run project manually**
+**Steps to run project manually(One time setup)**
 
 1.npm i
 
