@@ -56,4 +56,4 @@ app.get('/load', (req,res) =>{
 //Start server
 app.listen(1000);
 
-console.log("Running at Port 1000");
+console.log("Running at Port 1000. Now you can open http://localhost:1000/");
