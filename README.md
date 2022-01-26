@@ -8,6 +8,7 @@ Angular - 7.3.5 (npm i -g @angular/cli@7.3.5)
 
 Ionic - 4.12.0 (npm i - g ionic@4.12.0)
 
+==================================================================
 
 **Clone repo**
 
@@ -39,7 +40,7 @@ Add default in pouch-utils.js (var Promise = require('pouchdb-promise').default;
 
 run initialsetup.sh
 
-
+==================================================================
 
 **For backup and restore**
 **Backup**
