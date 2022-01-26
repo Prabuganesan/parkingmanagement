@@ -8,9 +8,12 @@ Angular - 7.3.5 (npm i -g @angular/cli@7.3.5)
 
 Ionic - 4.12.0 (npm i - g ionic@4.12.0)
 
-**Steps to run project automaticaly**
 
-run initialsetup.sh
+**Clone repo**
+
+1.Clone this repo in local folder.
+
+2.Next naviagte to parkingmanagement folder (cd parkingmanagement)
 
 **Steps to run project manually**
 
@@ -31,4 +34,8 @@ Add default in pouch-utils.js (var Promise = require('pouchdb-promise').default;
 6.node server
 
 7.Open http://localhost:1000 in browser
+
+**Steps to run project automaticaly**
+
+run initialsetup.sh
 
