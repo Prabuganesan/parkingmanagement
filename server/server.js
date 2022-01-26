@@ -44,12 +44,12 @@ app.get('/load', (req,res) =>{
 
     parkingPouch.load(rs).then( response=> {
         console.log(response)
-        ws.close()
+        rs.close()
         res.send("Loding completed");
 
       }).catch(error=>{
         console.log('err',error)
-        ws.close()
+        rs.close()
         res.send("Loading failed");
       })
 })
