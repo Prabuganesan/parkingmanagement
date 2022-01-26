@@ -29,12 +29,12 @@ app.get('/backup', (req,res) =>{
 
     parkingPouch.dump(ws).then( response=> {
         console.log(response)
-        fs.close()
+        ws.close()
         res.send("Backup completed");
 
       }).catch(error=>{
         console.log('err',error)
-        fs.close()
+        ws.close()
         res.send("Backup failed");
       })
 })
@@ -44,12 +44,12 @@ app.get('/load', (req,res) =>{
 
     parkingPouch.load(rs).then( response=> {
         console.log(response)
-        fs.close()
+        ws.close()
         res.send("Loding completed");
 
       }).catch(error=>{
         console.log('err',error)
-        fs.close()
+        ws.close()
         res.send("Loading failed");
       })
 })
